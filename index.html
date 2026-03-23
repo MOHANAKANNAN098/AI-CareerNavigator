@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerForge AI - 50 Domains</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<header>
+  <h1>CareerForge AI</h1>
+  <p>Smart Career Mentor Platform — 50 Domains</p>
+</header>
+<nav>
+  <button id="btn-roadmap" onclick="showSection('roadmap')">Career Roadmap</button>
+  <button id="btn-test"    onclick="showSection('test')">Career Test</button>
+  <button id="btn-jobs"    onclick="showSection('jobs')">Job Demand</button>
+  <button id="btn-mentor"  onclick="showSection('mentor')">AI Mentor</button>
+  <button id="btn-resume"  onclick="showSection('resume')">Resume Builder</button>
+  <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
+  <button id="btn-about" onclick="showSection('about')">About Me</button>
+</nav>
+
+<section id="roadmap">
+  <div class="stitle">Career Roadmap</div>
+  <div class="card">
+    <select id="domain"></select>
+    <select id="year">
+      <option value="1">1st Year</option>
+      <option value="2">2nd Year</option>
+      <option value="3">3rd Year</option>
+      <option value="4">4th Year</option>
+    </select>
+    <button class="btn btn-blue" onclick="generateRoadmap()">Generate</button>
+    <button class="btn btn-outline" onclick="downloadRoadmap()">Download PDF</button>
+  </div>
+  <div id="roadmapOutput"></div>
+</section>
+
+<section id="test">
+  <div class="stitle">Career Aptitude Test</div>
+  <div id="questionBox">
+    <p style="color:var(--muted);font-size:16px;">Answer questions to discover the best tech career for you.</p>
+    <button class="btn btn-green" onclick="startTest()">Start Test</button>
+  </div>
+</section>
+
+<section id="jobs">
+  <div class="stitle">Tech Job Market</div>
+  <div class="card">
+    <h3 style="color:#c8dff5; margin-bottom:10px; text-align:center;">Software Domains</h3>
+    <div class="chart-wrap"><canvas id="jobChart"></canvas></div>
+    <h3 style="color:#c8dff5; margin-top:30px; margin-bottom:10px; text-align:center;">Hardware & Core Engineering</h3>
+    <div class="chart-wrap"><canvas id="hardwareChart"></canvas></div>
+  </div>
+</section>
+
+<section id="mentor">
+  <div class="stitle">AI Career Mentor</div>
+  <div class="chat-row">
+    <input id="mentorInput" placeholder="Ask your career question…" onkeydown="if(event.key==='Enter')mentor()">
+    <button class="btn btn-blue" onclick="mentor()">Ask</button>
+    <button class="btn btn-outline" onclick="clearChat()">Clear</button>
+  </div>
+  <div id="chatbox" style="background:#e5ddd5; border-radius:10px; padding:15px; margin-top:10px; height:400px; overflow-y:auto; display:flex; flex-direction:column; border: 1px solid rgba(0,0,0,0.1);"></div>
+</section>
+
+<section id="resume">
+  <div class="stitle">Resume Builder</div>
+  <div class="card">
+    <div class="resume-grid">
+      <input id="name"     placeholder="Full Name">
+      <input id="city"     placeholder="City, State">
+      <input id="phone"    placeholder="Phone Number">
+      <input id="email"    placeholder="Email Address">
+      <input id="github"   placeholder="GitHub Link">
+      <input id="linkedin" placeholder="LinkedIn Link">
+      <textarea id="summary" placeholder="Professional Profile Summary" class="span2" style="height:60px;"></textarea>
+      <input id="college"  placeholder="University Name">
+      <input id="degree"   placeholder="Degree & Major (e.g. B.Tech CS)">
+      <input id="gradYear" placeholder="Graduation Year">
+      <input id="cgpa"     placeholder="CGPA / Percentage">
+      <input id="skills"   placeholder="Tech Skills (Langs, Frameworks, Tools)" class="span2">
+      <input id="projTitle" placeholder="Project Title">
+      <input id="projTech" placeholder="Technologies Used">
+      <textarea id="projDesc" placeholder="Project Description (Bullet points)" class="span2" style="height:60px;"></textarea>
+      <textarea id="certs"    placeholder="Certifications (Organization - Year)" class="span2" style="height:50px;"></textarea>
+      <textarea id="achieve"  placeholder="Achievements / Internships" class="span2" style="height:50px;"></textarea>
+    </div>
+    <div class="resume-btns">
+      <button class="btn btn-blue"    onclick="generateResume()">Generate Resume</button>
+      <button class="btn btn-outline" onclick="downloadResume()">Download PDF</button>
+    </div>
+  </div>
+  <pre id="resumeOutput"></pre>
+</section>
+
+<section id="interview">
+  <div class="stitle">Customer Support</div>
+  <div class="card">
+    <p style="font-size:16px; margin-bottom: 15px;">For any help or questions regarding CareerForge AI, please feel free to reach out:</p>
+    <ul style="list-style-type: none; padding-left: 0; font-size: 16px; line-height: 1.8;">
+      <li><strong>Phone:</strong> <a href="tel:7904987242">7904987242</a></li>
+      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohanakannan098?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer">Mohanakannan's Profile</a></li>
+      <li><strong>Portfolio:</strong> <a href="https://mohanakannan098.github.io/My-Portfolio-/" target="_blank" rel="noopener noreferrer">My Portfolio</a></li>
+    </ul>
+  </div>
+</section>
+
+<section id="about">
+  <div class="stitle">About Me</div>
+  <div class="card">
+    <div style="display: flex; align-items: flex-start; gap: 25px; flex-wrap: wrap;">
+      <img src="m1.jpeg" alt="Mohanakannan" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #333; margin-top: 5px;">
+      <div style="flex: 1; min-width: 300px;">
+        <p style="font-size:16px; line-height:1.6; margin-bottom:10px; margin-top:0;">Hello! I’m <strong>Mohanakannan</strong>, an enthusiastic Electrical and Electronics Engineering (EEE) student at <strong>Karpagam</strong> Institute of Technology, Coimbatore. I am passionate about technology, innovation, and building real-world solutions that combine electronics hardware and modern software systems.</p>
+        <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">My journey in technology is driven by curiosity and creativity. I enjoy exploring new ideas, experimenting with emerging technologies, and transforming concepts into practical projects. I believe that the true power of engineering lies in the ability to solve real-world problems through intelligent and efficient technological solutions.</p>
+      </div>
+    </div>
+    <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">I have experience working with Python programming, HTML, CSS, JavaScript, and electronics-based systems, and I continuously improve my knowledge by building projects and learning new tools. I am particularly interested in developing systems that integrate hardware, software, and intelligent technologies to create innovative applications.</p>
+    <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">Beyond technical skills, I strongly believe in continuous learning, problem-solving, and innovation. My goal is to become a highly skilled technology professional, contribute to impactful engineering projects, and build solutions that create meaningful value for society.</p>
+    <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">In the future, I also aspire to start my own technology-driven business, where I can develop innovative products and systems that bring practical solutions to real-world challenges.</p>
+    <h3 style="margin-top:20px;">My Mission</h3>
+    <p style="font-size:16px; line-height:1.6;">To design and develop innovative technology solutions that combine electronics and intelligent software systems to solve real-world problems and create a positive impact on society.</p>
+    <h3 style="margin-top:20px;">Contact</h3>
+    <ul style="list-style:none; padding-left:0; font-size:16px; line-height:1.8;">
+      <li>📞 <strong>Phone:</strong> <a href="tel:7904987242">7904987242</a></li>
+      <li>💼 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohanakannan098" target="_blank">linkedin.com/in/mohanakannan098</a></li>
+      <li>💻 <strong>GitHub:</strong> <a href="https://github.com/mohansampath098-ai" target="_blank">github.com/mohansampath098-ai</a></li>
+      <li>🌐 <strong>Portfolio:</strong> <a href="https://mohanakannan098.github.io/My-Portfolio-/" target="_blank">My Portfolio</a></li>
+    </ul>
+  </div>
+</section>
+<script src="app.js"></script>
+</body>
+</html>
