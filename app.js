@@ -185,7 +185,61 @@ const roadmaps={
 "3D Printing Engineer":{free:"https://all3dp.com",paid:"https://www.coursera.org",1:["CAD Design","Materials Science","Slicing"],2:["FDM/SLA Tech","Post-processing","Troubleshooting"],3:["DFAM (Design for AM)","Industrial Printers","Metal printing"],4:["Bioprinting","Materials Dev","Manufacturing Lead"]},
 "Prompt Engineering Specialist":{free:"https://learnprompting.org",paid:"https://www.coursera.org",1:["LLM Basics","NLP Fundamentals","Writing Skills"],2:["Prompt Techniques","Context Windows","Few-shot Learning"],3:["Chain of Thought","API Integration","Fine-tuning"],4:["AI Ethics","Model Optimization","Complex Workflows"]},
 "Agile Coach":{free:"https://www.agilealliance.org",paid:"https://www.udemy.com",1:["Agile Manifesto","Scrum/Kanban","Facilitation"],2:["Coaching Skills","Team Dynamics","Conflict Res"],3:["Scaling Frameworks","Transformation","Mentoring"],4:["Enterprise Agile","Org Culture","Thought Leadership"]},
-"Tech Recruiter":{free:"https://www.linkedin.com/learning",paid:"https://www.coursera.org",1:["HR Basics","Tech Terminology","Sourcing"],2:["Screening","Interviewing","Tools (LinkedIn)"],3:["Talent Pipeline","Employer Branding","Metrics"],4:["Recruitment Strategy","Leadership","Global Hiring"]}
+  "Tech Recruiter":{free:"https://www.linkedin.com/learning",paid:"https://www.coursera.org",1:["HR Basics","Tech Terminology","Sourcing"],2:["Screening","Interviewing","Tools (LinkedIn)"],3:["Talent Pipeline","Employer Branding","Metrics"],4:["Recruitment Strategy","Leadership","Global Hiring"]},
+
+  // ===== NEW HARDWARE & SOFTWARE DOMAINS =====
+  "Drone Systems Engineer": {free:"https://www.edx.org",paid:"https://www.udemy.com",1:["Aerodynamics Basics", "Python/C++", "Sensors"],2:["Flight Controllers", "ROS", "Motor Calibration"],3:["Autonomous Navigation", "Computer Vision", "Telemetry"],4:["Swarm Robotics", "Commercial Drone Deployment", "Certification"]},
+  "Medical Device Engineer": {free:"https://www.coursera.org",paid:"https://www.udemy.com",1:["Biology Basics", "Circuit Design", "C Programming"],2:["Biomedical Sensors", "Microcontrollers", "Signal Processing"],3:["ISO 13485 (Safety)", "Embedded Systems", "Prototyping"],4:["Clinical Trials", "FDA Regulations", "System Integration"]},
+  "Cloud Native Developer": {free:"https://www.cncf.io",paid:"https://www.udacity.com",1:["Go/Rust basics", "Docker", "Linux"],2:["Kubernetes", "Microservices", "CI/CD"],3:["Service Mesh (Istio)", "Observability", "Helm"],4:["Serverless", "Distributed Systems", "Cloud Architecture"]},
+  "Web3 Developer": {free:"https://ethereum.org",paid:"https://www.udemy.com",1:["Blockchain Basics", "Cryptography", "JavaScript"],2:["Solidity", "Smart Contracts", "Hardhat/Foundry"],3:["DeFi Protocols", "DApps", "Ethers.js"],4:["Smart Contract Auditing", "Layer 2 Solutions", "Tokenomics"]},
+  "Acoustic Engineer": {free:"https://ocw.mit.edu",paid:"https://www.coursera.org",1:["Physics of Sound", "Mathematics", "MATLAB"],2:["Signal Processing", "Transducer Design", "Simulation Tools"],3:["Noise Control", "Architectural Acoustics", "Audio Programming"],4:["Psychoacoustics", "Product Sound Design", "Innovation"]},
+  "Embedded Linux Engineer": {free:"https://bootlin.com",paid:"https://www.udemy.com",1:["C Programming", "Linux Command Line", "OS Concepts"],2:["Kernel Compilation", "Device Trees", "Cross-Compiling"],3:["Yocto Project", "U-Boot", "Writing Device Drivers"],4:["Real-Time Linux", "System Optimization", "IoT Security"]},
+  "Data Privacy Engineer": {free:"https://iapp.org",paid:"https://www.udacity.com",1:["Cybersecurity Basics", "Legal Frameworks (GDPR)", "Networking"],2:["Data Masking", "Anonymization", "Cryptography"],3:["Privacy by Design", "Threat Modeling", "Access Controls"],4:["Enterprise Privacy Arch", "Compliance Auditing", "Leadership"]},
+  "Game Server Programmer": {free:"https://www.gamedev.tv",paid:"https://www.udemy.com",1:["C++/C#", "Networking Basics", "Multiplayer Concepts"],2:["UDP/TCP Protocols", "State Synchronization", "Sockets"],3:["Latency Compensation", "Database Scaling", "Cloud Hosting"],4:["MMO Architecture", "Anti-Cheat Systems", "Load Balancing"]},
+
+  // ===== BATCH 2: 20 NEW HARDWARE & SOFTWARE DOMAINS =====
+  "Platform Engineer": {free:"https://roadmap.sh/platform-engineering",paid:"https://www.udemy.com",1:["Linux & Networking", "Docker & Containers", "GitOps"],2:["Kubernetes", "Infrastructure as Code (Terraform)", "CI/CD"],3:["Internal Developer Portals", "Observability", "Service Mesh"],4:["Platform Architecture", "FinOps", "Developer Experience (DevEx)"]},
+  "GraphQL Developer": {free:"https://graphql.org/learn/",paid:"https://www.apollographql.com",1:["REST vs GraphQL", "Schema Definition", "Queries & Mutations"],2:["Apollo Server/Client", "Resolvers", "Error Handling"],3:["Caching & Subscriptions", "Performance Optimization", "Security"],4:["Federation", "Microservices Integration", "Enterprise APIs"]},
+  "Graph Database Engineer": {free:"https://neo4j.com/graphacademy/",paid:"https://www.udemy.com",1:["Database Basics", "Graph Theory", "Cypher Query Language"],2:["Neo4j Configuration", "Data Modeling", "Indexes"],3:["Graph Algorithms", "Performance Tuning", "Clustering"],4:["Knowledge Graphs", "Enterprise Graph Architecture", "AI Integration"]},
+  "FinOps Engineer": {free:"https://www.finops.org/",paid:"https://www.coursera.org",1:["Cloud Basics (AWS/Azure)", "Billing Dashboards", "Cost Allocation"],2:["Tagging Strategies", "Right-sizing", "Spot Instances"],3:["Forecasting & Budgeting", "Automation", "FinOps Framework"],4:["Unit Economics", "Enterprise Cost Architecture", "Culture Shift"]},
+  "DevSecOps Architect": {free:"https://www.cybrary.it/",paid:"https://www.udacity.com",1:["DevOps Basics", "Security Fundamentals", "Linux"],2:["SAST & DAST", "CI/CD Integration", "Container Security"],3:["Threat Modeling", "Infrastructure Security", "Compliance as Code"],4:["Enterprise Sec Architecture", "Zero Trust", "Leadership"]},
+  "Low-Code/No-Code Developer": {free:"https://learn.microsoft.com",paid:"https://www.udemy.com",1:["Logic Building", "Database Basics", "Power Apps / Bubble"],2:["Automated Workflows", "API Integration", "UI/UX Basics"],3:["Custom Connectors", "Dataverse", "Governance"],4:["Enterprise Architecture", "Citizen Developer Enablement", "Center of Excellence"]},
+  "Edge Computing Engineer": {free:"https://www.edx.org",paid:"https://www.coursera.org",1:["Networking", "IoT Basics", "Linux"],2:["Micro-datacenters", "Docker", "MQTT"],3:["5G Edge Integration", "Edge Security", "Local Processing AI"],4:["Distributed Edge Architectures", "Latency Optimization", "Hardware Integration"]},
+  "Distributed Systems Engineer": {free:"https://ocw.mit.edu",paid:"https://www.educative.io",1:["OS Internals", "Networking", "Concurrency"],2:["CAP Theorem", "Consensus Algorithms", "RPC & gRPC"],3:["Message Queues (Kafka)", "Data Partitioning", "Fault Tolerance"],4:["System Design at Scale", "Database Internals", "Chaos Engineering"]},
+  "WebAssembly Developer": {free:"https://webassembly.org/",paid:"https://www.udemy.com",1:["JavaScript Basics", "C/C++/Rust Basics", "Browser APIs"],2:["Compiling to Wasm", "Memory Management", "DOM Interaction"],3:["Wasm in Node.js", "Performance Profiling", "WASI (Wasm System Interface)"],4:["Advanced Porting", "Custom Runtimes", "Edge Computing with Wasm"]},
+  "Mainframe Developer": {free:"https://www.ibm.com/z/resources/zxplore",paid:"https://www.coursera.org",1:["Computing Basics", "Z/OS Introduction", "TSO/ISPF"],2:["COBOL Programming", "JCL (Job Control Language)", "DB2"],3:["CICS", "Modernization", "API Integration"],4:["Systems Programming", "Enterprise Migration", "Mainframe Security"]},
+  "Silicon Photonics Engineer": {free:"https://ocw.mit.edu",paid:"https://www.coursera.org",1:["Optics Basics", "Semiconductor Physics", "Electromagnetics"],2:["Waveguides", "Modulators & Detectors", "Lumerical/COMSOL"],3:["Photonic Integrated Circuits", "Packaging", "Testing"],4:["Co-packaged Optics", "Quantum Photonics", "Tapeout Management"]},
+  "Radar Systems Engineer": {free:"https://www.radartutorial.eu/",paid:"https://www.udemy.com",1:["Electromagnetics", "Signal Processing", "MATLAB"],2:["Radar Equation", "Antenna Arrays", "Doppler Effect"],3:["Synthetic Aperture Radar (SAR)", "Tracking Algorithms", "FMCW Radar"],4:["Electronic Warfare Systems", "Automotive Radar", "System Architecture"]},
+  "SoC Integration Engineer": {free:"https://www.edx.org",paid:"https://www.coursera.org",1:["Digital Logic", "Computer Architecture", "Verilog/SystemVerilog"],2:["IP Cores", "Bus Protocols (AMBA/AXI)", "Clock Domain Crossing"],3:["Power Domains", "System Level Simulation", "Linting"],4:["Top-Level Synthesis", "Timing Closure", "Tapeout Support"]},
+  "Power Integrity Engineer": {free:"https://www.ansys.com",paid:"https://www.udemy.com",1:["Circuit Theory", "Electromagnetics", "PCB Basics"],2:["DC/AC Drop Analysis", "Decoupling Capacitors", "SIwave/HyperLynx"],3:["PDN Impedance", "Transient Analysis", "Thermal Co-simulation"],4:["Advanced Packaging", "Die-level Power Integrity", "Methodology"]},
+  "Signal Integrity Engineer": {free:"https://www.signalintegrityjournal.com/",paid:"https://www.udemy.com",1:["Transmission Lines", "Electromagnetics", "S-Parameters"],2:["Crosstalk", "Jitter Analysis", "IBIS Models"],3:["High-Speed Serial Links", "DDR Memory Interfaces", "3D EM Simulation"],4:["112G/224G SerDes", "Advanced Equalization", "System Validation"]},
+  "Satellite Communications Engineer": {free:"https://www.edx.org",paid:"https://www.coursera.org",1:["Wireless Comms", "Orbital Mechanics Basics", "Physics"],2:["Link Budgets", "Modulation Schemes", "Antenna Theory"],3:["Payload Design", "Earth Station Architecture", "Frequency Coordination"],4:["Deep Space Comms", "Constellation Networks", "System Level Design"]},
+  "Automotive Functional Safety Eng": {free:"https://www.nptel.ac.in",paid:"https://www.udemy.com",1:["Automotive Basics", "Systems Engineering", "Embedded C"],2:["ISO 26262 Basics", "HARA (Hazard Analysis)", "FMEA/FTA"],3:["Safety Goals", "Hardware Metrics (FMEDA)", "Software Safety"],4:["Autonomous Driving Safety", "SOTIF", "Safety Auditing"]},
+  "LiDAR Systems Engineer": {free:"https://www.spie.org",paid:"https://www.coursera.org",1:["Optics & Lasers", "Physics", "Python/C++"],2:["Time of Flight", "Point Clouds", "Optomechanics"],3:["Signal Processing", "Sensor Fusion", "Solid-State LiDAR"],4:["Automotive Integration", "Perception Algorithms", "System Calibration"]},
+  "NAND Flash Memory Engineer": {free:"https://www.coursera.org",paid:"https://www.udemy.com",1:["Semiconductor Physics", "Digital Circuits", "C Programming"],2:["Floating Gate / Charge Trap", "Read/Write/Erase Ops", "ECC Basics"],3:["3D NAND Architecture", "Wear Leveling", "Controller Algorithms"],4:["Next-Gen Memory (MRAM/ReRAM)", "Yield Improvement", "Storage Architecture"]},
+  "Wearable Technology Engineer": {free:"https://www.hackster.io",paid:"https://www.udemy.com",1:["Electronics Basics", "Microcontrollers", "Sensors (IMU/PPG)"],2:["Bluetooth Low Energy (BLE)", "PCB Design", "Battery Management"],3:["Flex Circuits", "Embedded Firmware", "Biometric Algorithms"],4:["Form Factor Optimization", "Medical Certification", "Manufacturing"]},
+
+  // ===== BATCH 3: 20 NEW HARDWARE & SOFTWARE DOMAINS =====
+  "Backend Platform Engineer": {free:"https://roadmap.sh/backend",paid:"https://www.udemy.com",1:["API Design", "Networking Basics", "Linux"],2:["Microservices", "Docker", "Database Optimization"],3:["Kubernetes", "Message Queues", "Caching"],4:["System Design at Scale", "Observability", "Platform Architecture"]},
+  "Web Performance Engineer": {free:"https://web.dev/learn/performance",paid:"https://www.coursera.org",1:["HTML/CSS/JS Basics", "Browser DevTools", "Network Tab"],2:["Core Web Vitals", "Lighthouse", "Asset Optimization"],3:["JS Execution Optimization", "Rendering Pipeline", "Caching Strategies"],4:["Advanced Profiling", "Edge Computing", "Performance Culture"]},
+  "Cloud Database Administrator": {free:"https://aws.amazon.com/training",paid:"https://www.udemy.com",1:["SQL Fundamentals", "Relational DBs", "Linux Basics"],2:["NoSQL DBs", "Database Backup/Restore", "Data Modeling"],3:["Cloud DBs (RDS, DynamoDB)", "High Availability", "Performance Tuning"],4:["Multi-Region Deployments", "Database Security", "Migration Strategies"]},
+  "MLOps Architect": {free:"https://ml-ops.org/",paid:"https://www.udacity.com",1:["Python", "Git", "ML Fundamentals"],2:["Docker", "CI/CD for ML", "Model Serving"],3:["Kubernetes", "Feature Stores", "Model Monitoring"],4:["Enterprise MLOps Strategy", "Governance", "Automated Retraining"]},
+  "GenAI App Developer": {free:"https://learn.deeplearning.ai/",paid:"https://www.coursera.org",1:["Python", "API Basics", "Prompt Engineering"],2:["LangChain/LlamaIndex", "Vector Databases", "Embeddings"],3:["Fine-tuning Models", "RAG Architecture", "Evaluation"],4:["Production GenAI", "Cost Optimization", "AI Ethics"]},
+  "Distributed Storage Engineer": {free:"https://www.snia.org/",paid:"https://www.coursera.org",1:["OS Internals", "Networking", "Data Structures"],2:["File Systems", "Block vs Object Storage", "Replication"],3:["Consensus Algorithms (Raft/Paxos)", "Erasure Coding", "Distributed Hash Tables"],4:["Ceph/GlusterFS Internals", "Exabyte Scale Storage", "Performance Tuning"]},
+  "Real-Time Systems Engineer": {free:"https://ocw.mit.edu",paid:"https://www.udemy.com",1:["C/C++", "OS Fundamentals", "Concurrency"],2:["RTOS Basics", "Task Scheduling", "Interrupt Handling"],3:["Deterministic Communication", "Memory Management", "Debugging"],4:["Safety-Critical Systems", "Hard Real-Time Arch", "System Verification"]},
+  "Search Engine Developer": {free:"https://lucene.apache.org/",paid:"https://www.coursera.org",1:["Data Structures", "Algorithms", "Information Retrieval Basics"],2:["Elasticsearch/Solr", "Inverted Indexes", "Text Processing"],3:["Ranking Algorithms", "Vector Search", "Distributed Search"],4:["Personalization", "Query Intent Understanding", "Scale & Latency"]},
+  "AR/VR UX Designer": {free:"https://learn.unity.com",paid:"https://www.udemy.com",1:["UX Principles", "3D Space Concepts", "Sketching"],2:["Prototyping in Unity/Unreal", "Spatial Audio", "Interaction Design"],3:["User Testing in VR", "Haptics", "Accessibility in XR"],4:["Immersive Storytelling", "Enterprise XR Guidelines", "Lead Design"]},
+  "IAM Architect": {free:"https://www.identityautomation.com/",paid:"https://www.udacity.com",1:["Security Basics", "Active Directory", "Authentication Protocols"],2:["OAuth2.0 / OIDC", "SAML", "Role-Based Access Control"],3:["Zero Trust Architecture", "Privileged Access Management", "Cloud IAM"],4:["Enterprise Identity Strategy", "Compliance", "Federated Identity"]},
+  "Analog Layout Engineer": {free:"https://www.coursera.org",paid:"https://www.udemy.com",1:["Basic Electronics", "CMOS Theory", "Device Physics"],2:["Virtuoso/Laker Basics", "DRC/LVS Verification", "Parasitic Extraction"],3:["Matching Techniques", "Shielding", "High-Frequency Layout"],4:["Advanced Node FinFET Layout", "Floorplanning", "Tapeout Signoff"]},
+  "CPU Verification Engineer": {free:"https://verificationacademy.com/",paid:"https://www.udemy.com",1:["Digital Logic", "Computer Architecture", "Verilog/SystemVerilog"],2:["UVM Basics", "Testbench Architecture", "Assembly Language"],3:["Constrained Random Testing", "Coverage Metrics", "Assertion Based Verification"],4:["Formal Verification", "Post-Silicon Debug", "Microarchitecture Verification"]},
+  "RF Systems Architect": {free:"https://www.microwaves101.com/",paid:"https://www.coursera.org",1:["Electromagnetics", "Signals and Systems", "Circuit Theory"],2:["RF Transceiver Design", "Link Budgets", "Antenna Basics"],3:["Mixers & Oscillators", "Phase Noise Analysis", "ADS Simulation"],4:["5G/6G System Architecture", "MmWave Design", "Phased Array Systems"]},
+  "Telecommunications Network Engineer": {free:"https://www.cisco.com/",paid:"https://www.coursera.org",1:["Networking Fundamentals", "TCP/IP", "Linux"],2:["Routing & Switching", "VoIP", "Fiber Optics Basics"],3:["BGP/OSPF", "MPLS", "Network Security"],4:["SDN/NFV", "Core Network Architecture", "Carrier-Grade Reliability"]},
+  "MEMS Engineer": {free:"https://ocw.mit.edu",paid:"https://www.udemy.com",1:["Physics", "Material Science", "Mechanics of Materials"],2:["Microfabrication Basics", "Sensors and Actuators", "CAD for MEMS"],3:["FEA Simulation (COMSOL)", "Etching & Deposition", "Packaging"],4:["Commercialization", "Bio-MEMS", "Advanced Transducer Design"]},
+  "Biomedical Instrumentation Engineer": {free:"https://www.edx.org",paid:"https://www.coursera.org",1:["Biology & Anatomy", "Electronics Basics", "Sensors"],2:["Signal Conditioning", "Op-Amps", "Data Acquisition"],3:["Medical Imaging Basics", "ECG/EEG Design", "Microcontrollers"],4:["ISO 13485 Compliance", "Clinical Validation", "Implantable Devices"]},
+  "Optical Communications Engineer": {free:"https://www.spie.org/",paid:"https://www.coursera.org",1:["Optics Fundamentals", "Electromagnetics", "Physics"],2:["Fiber Optic Theory", "Lasers & Modulators", "Photodetectors"],3:["DWDM Systems", "Optical Amplifiers", "Link Design"],4:["Coherent Communications", "Silicon Photonics Integration", "Subsea Networks"]},
+  "Quantum Computing Hardware Engineer": {free:"https://qiskit.org/",paid:"https://www.edx.org",1:["Quantum Mechanics", "Linear Algebra", "Cryogenics Basics"],2:["Superconducting Qubits/Trapped Ions", "Microwave Engineering", "Control Electronics"],3:["Decoherence Mitigation", "Dilution Refrigerators", "Quantum Gates"],4:["Scaling Qubit Architectures", "Error Correction Hardware", "Fabrication"]},
+  "ASIC Physical Design Engineer": {free:"https://www.vlsi-expert.com/",paid:"https://www.udemy.com",1:["Digital Logic", "CMOS Basics", "Verilog"],2:["Synthesis", "Floorplanning", "Placement & Routing"],3:["Clock Tree Synthesis", "Static Timing Analysis (STA)", "Power Analysis"],4:["Signoff (DRC/LVS/IR Drop)", "Advanced Tech Nodes", "Yield Optimization"]},
+  "Automotive Diagnostics Engineer": {free:"https://www.vector.com/",paid:"https://www.udemy.com",1:["Automotive Basics", "Electrical Systems", "C Programming"],2:["CAN/LIN/FlexRay protocols", "UDS (Unified Diagnostic Services)", "OBD-II"],3:["Diagnostic Tools (CANoe)", "Flash Bootloaders", "Fault Memory Management"],4:["Over-The-Air (OTA) Updates", "Advanced Driver Assistance (ADAS) Diagnostics", "System Arch"]}
 };
 
 const domainSelect = document.getElementById("domain");
@@ -399,7 +453,55 @@ const questions=[
   {q:"Do you enjoy security tasks?",domain:"Cyber Security Analyst"},
   {q:"Do you enjoy helping customers solve problems?", domain: "Customer Support Specialist"},
   {q:"Do you enjoy persuading people and closing deals?", domain: "Sales Representative"},
-  {q:"Do you like game development?",domain:"Game Developer"}
+  {q:"Do you like game development?",domain:"Game Developer"},
+  {q:"Are you fascinated by drones, flight mechanics, and control systems?", domain:"Drone Systems Engineer"},
+  {q:"Do you want to build life-saving technology for hospitals and healthcare?", domain:"Medical Device Engineer"},
+  {q:"Do you enjoy working with cloud infrastructure like Kubernetes and Docker?", domain:"Cloud Native Developer"},
+  {q:"Are you interested in blockchain, crypto, and decentralized apps?", domain:"Web3 Developer"},
+  {q:"Does working with sound, audio signals, and acoustics interest you?", domain:"Acoustic Engineer"},
+  {q:"Do you like working close to the hardware with Linux operating systems?", domain:"Embedded Linux Engineer"},
+  {q:"Are you passionate about protecting user data and GDPR compliance?", domain:"Data Privacy Engineer"},
+  {q:"Do you want to build massive multiplayer backends for video games?", domain:"Game Server Programmer"},
+  {q:"Do you want to build and maintain internal developer platforms to make software teams faster?", domain: "Platform Engineer"},
+  {q:"Are you interested in building flexible APIs using query languages like GraphQL?", domain: "GraphQL Developer"},
+  {q:"Do you enjoy working with highly connected data models using Neo4j or similar databases?", domain: "Graph Database Engineer"},
+  {q:"Do you like analyzing cloud costs and optimizing cloud infrastructure spending?", domain: "FinOps Engineer"},
+  {q:"Are you passionate about integrating security checks directly into the CI/CD pipeline?", domain: "DevSecOps Architect"},
+  {q:"Do you want to build applications rapidly using visual drag-and-drop platforms?", domain: "Low-Code/No-Code Developer"},
+  {q:"Are you fascinated by processing data at the edge of the network, closer to IoT devices?", domain: "Edge Computing Engineer"},
+  {q:"Do you enjoy designing complex systems that scale across thousands of servers?", domain: "Distributed Systems Engineer"},
+  {q:"Are you excited about compiling high-performance code to run natively in the browser?", domain: "WebAssembly Developer"},
+  {q:"Are you interested in maintaining and modernizing enterprise mainframe computing systems?", domain: "Mainframe Developer"},
+  {q:"Do you want to work on optical data transmission directly on silicon chips?", domain: "Silicon Photonics Engineer"},
+  {q:"Are you interested in designing radar systems for defense, aerospace, or automotive use?", domain: "Radar Systems Engineer"},
+  {q:"Do you like integrating various IP cores into a single System on Chip (SoC)?", domain: "SoC Integration Engineer"},
+  {q:"Are you focused on ensuring stable power delivery across complex circuit boards?", domain: "Power Integrity Engineer"},
+  {q:"Do you enjoy analyzing and mitigating high-speed signal issues like crosstalk and jitter?", domain: "Signal Integrity Engineer"},
+  {q:"Are you fascinated by satellite communication protocols and space payloads?", domain: "Satellite Communications Engineer"},
+  {q:"Do you want to ensure the critical functional safety (ISO 26262) of modern vehicles?", domain: "Automotive Functional Safety Eng"},
+  {q:"Are you interested in developing laser-based LiDAR mapping and sensing systems?", domain: "LiDAR Systems Engineer"},
+  {q:"Do you want to work on the semiconductor physics behind modern solid-state memory?", domain: "NAND Flash Memory Engineer"},
+  {q:"Are you excited about designing the electronics inside smartwatches and health trackers?", domain: "Wearable Technology Engineer"},
+  {q:"Do you enjoy designing the foundational APIs and microservices for large platforms?", domain: "Backend Platform Engineer"},
+  {q:"Are you obsessed with making websites load lightning-fast and optimizing core web vitals?", domain: "Web Performance Engineer"},
+  {q:"Do you want to manage, optimize, and secure massive databases in the cloud?", domain: "Cloud Database Administrator"},
+  {q:"Are you interested in automating and scaling the deployment of machine learning models?", domain: "MLOps Architect"},
+  {q:"Do you want to build applications using Large Language Models and vector databases?", domain: "GenAI App Developer"},
+  {q:"Are you fascinated by how data is stored, replicated, and retrieved across thousands of servers?", domain: "Distributed Storage Engineer"},
+  {q:"Do you enjoy working on systems where timing and deterministic execution are critical?", domain: "Real-Time Systems Engineer"},
+  {q:"Do you want to build algorithms that index and retrieve information at blazing speeds?", domain: "Search Engine Developer"},
+  {q:"Are you passionate about designing immersive user experiences for Virtual and Augmented Reality?", domain: "AR/VR UX Designer"},
+  {q:"Do you enjoy designing systems that control user identities and secure enterprise access?", domain: "IAM Architect"},
+  {q:"Are you interested in manually drawing the complex silicon layouts for analog microchips?", domain: "Analog Layout Engineer"},
+  {q:"Do you enjoy finding bugs and verifying the complex logic inside computer processors (CPUs)?", domain: "CPU Verification Engineer"},
+  {q:"Are you fascinated by high-frequency radio waves, transceivers, and wireless link design?", domain: "RF Systems Architect"},
+  {q:"Do you want to design and maintain the massive networks that power global telecommunications?", domain: "Telecommunications Network Engineer"},
+  {q:"Are you interested in designing microscopic mechanical sensors and actuators (MEMS)?", domain: "MEMS Engineer"},
+  {q:"Do you want to design electronic medical devices like ECGs and imaging systems for healthcare?", domain: "Biomedical Instrumentation Engineer"},
+  {q:"Are you fascinated by transmitting massive amounts of data using light and fiber optics?", domain: "Optical Communications Engineer"},
+  {q:"Do you want to build the physical quantum processors and cryogenic systems of the future?", domain: "Quantum Computing Hardware Engineer"},
+  {q:"Do you enjoy the challenge of placing and routing billions of transistors on a single microchip?", domain: "ASIC Physical Design Engineer"},
+  {q:"Are you interested in developing the fault diagnostic systems for modern smart vehicles?", domain: "Automotive Diagnostics Engineer"}
 ];
 
 let index=0;
@@ -540,8 +642,9 @@ async function mentor(customQuery = null) {
     await new Promise(r => setTimeout(r, 800));
   } else {
     try {
-      // Replace 'YOUR_GEMINI_API_KEY' with your actual key from https://aistudio.google.com/
-      const API_KEY = "YOUR_GEMINI_API_KEY";
+      // 🛑 PASTE YOUR GEMINI API KEY BELOW 🛑
+      // Replace 'YOUR_GEMINI_API_KEY' with the actual key you generated!
+      const API_KEY = "YOUR_GEMINI_API_KEY"; 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
