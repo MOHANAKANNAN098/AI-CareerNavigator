@@ -11,10 +11,11 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="page-transition"></div>
 <canvas id="canvas"></canvas>
 <header>
   <h1>CareerForge AI</h1>
-  <p>Smart Career Mentor Platform — 50 Domains</p>
+  <p>Smart Career Mentor Platform — 1000+ Domains</p>
 </header>
 <nav>
   <button id="btn-roadmap" onclick="showSection('roadmap')">Career Roadmap</button>
@@ -23,39 +24,45 @@
   <button id="btn-mentor"  onclick="showSection('mentor')">AI Mentor</button>
   <button id="btn-resume"  onclick="showSection('resume')">Resume Builder</button>
   <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
+  <button id="btn-team"    onclick="showSection('team')">TEAM BOYZ</button>
   <button id="btn-about" onclick="showSection('about')">About Me</button>
 </nav>
 
 <section id="roadmap">
   <div class="stitle">Career Roadmap</div>
   <div class="card">
-    <select id="domain"></select>
+    <input type="text" id="domain" list="domainList" placeholder="Search or select a domain...">
+    <datalist id="domainList"></datalist>
     <select id="year">
       <option value="1">1st Year</option>
       <option value="2">2nd Year</option>
       <option value="3">3rd Year</option>
       <option value="4">4th Year</option>
     </select>
-    <button class="btn btn-blue" onclick="generateRoadmap()">Generate</button>
+    <button class="btn btn-blue" onclick="generateRoadmap()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     <button class="btn btn-outline" onclick="downloadRoadmap()">Download PDF</button>
   </div>
   <div id="roadmapOutput"></div>
 </section>
 
 <section id="test">
-  <div class="stitle">Career Aptitude Test</div>
+  <div class="stitle">Career Aptitude Assessment</div>
   <div id="questionBox">
-    <p style="color:var(--muted);font-size:16px;">Answer questions to discover the best tech career for you.</p>
-    <button class="btn btn-green" onclick="startTest()">Start Test</button>
+    <div class="anim-slide">
+    <div style="font-size: 48px; color: var(--blue); margin-bottom: 10px;"><i class="fa-solid fa-clipboard-user"></i></div>
+    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text);">Professional Career Profiler</h2>
+    <p style="color:var(--muted);font-size:16px; margin-bottom: 30px; max-width: 500px;">Evaluate your interests, work style, and technical inclinations. This assessment uses a weighted scoring algorithm to match you with your optimal tech domains.</p>
+    <button class="btn btn-blue" onclick="startTest()"><i class="fa-solid fa-play"></i> Begin Assessment</button>
+    </div>
   </div>
 </section>
 
 <section id="jobs">
   <div class="stitle">Tech Job Market</div>
   <div class="card">
-    <h3 style="color:#c8dff5; margin-bottom:10px; text-align:center;">Software Domains</h3>
+    <h3 style="color:#c8dff5; margin-bottom:10px; text-align:center;">Worldwide Software Job Demand (Live) <span class="ai-dot" style="display:inline-block; margin-left:5px;"></span></h3>
     <div class="chart-wrap"><canvas id="jobChart"></canvas></div>
-    <h3 style="color:#c8dff5; margin-top:30px; margin-bottom:10px; text-align:center;">Hardware & Core Engineering</h3>
+    <h3 style="color:#c8dff5; margin-top:30px; margin-bottom:10px; text-align:center;">Worldwide Hardware Job Demand (Live) <span class="ai-dot" style="display:inline-block; margin-left:5px;"></span></h3>
     <div class="chart-wrap"><canvas id="hardwareChart"></canvas></div>
   </div>
 </section>
@@ -110,7 +117,7 @@
       <input id="degree"   placeholder="Degree & Major (e.g. B.Tech CS)">
       <input id="gradYear" placeholder="Graduation Year">
       <input id="cgpa"     placeholder="CGPA / Percentage">
-      <input id="skills"   placeholder="Tech Skills (Langs, Frameworks, Tools)" class="span2">
+      <input id="skills"   placeholder="Tech Skills (e.g., Python: 90, HTML: 85, React: 70)" class="span2">
       <input id="projTitle" placeholder="Project Title">
       <input id="projTech" placeholder="Technologies Used">
       <textarea id="projDesc" placeholder="Project Description (Bullet points)" class="span2" style="height:60px;"></textarea>
@@ -134,6 +141,56 @@
       <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohanakannan098?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer">Mohanakannan's Profile</a></li>
       <li><strong>Portfolio:</strong> <a href="https://mohanakannan098.github.io/My-Portfolio-/" target="_blank" rel="noopener noreferrer">My Portfolio</a></li>
     </ul>
+  </div>
+</section>
+
+<section id="team">
+  <div class="stitle">AI ELECTRO BOYZZ 💪</div>
+  <div class="team-grid">
+    <!-- Author Profile -->
+    <div class="team-card">
+      <img src="m1.jpeg" alt="MOHANAKANNAN S" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
+      <h3 class="team-name">MOHANAKANNAN S</h3>
+      <div class="team-role">Author / Leader / Developer</div>
+      <p class="team-desc">Passionate tech enthusiast building innovative real-world solutions.</p>
+      <div class="team-socials">
+        <a href="https://www.linkedin.com/in/mohanakannan098?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/MOHANAKANNAN098" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
+    <!-- Member One -->
+    <div class="team-card">
+      <img src="m0.jpeg" alt="SANTHOSH V" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
+      <h3 class="team-name">SANTHOSH V</h3>
+      <div class="team-role">Adviser</div>
+      <p class="team-desc">Expert in software development and crafting beautiful user experiences.</p>
+      <div class="team-socials">
+        <a href="https://www.linkedin.com/in/santhosh-v-48a2a33a1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/santhoshmx7-creator" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
+    <!-- Member Two -->
+    <div class="team-card">
+      <img src="m2.jpeg" alt="GOKUL S" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
+      <h3 class="team-name">GOKUL S</h3>
+      <div class="team-role">Designer</div>
+      <p class="team-desc">Creative mind behind the stunning UI/UX and visual assets.</p>
+      <div class="team-socials">
+        <a href="https://www.linkedin.com/in/gokul-selvam-19288739a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/gokulselvam04" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
+    <!-- Member Three -->
+    <div class="team-card">
+      <img src="m3.jpeg" alt="SRISAIRAM S" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
+      <h3 class="team-name">SRISAIRAM S</h3>
+      <div class="team-role">Coordinator</div>
+      <p class="team-desc">Data science aficionado integrating intelligent models into platforms.</p>
+      <div class="team-socials">
+        <a href="https://www.linkedin.com/in/srisairam-s-8b778339b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/srisairam2007s-stack" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
   </div>
 </section>
 
