@@ -242,11 +242,11 @@ const roadmaps={
   "Automotive Diagnostics Engineer": {free:"https://www.vector.com/",paid:"https://www.udemy.com",1:["Automotive Basics", "Electrical Systems", "C Programming"],2:["CAN/LIN/FlexRay protocols", "UDS (Unified Diagnostic Services)", "OBD-II"],3:["Diagnostic Tools (CANoe)", "Flash Bootloaders", "Fault Memory Management"],4:["Over-The-Air (OTA) Updates", "Advanced Driver Assistance (ADAS) Diagnostics", "System Arch"]}
 };
 
-const domainSelect = document.getElementById("domain");
+const domainList = document.getElementById("domainList");
 Object.keys(roadmaps).forEach(d => {
   let option=document.createElement("option");
-  option.value=d; option.text=d;
-  domainSelect.appendChild(option);
+  option.value=d;
+  domainList.appendChild(option);
 });
 
 const domainColors={
@@ -274,6 +274,10 @@ function saveProgress(domain, year, checked){
 
 function generateRoadmap(){
   const domain = document.getElementById("domain").value;
+  if (!domain || !roadmaps[domain]) {
+    document.getElementById("roadmapOutput").innerHTML = `<p style="color:var(--red);">Please search and select a valid domain.</p>`;
+    return;
+  }
   const year = parseInt(document.getElementById("year").value);
   let output=`<div class="domain-label"><i class="fa-solid fa-map"></i> &nbsp;${domain}</div>`;
 
@@ -507,10 +511,12 @@ const questions=[
 let index=0;
 let score={};
 Object.keys(roadmaps).forEach(d=>score[d]=0);
+let radarChartInstance = null;
 
 function startTest(){
   index=0;
   Object.keys(roadmaps).forEach(d=>score[d]=0);
+  localStorage.removeItem('careerTestState');
   showQuestion();
 }
 
@@ -519,28 +525,151 @@ function showQuestion(){
   let q=questions[index];
   let progress = Math.round((index/questions.length)*100);
   document.getElementById("questionBox").innerHTML=`
-    <div class="q-meta">QUESTION ${index+1} OF ${questions.length}</div>
-    <div class="progress-wrap"><div class="progress-bar" style="width:${progress}%"></div></div>
-    <p>${q.q}</p>
-    <div class="q-btns">
-      <button class="q-yes" onclick="answer(true)">Yes</button>
-      <button class="q-no" onclick="answer(false)">No</button>
+    <div class="anim-slide">
+    <div class="test-header">
+      <div class="q-meta"><i class="fa-solid fa-list-check"></i> QUESTION ${index+1} OF ${questions.length}</div>
+      <div class="q-domain-hint">${q.domain} Area</div>
+    </div>
+    <div class="progress-wrap" style="margin-bottom: 25px;"><div class="progress-bar" style="width:${progress}%"></div></div>
+    <h2 class="q-text" style="font-size: 20px; margin-bottom: 30px; font-weight: 500; line-height: 1.5; color: var(--text);">${q.q}</h2>
+    <div class="likert-scale">
+      <button class="likert-btn sd" onclick="answer(0)"><span>1</span> Strongly Disagree</button>
+      <button class="likert-btn d" onclick="answer(1)"><span>2</span> Disagree</button>
+      <button class="likert-btn n" onclick="answer(2)"><span>3</span> Neutral</button>
+      <button class="likert-btn a" onclick="answer(3)"><span>4</span> Agree</button>
+      <button class="likert-btn sa" onclick="answer(4)"><span>5</span> Strongly Agree</button>
+    </div>
+    <div style="margin-top: 25px; font-size: 12px; color: var(--muted);">
+      <i class="fa-solid fa-circle-info"></i> Select the option that best describes your interest.
+    </div>
     </div>`;
 }
 
-function answer(ans){
-  if(ans){score[questions[index].domain]++;}
+function answer(val){
+  score[questions[index].domain] += val;
   index++; 
+  localStorage.setItem('careerTestState', JSON.stringify({ index: index, score: score }));
   showQuestion();
 }
 
 function showResult(){
-  let best=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
-  document.getElementById("questionBox").innerHTML=`
-    <div class="q-result-label">RECOMMENDED CAREER</div>
-    <div class="q-result-val">${best}</div>
-    <p style="color:var(--muted);font-size:15px;">Based on your responses, this career path matches your interests!</p>
-    <button class="btn btn-green" onclick="startTest()">Retake Test</button>`;
+  // Calculate max possible points dynamically
+  let maxScores = {};
+  questions.forEach(q => { maxScores[q.domain] = (maxScores[q.domain] || 0) + 4; });
+
+  // Convert scores to percentages and sort
+  let results = Object.keys(score)
+    .filter(d => maxScores[d] > 0)
+    .map(d => ({ domain: d, pct: Math.round((score[d] / maxScores[d]) * 100) }))
+    .filter(r => r.pct >= 10) // Show all matches 10% and above
+    .sort((a,b) => b.pct - a.pct);
+
+  let resultHTML = `
+    <div class="anim-slide">
+    <div class="q-meta" style="margin-bottom: 15px;"><i class="fa-solid fa-chart-pie"></i> ASSESSMENT COMPLETE</div>
+    <h2 style="font-size: 26px; color: var(--text); margin-bottom: 10px; font-family: 'Orbitron', monospace;">Your Career Matches</h2>
+    <p style="color:var(--muted);font-size:15px; margin-bottom: 25px; max-width: 600px;">Based on your unique profile, here are the technical paths that best align with your interests. Click on any domain to view its detailed roadmap.</p>
+    
+    <div class="chart-wrap" style="height: 320px; width: 100%; max-width: 500px; margin: 0 auto 30px;">
+      <canvas id="resultRadarChart"></canvas>
+    </div>
+    <div class="result-cards">`;
+
+  if (results.length === 0) {
+    resultHTML += `<p style="color: var(--orange); padding: 20px;">No strong matches found. Try retaking the assessment!</p>`;
+  } else {
+    results.forEach((res, i) => {
+      let color = "var(--text-secondary)";
+      if(res.pct >= 80) color = "var(--green)";
+      else if(res.pct >= 60) color = "var(--blue)";
+      else if(res.pct >= 40) color = "var(--cyan)";
+      else if(res.pct >= 20) color = "var(--orange)";
+
+    resultHTML += `
+      <div class="result-card" style="border-left: 4px solid ${color};">
+        <div class="res-rank">#${i+1}</div>
+        <div class="res-info">
+          <div class="res-domain">${res.domain}</div>
+          <div class="res-bar-wrap"><div class="res-bar" style="width: ${res.pct}%; background: ${color};"></div></div>
+        </div>
+        <div class="res-pct" style="color: ${color};">${res.pct}% Match</div>
+        <button class="btn btn-outline res-view-btn" style="border-color: ${color} !important; color: ${color};" 
+          onclick="document.getElementById('domain').value='${res.domain}'; showSection('roadmap'); generateRoadmap();">
+          <i class="fa-solid fa-map-location-dot"></i> View
+        </button>
+      </div>`;
+  });
+  }
+
+  resultHTML += `
+    </div>
+    <div style="margin-top: 35px; display: flex; justify-content: center;">
+      <button class="btn btn-outline" onclick="resetTest()"><i class="fa-solid fa-rotate-right"></i> Retake Assessment</button>
+    </div>
+    </div>`;
+
+  document.getElementById("questionBox").innerHTML = resultHTML;
+
+  // Render Radar Chart
+  if (results.length > 0) {
+    if (radarChartInstance) {
+      radarChartInstance.destroy(); // Clear existing chart on retakes
+    }
+    const ctxRadar = document.getElementById("resultRadarChart").getContext("2d");
+    const topResults = results.slice(0, 6); // Limit to top 6 points for readability
+
+    radarChartInstance = new Chart(ctxRadar, {
+      type: 'radar',
+      data: {
+        labels: topResults.map(r => r.domain.length > 15 ? r.domain.substring(0, 15) + '...' : r.domain),
+        datasets: [{
+          label: 'Match %',
+          data: topResults.map(r => r.pct),
+          backgroundColor: 'rgba(0, 229, 255, 0.2)',
+          borderColor: 'rgba(0, 229, 255, 0.8)',
+          pointBackgroundColor: '#00ffb3', // var(--green)
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#00ffb3',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+            pointLabels: { color: '#c8dff5', font: { family: 'Inter', size: 10 } },
+            ticks: { display: false, min: 0, max: 100, stepSize: 20 }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) { return `Match: ${context.raw}%`; }
+            }
+          }
+        }
+      }
+    });
+  }
+}
+
+function resetTest() {
+  index = 0;
+  Object.keys(roadmaps).forEach(d=>score[d]=0);
+  localStorage.removeItem('careerTestState');
+  document.getElementById("questionBox").innerHTML = `
+    <div class="anim-slide">
+    <div style="font-size: 48px; color: var(--blue); margin-bottom: 10px;"><i class="fa-solid fa-clipboard-user"></i></div>
+    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text);">Professional Career Profiler</h2>
+    <p style="color:var(--muted);font-size:16px; margin-bottom: 30px; max-width: 500px;">Evaluate your interests, work style, and technical inclinations. This assessment uses a weighted scoring algorithm to match you with your optimal tech domains.</p>
+    <button class="btn btn-blue" onclick="startTest()"><i class="fa-solid fa-play"></i> Begin Assessment</button>
+    </div>
+  `;
 }
 
 let chatHistory = [];
@@ -561,10 +690,10 @@ const predefinedQA = {
 };
 
 const chatSuggestions = [
-  "How do I start in Web Development?",
-  "What are the best projects for AI?",
-  "Give me a roadmap for Cyber Security",
-  "How to prepare for a Coding Interview?"
+  "What are the best IT jobs in the future?",
+  "Which programming language is best for beginners?",
+  "How can a student prepare for an IT job?",
+  "Is web development a good career choice?"
 ];
 
 function initChatSuggestions() {
@@ -786,7 +915,40 @@ function downloadResume(){
 
     // 2. SECTIONS
     if (getVal('summary')) { drawSectionTitle('Profile'); drawBodyText(getVal('summary')); }
-    if (getVal('skills')) { drawSectionTitle('Technical Skills'); drawBodyText(getVal('skills')); }
+    if (getVal('skills')) { 
+        drawSectionTitle('Technical Skills'); 
+        const skills = getVal('skills').split(',');
+        skills.forEach(skill => {
+            let parts = skill.split(':');
+            // If formatted as "Skill: 90", draw a progress bar
+            if (parts.length === 2 && !isNaN(parseInt(parts[1]))) {
+                let name = parts[0].trim();
+                let pct = Math.min(Math.max(parseInt(parts[1].trim()), 0), 100); // Keep between 0-100
+                if (cursorY > 750) { doc.addPage(); cursorY = margin; }
+                
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(10);
+                doc.text(name, margin, cursorY);
+                
+                // Draw grey background bar
+                doc.setFillColor(230, 230, 230);
+                doc.rect(margin + 120, cursorY - 8, contentWidth - 120, 8, 'F');
+                
+                // Draw blue progress fill
+                doc.setFillColor(0, 170, 255); // Matches var(--blue)
+                doc.rect(margin + 120, cursorY - 8, (contentWidth - 120) * (pct / 100), 8, 'F');
+                cursorY += 16;
+            } else if (skill.trim() !== "") {
+                // Fallback to normal bullet point
+                if (cursorY > 750) { doc.addPage(); cursorY = margin; }
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(10);
+                doc.text(`•  ${skill.trim()}`, margin + 10, cursorY);
+                cursorY += 14;
+            }
+        });
+        cursorY += 10;
+    }
 
     if (getVal('college')) {
         drawSectionTitle('Education');
@@ -818,16 +980,18 @@ function downloadResume(){
 
 let chartInstance = null;
 let hardwareChartInstance = null;
+let liveChartInterval = null;
+
 function renderChart(){
   if(!chartInstance) {
     const ctx=document.getElementById("jobChart").getContext("2d");
     chartInstance = new Chart(ctx,{
       type:'bar',
       data:{
-        labels:Object.keys(roadmaps).slice(0,10),
+        labels:["AI Engineer", "Data Scientist", "Full Stack", "Cloud (AWS)", "Cyber Security", "DevOps Eng", "Backend Dev", "Frontend Dev", "Android Dev", "Game Dev"],
         datasets:[{
-          label:'Software Job Demand',
-          data:[90, 82, 75, 85, 70, 65, 60, 78, 88, 92],
+          label:'Demand %',
+          data:[98.5, 95.2, 92.0, 89.5, 88.0, 86.5, 84.0, 80.0, 75.5, 65.0],
           backgroundColor:[
             '#00aaff', 
             'rgb(143, 255, 30)', 
@@ -848,10 +1012,24 @@ function renderChart(){
         onClick: (evt, elements) => {
           if (elements.length > 0) {
             const index = elements[0].index;
-            const label = chartInstance.data.labels[index];
-            showSection('roadmap');
-            document.getElementById("domain").value = label;
-            generateRoadmap();
+            let label = chartInstance.data.labels[index];
+            const softMap = {
+              "AI Engineer": "Artificial Intelligence Engineer",
+              "Full Stack": "Full Stack Developer",
+              "Cloud (AWS)": "Cloud Architect (AWS)",
+              "Cyber Security": "Cyber Security Analyst",
+              "DevOps Eng": "DevOps Engineer",
+              "Backend Dev": "Backend Developer",
+              "Frontend Dev": "Frontend Developer",
+              "Android Dev": "Mobile App Developer (Android)",
+              "Game Dev": "Game Developer"
+            };
+            if(softMap[label]) label = softMap[label];
+            if(roadmaps[label]){
+              showSection('roadmap');
+              document.getElementById("domain").value = label;
+              generateRoadmap();
+            }
           }
         },
         scales:{
@@ -871,7 +1049,7 @@ function renderChart(){
           tooltip: {
             callbacks: {
               label: function(context) {
-                return `Score: ${context.parsed.y}`;
+                return `Demand: ${context.parsed.y.toFixed(1)}%`;
               }
             }
           }
@@ -885,10 +1063,10 @@ function renderChart(){
     hardwareChartInstance = new Chart(ctx2,{
       type:'bar',
       data:{
-        labels:["IoT Developer", "Robotics Eng", "Embedded Sys", "Network Eng", "Automation Eng", "VLSI Engineer"],
+        labels:["VLSI Design", "Robotics Eng", "Embedded Sys", "IoT Developer", "EV Powertrain", "Automation Eng"],
         datasets:[{
-          label:'Hardware Job Demand',
-          data:[82, 88, 85, 72, 80, 90],
+          label:'Demand %',
+          data:[94.0, 91.5, 88.0, 85.5, 82.0, 78.5],
           backgroundColor:[
             '#ff4081',
             '#ff80ab',
@@ -907,9 +1085,10 @@ function renderChart(){
             const index = elements[0].index;
             let label = hardwareChartInstance.data.labels[index];
             const map = {
+              "VLSI Design": "VLSI Design Engineer",
               "Robotics Eng": "Robotics Engineer",
               "Embedded Sys": "Embedded Systems Developer",
-              "Network Eng": "Network Engineer",
+              "EV Powertrain": "EV Powertrain Engineer",
               "Automation Eng": "Automation Engineer"
             };
             if(map[label]) label = map[label];
@@ -933,7 +1112,7 @@ function renderChart(){
           tooltip: {
             callbacks: {
               label: function(context) {
-                return `Score: ${context.parsed.y}`;
+                return `Demand: ${context.parsed.y.toFixed(1)}%`;
               }
             }
           }
@@ -941,8 +1120,108 @@ function renderChart(){
       }
     });
   }
+
+  // Simulate live dynamic fluctuation
+  if (!liveChartInterval) {
+    liveChartInterval = setInterval(() => {
+      if (chartInstance) {
+        chartInstance.data.datasets[0].data.forEach((val, i) => {
+          let change = (Math.random() - 0.5) * 1.5; // Fluctuate by +/- 0.75%
+          let newVal = val + change;
+          chartInstance.data.datasets[0].data[i] = Math.max(50, Math.min(100, newVal));
+        });
+        chartInstance.update('none'); // 'none' ensures it updates smoothly without jarring animations
+      }
+      if (hardwareChartInstance) {
+        hardwareChartInstance.data.datasets[0].data.forEach((val, i) => {
+          let change = (Math.random() - 0.5) * 1.5; // Fluctuate by +/- 0.75%
+          let newVal = val + change;
+          hardwareChartInstance.data.datasets[0].data[i] = Math.max(50, Math.min(100, newVal));
+        });
+        hardwareChartInstance.update('none');
+      }
+    }, 1500); // Tick every 1.5 seconds
+  }
+}
+
+// ===== PARTICLE BACKGROUND ANIMATION =====
+function initParticles() {
+  const canvas = document.getElementById("canvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+  let particles = [];
+
+  window.addEventListener("resize", () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 0.7; // Speed X
+      this.vy = (Math.random() - 0.5) * 0.7; // Speed Y
+      this.size = Math.random() * 2 + 1;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      // Bounce off edges
+      if (this.x < 0 || this.x > width) this.vx *= -1;
+      if (this.y < 0 || this.y > height) this.vy *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(0, 229, 255, 0.4)";
+      ctx.fill();
+    }
+  }
+
+  // Create particles
+  for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+      
+      // Draw lines between close particles
+      for (let j = i; j < particles.length; j++) {
+        let dx = particles[i].x - particles[j].x;
+        let dy = particles[i].y - particles[j].y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 130) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(0, 170, 255, ${1 - dist/130})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
 }
 
 window.onload=function(){
   showSection("roadmap");
+  let savedState = localStorage.getItem('careerTestState');
+  if(savedState){
+    let parsed = JSON.parse(savedState);
+    index = parsed.index;
+    score = parsed.score || score;
+    if(index >= questions.length){
+      showResult();
+    } else if(index > 0){
+      showQuestion();
+    }
+  }
+  initParticles();
 }
