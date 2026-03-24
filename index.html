@@ -61,13 +61,38 @@
 </section>
 
 <section id="mentor">
-  <div class="stitle">AI Career Mentor</div>
-  <div class="chat-row">
-    <input id="mentorInput" placeholder="Ask your career question…" onkeydown="if(event.key==='Enter')mentor()">
-    <button class="btn btn-blue" onclick="mentor()">Ask</button>
-    <button class="btn btn-outline" onclick="clearChat()">Clear</button>
+  <div class="stitle"><i class="fa-solid fa-robot"></i> &nbsp;AI Career Mentor</div>
+
+  <!-- Chat Window -->
+  <div class="ai-chat-wrap">
+    <!-- Header Bar -->
+    <div class="ai-chat-header">
+      <div class="ai-avatar-wrap">
+        <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+        <div>
+          <div class="ai-name">CareerForge AI</div>
+          <div class="ai-status"><span class="ai-dot"></span> Online — Powered by Mistral AI</div>
+        </div>
+      </div>
+      <button class="ai-clear-btn" onclick="clearChat()" title="Clear chat"><i class="fa-solid fa-trash"></i></button>
+    </div>
+
+    <!-- Messages -->
+    <div id="chatbox" class="ai-chatbox"></div>
+
+    <!-- Suggestions -->
+    <div id="chat-suggestions" class="ai-suggestions"></div>
+
+    <!-- Input Bar -->
+    <div class="ai-input-bar">
+      <textarea id="mentorInput" class="ai-textarea" rows="1" placeholder="Ask me anything about your career…"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();mentor();}"
+        oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
+      <button class="ai-send-btn" onclick="mentor()" title="Send">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
   </div>
-  <div id="chatbox" style="background:#e5ddd5; border-radius:10px; padding:15px; margin-top:10px; height:400px; overflow-y:auto; display:flex; flex-direction:column; border: 1px solid rgba(0,0,0,0.1);"></div>
 </section>
 
 <section id="resume">
