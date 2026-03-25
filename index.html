@@ -31,7 +31,7 @@
 <section id="roadmap">
   <div class="stitle">Career Roadmap</div>
   <div class="card">
-    <input type="text" id="domain" list="domainList" placeholder="Search or select a domain...">
+    <input type="text" id="domain" list="domainList" placeholder="Type here to search for a domain..." style="width: 100%; margin-bottom: 15px;">
     <datalist id="domainList"></datalist>
     <select id="year">
       <option value="1">1st Year</option>
@@ -39,7 +39,7 @@
       <option value="3">3rd Year</option>
       <option value="4">4th Year</option>
     </select>
-    <button class="btn btn-blue" onclick="generateRoadmap()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    <button class="btn btn-blue" onclick="generateRoadmap()"><i class="fa-solid fa-magnifying-glass"></i> Generate Roadmap</button>
     <button class="btn btn-outline" onclick="downloadRoadmap()">Download PDF</button>
   </div>
   <div id="roadmapOutput"></div>
