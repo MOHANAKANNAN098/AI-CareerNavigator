@@ -9,17 +9,15 @@ function showSection(id){
 
 const roadmaps={
 // ===== UPGRADED 28-ITEM ROADMAP (7 per year) =====
-"Web Developer":{free:"https://www.freecodecamp.org",paid:"https://www.udemy.com",1:["Learn HTML, CSS, JavaScript basics","Learn Git and GitHub","Build simple static websites"],2:["Advanced JavaScript (ES6+)","Learn React.js","Build responsive web projects"],3:["Learn Node.js & Express.js","Learn MongoDB / MySQL","Build full-stack web applications"],4:["Build large full-stack project","Deploy on cloud","Prepare for web developer interviews"]},
-"Frontend Developer":{free:"https://www.w3schools.com",paid:"https://www.udemy.com",1:["Learn HTML and CSS","Learn JavaScript basics","Build simple UI pages"],2:["Learn React.js or Angular","Learn responsive design","Build frontend projects"],3:["Learn advanced frontend tools","Work with REST APIs","Build real-world UI applications"],4:["Create strong portfolio","Optimise UI performance","Apply for frontend jobs"]},
-"Backend Developer":{free:"https://www.freecodecamp.org",paid:"https://www.udemy.com",1:["Learn Python or Java basics","Understand programming fundamentals"],2:["Learn backend frameworks (Node.js/Django)","Learn SQL databases","Build backend APIs"],3:["Learn authentication and security","Build scalable backend systems","Work with microservices"],4:["Learn system design","Build production backend project","Apply for backend roles"]},
+"Web Developer":{free:"https://www.freecodecamp.org",paid:"https://www.udemy.com",1:["Learn Internet Basics & Version Control","Master HTML5 Semantics & Accessibility","Master CSS3 Basics, Flexbox, & Grid","Learn JavaScript Basics & DOM Manipulation","Build 3 Simple Static Websites"],2:["Advanced JavaScript (ES6+, Async/Await)","Learn a CSS Framework (Tailwind/Bootstrap)","Master React.js Basics & Hooks","Understand REST APIs & Data Fetching","Build Responsive Dynamic Web Projects"],3:["Learn Node.js & Express.js Fundamentals","Master Relational & NoSQL Databases","Understand RESTful APIs & Authentication","Implement CRUD Operations Securely","Build a Full-Stack Web Application"],4:["Learn TypeScript & Next.js","Learn Docker & Containerization","Deploy on Cloud & CI/CD Pipelines","Understand System Design & Microservices","Build a Large-Scale Production Project"]},
+"Frontend Developer":{free:"https://www.w3schools.com",paid:"https://www.udemy.com",1:["Learn HTML5 and Semantic Web","Master CSS3, Flexbox & Grid","Learn JavaScript Fundamentals","DOM Manipulation & Browser APIs","Build static UI pages & Portfolios"],2:["Advanced JavaScript (ES6+, Closures)","Learn React.js or Vue.js Framework","Master Responsive & Tailwind CSS","Work with REST APIs & Data Fetching","Build dynamic frontend projects"],3:["Learn TypeScript for strict typing","Learn Next.js for SSR & SSG","Write Unit Tests (Jest/React Testing)","Learn Webpack/Vite bundlers","Build real-world UI applications"],4:["Master Web Performance Optimization","Learn Progressive Web Apps (PWA)","Learn Micro-Frontends Architecture","Contribute to Open Source Projects","Prepare for Frontend interviews"]},
+"Backend Developer":{free:"https://www.freecodecamp.org",paid:"https://www.udemy.com",1:["Learn Internet & Networking Basics","Learn Python, Java, or Go basics","Understand Data Structures & Algorithms","Learn Git, Terminal & Linux Command Line","Build CLI-based applications"],2:["Learn a Backend Framework (Node.js/Django)","Master SQL & NoSQL Databases","Build and test RESTful APIs","Understand Authentication (JWT, OAuth)","Build backend APIs for web clients"],3:["Learn GraphQL & gRPC APIs","Learn Message Brokers (RabbitMQ/Kafka)","Master Web Security & Caching (Redis)","Learn Docker & Containerization","Work with Microservices Architecture"],4:["Learn Kubernetes & Orchestration","Learn Cloud Providers (AWS/Azure/GCP)","Learn CI/CD Pipelines & DevOps basics","Master Database Scaling & Sharding","Build production-ready backend project"]},
 "Full Stack Developer":{free:"https://www.theodinproject.com",paid:"https://www.udemy.com",
 1:[
   {title:"HTML & CSS Foundations",domain:"Frontend",desc:"Learn semantic HTML5, CSS3 layouts, flexbox, grid and responsive design principles.",tools:["VS Code","HTML5","CSS3","Chrome DevTools"],outcome:"Build a fully responsive personal webpage"},
   {title:"JavaScript Essentials",domain:"Frontend",desc:"Master variables, functions, DOM manipulation, events and ES6+ features.",tools:["VS Code","JavaScript","Browser Console"],outcome:"Build interactive UI components"},
-  {title:"Python Programming Basics",domain:"Backend",desc:"Learn Python syntax, OOP concepts, file handling and basic algorithms.",tools:["VS Code","Python 3","pip"],outcome:"Write clean reusable Python scripts"},
   {title:"SQL & Database Basics",domain:"Database",desc:"Understand relational databases, write SQL queries, joins and basic schema design.",tools:["MySQL","DB Browser","VS Code"],outcome:"Design and query a student database"},
   {title:"Git & GitHub Basics",domain:"DevOps",desc:"Learn version control, branching, commits, pull requests and GitHub workflows.",tools:["Git","GitHub","VS Code"],outcome:"Manage code with version control"},
-  {title:"Personal Portfolio Website",domain:"Projects",desc:"Design and deploy a personal portfolio showcasing skills, projects and contact info.",tools:["HTML","CSS","JavaScript","GitHub Pages"],outcome:"Live deployed portfolio website"},
   {title:"Student CRUD App",domain:"Projects",desc:"Build a student management app with add, edit, delete and search functionality.",tools:["HTML","CSS","JavaScript","MySQL"],outcome:"Working full CRUD application"}
 ],
 2:[
@@ -27,25 +25,19 @@ const roadmaps={
   {title:"Node.js & Express APIs",domain:"Backend",desc:"Build RESTful APIs with Express, handle routes, middleware and HTTP methods.",tools:["Node.js","Express","Postman","VS Code"],outcome:"Working REST API with full CRUD"},
   {title:"MongoDB & Mongoose",domain:"Database",desc:"Learn NoSQL database design, schema modeling and connect MongoDB with Node.js.",tools:["MongoDB Atlas","Mongoose","Compass"],outcome:"Database-connected backend API"},
   {title:"Responsive UI with Tailwind",domain:"Frontend",desc:"Build mobile-first responsive interfaces using Tailwind CSS utility classes.",tools:["Tailwind CSS","React","VS Code"],outcome:"Pixel-perfect responsive UI"},
-  {title:"AWS Cloud Fundamentals",domain:"Cloud",desc:"Understand cloud computing, AWS core services: EC2, S3, IAM and billing basics.",tools:["AWS Console","AWS CLI","IAM"],outcome:"Deploy a static site on AWS S3"},
   {title:"Blog Web Application",domain:"Projects",desc:"Full stack blog with React frontend, Node/Express backend and MongoDB database.",tools:["React","Node.js","MongoDB","GitHub"],outcome:"Deployed full stack blog app"},
-  {title:"E-Commerce REST API",domain:"Projects",desc:"Build product, cart and order APIs with JWT authentication and role-based access.",tools:["Node.js","Express","MongoDB","Postman","JWT"],outcome:"Secure production-ready REST API"}
 ],
 3:[
   {title:"Advanced React Patterns",domain:"Frontend",desc:"Master Redux, Context API, lazy loading, code splitting and performance optimization.",tools:["React","Redux","React Query","VS Code"],outcome:"High-performance optimized React app"},
   {title:"Authentication & Security",domain:"Backend",desc:"Implement JWT, bcrypt password hashing, OAuth2 and role-based access control.",tools:["Node.js","JWT","bcrypt","Passport.js"],outcome:"Fully secured authentication system"},
-  {title:"MySQL Advanced & Redis Cache",domain:"Database",desc:"Learn indexing, stored procedures, query optimization and Redis caching strategies.",tools:["MySQL","Redis","DBeaver"],outcome:"Optimized high-performance database"},
   {title:"Docker & Containerization",domain:"DevOps",desc:"Containerize frontend and backend apps, write Dockerfiles and use Docker Compose.",tools:["Docker","Docker Compose","VS Code"],outcome:"Fully dockerized full stack app"},
   {title:"AWS EC2 & Deployment",domain:"Cloud",desc:"Deploy Node.js apps on EC2, configure security groups, Nginx reverse proxy and SSL.",tools:["AWS EC2","Nginx","PM2","Let's Encrypt"],outcome:"Live app running on AWS cloud"},
   {title:"Real-Time Chat Application",domain:"Projects",desc:"Build a real-time chat app using WebSockets with rooms, typing indicators and history.",tools:["Socket.io","React","Node.js","MongoDB"],outcome:"Live real-time chat application"},
-  {title:"Job Portal Platform",domain:"Projects",desc:"Full stack job listing platform with auth, search filters, apply and admin dashboard.",tools:["React","Node.js","MongoDB","AWS S3","JWT"],outcome:"Deployed job portal with admin panel"}
 ],
 4:[
   {title:"Next.js & Server-Side Rendering",domain:"Frontend",desc:"Build SEO-optimized apps with SSR, SSG, API routes and image optimization in Next.js.",tools:["Next.js","React","Vercel","TypeScript"],outcome:"Production-ready SSR web application"},
   {title:"Microservices Architecture",domain:"Backend",desc:"Decompose monolith into microservices with API Gateway, service discovery and messaging.",tools:["Node.js","Docker","Nginx","RabbitMQ"],outcome:"Scalable microservices backend system"},
   {title:"CI/CD Pipelines",domain:"DevOps",desc:"Automate testing, building and deployment pipelines triggered on every GitHub push.",tools:["GitHub Actions","AWS CodePipeline","Docker"],outcome:"Fully automated deploy pipeline"},
-  {title:"AWS Advanced: Lambda & RDS",domain:"Cloud",desc:"Build serverless functions with Lambda, use RDS for production databases and CloudFront CDN.",tools:["AWS Lambda","AWS RDS","CloudFront","Route53"],outcome:"Serverless production-grade app"},
-  {title:"AI-Assisted Development",domain:"AI Tools",desc:"Use Amazon Q Developer to generate boilerplate, review code, fix bugs and suggest improvements.",tools:["Amazon Q","VS Code","AWS","GitHub Copilot"],outcome:"2x faster AI-assisted dev workflow"},
   {title:"SaaS Dashboard Platform",domain:"Projects",desc:"Build a multi-tenant SaaS app with subscription billing, analytics dashboard and role management.",tools:["Next.js","Node.js","AWS","Stripe API","MongoDB"],outcome:"Live monetized SaaS product"},
   {title:"AI-Powered Career Platform",domain:"Projects",desc:"Full stack platform with AI job recommendations, resume builder, skill gap analysis and deployment.",tools:["React","Node.js","MongoDB","Amazon Q","AWS EC2","Docker"],outcome:"Complete deployed AI career platform"}
 ]},
@@ -53,10 +45,10 @@ const roadmaps={
 "Mobile App Developer (iOS)":{free:"https://www.hackingwithswift.com",paid:"https://www.udemy.com",1:["Learn Swift programming","Learn programming basics"],2:["Learn Xcode","Build basic iOS apps"],3:["Work with APIs and databases","Build real-world iOS apps"],4:["Publish apps in App Store","Prepare for iOS developer roles"]},
 "Game Developer":{free:"https://learn.unity.com",paid:"https://www.gamedev.tv",1:["Learn programming basics (C# or C++)","Learn game design fundamentals"],2:["Learn Unity or Unreal Engine","Build small games"],3:["Learn 3D graphics and physics","Develop advanced games"],4:["Build complete game project","Publish game portfolio"]},
 "Software Developer":{free:"https://www.freecodecamp.org",paid:"https://www.coursera.org",1:["Learn C / Python","Learn programming fundamentals"],2:["Learn data structures","Build basic software projects"],3:["Learn system design","Work on real-world software"],4:["Prepare coding interviews","Apply for software developer jobs"]},
-"Data Scientist":{free:"https://www.kaggle.com/learn",paid:"https://www.datacamp.com",1:["Learn Python","Learn statistics and math"],2:["Learn NumPy and Pandas","Perform data analysis"],3:["Learn machine learning","Work on Kaggle projects"],4:["Build ML models","Create strong data science portfolio"]},
+"Data Scientist":{free:"https://www.kaggle.com/learn",paid:"https://www.datacamp.com",1:["Learn Python for Data Science","Learn SQL for Data querying","Understand Statistics & Probability","Learn Linear Algebra & Calculus basics","Learn Jupyter Notebooks & Git","Master Data Manipulation with Pandas","Learn Array computations with NumPy"],2:["Learn Data Visualization (Matplotlib, Seaborn)","Learn Exploratory Data Analysis (EDA)","Understand Data Cleaning & Preprocessing","Learn Scikit-Learn for Machine Learning","Build Supervised Learning models (Regression, Classification)","Build Unsupervised Learning models (Clustering)","Participate in basic Kaggle competitions"],3:["Learn Advanced Machine Learning (XGBoost, Random Forest)","Learn Deep Learning basics with TensorFlow/PyTorch","Understand Natural Language Processing (NLP) basics","Learn Time Series Analysis","Learn Model Evaluation & Tuning techniques","Work on real-world Kaggle datasets","Create End-to-End ML pipelines"],4:["Learn Big Data tools (Spark, Hadoop)","Learn Model Deployment (Flask, FastAPI, Docker)","Understand MLOps and Cloud ML (AWS SageMaker)","Learn Advanced Deep Learning (CNNs, RNNs)","Build full-stack Data Science projects","Create a strong Data Science portfolio","Prepare for Data Scientist interviews"]},
 "Data Analyst":{free:"https://www.google.com/analytics/learn",paid:"https://www.coursera.org",1:["Learn Excel","Learn statistics basics"],2:["Learn SQL","Learn Power BI / Tableau"],3:["Analyse datasets","Build analytics dashboards"],4:["Build data portfolio","Apply for data analyst jobs"]},
 "Machine Learning Engineer":{free:"https://fast.ai",paid:"https://www.coursera.org",1:["Learn Python","Learn math for ML"],2:["Learn ML algorithms","Build small ML projects"],3:["Learn TensorFlow or PyTorch","Develop ML applications"],4:["Deploy ML models","Prepare ML interviews"]},
-"Artificial Intelligence Engineer":{free:"https://www.elementsofai.com",paid:"https://www.udacity.com",1:["Learn Python","Learn math and statistics"],2:["Learn ML basics","Learn AI algorithms"],3:["Learn deep learning","Build AI applications"],4:["Deploy AI systems","Apply for AI engineer roles"]},
+"Artificial Intelligence Engineer":{free:"https://www.elementsofai.com",paid:"https://www.udacity.com",1:["Learn Python programming deeply","Master Mathematics (Linear Algebra, Calculus)","Learn Statistics and Probability","Understand Data Structures & Algorithms","Learn Data manipulation (Pandas, NumPy)","Learn basic Machine Learning concepts","Build simple AI predictive scripts"],2:["Master Scikit-Learn & Classical ML","Learn Deep Learning fundamentals","Learn Neural Networks (ANNs)","Master TensorFlow or PyTorch frameworks","Learn Computer Vision basics (OpenCV)","Learn NLP basics (NLTK, SpaCy)","Build end-to-end ML projects"],3:["Learn Advanced Computer Vision (CNNs, Object Detection)","Learn Advanced NLP (Transformers, HuggingFace)","Learn Reinforcement Learning basics","Learn Generative AI (GANs, Diffusion Models)","Learn Large Language Models (LLMs) & Prompt Engineering","Fine-tune pre-trained AI models","Build advanced AI applications"],4:["Learn MLOps (Model deployment & monitoring)","Learn Docker & Kubernetes for AI","Deploy models using Cloud (AWS SageMaker/GCP Vertex)","Optimize models for Edge/Mobile devices","Understand AI Ethics and Bias","Build full AI systems in production","Apply for AI engineer roles"]},
 "Deep Learning Engineer":{free:"https://www.deeplearning.ai",paid:"https://www.coursera.org",1:["Learn Python and mathematics"],2:["Learn machine learning basics"],3:["Learn neural networks","Learn TensorFlow / PyTorch"],4:["Build deep learning projects","Deploy AI models"]},
 "Computer Vision Engineer":{free:"https://pyimagesearch.com",paid:"https://www.udemy.com",1:["Learn Python","Learn linear algebra"],2:["Learn OpenCV","Learn image processing"],3:["Build computer vision projects","Learn deep learning"],4:["Deploy vision systems","Build strong CV portfolio"]},
 "NLP Engineer":{free:"https://huggingface.co/learn",paid:"https://www.coursera.org",1:["Learn Python","Learn text processing basics"],2:["Learn NLP libraries (NLTK, spaCy)"],3:["Learn transformers and deep NLP","Build NLP applications"],4:["Deploy NLP models","Prepare NLP engineer interviews"]},
@@ -242,8 +234,43 @@ const roadmaps={
   "Automotive Diagnostics Engineer": {free:"https://www.vector.com/",paid:"https://www.udemy.com",1:["Automotive Basics", "Electrical Systems", "C Programming"],2:["CAN/LIN/FlexRay protocols", "UDS (Unified Diagnostic Services)", "OBD-II"],3:["Diagnostic Tools (CANoe)", "Flash Bootloaders", "Fault Memory Management"],4:["Over-The-Air (OTA) Updates", "Advanced Driver Assistance (ADAS) Diagnostics", "System Arch"]}
 };
 
+// ===== AUTO-NORMALIZER: Ensure exactly 5 lessons per year for ALL 192 domains =====
+function normalizeToFive(items, domain, year) {
+  if (!Array.isArray(items)) return items;
+  if (items.length === 5) return items;
+  
+  // Object-based items formatting (i.e. Full Stack)
+  if (items.length > 0 && typeof items[0] === 'object') {
+    if (items.length > 5) return items.slice(0, 5);
+    let result = [...items];
+    while (result.length < 5) {
+      result.push({
+        title: `Advanced ${domain} Concepts (Part ${result.length + 1})`,
+        domain: items[0].domain,
+        desc: `Explore deeper concepts, optimizations, and best practices for Year ${year}.`,
+        tools: items[0].tools || [],
+        outcome: "Mastery of advanced techniques"
+      });
+    }
+    return result;
+  }
+
+  // String-based items formatting (intelligent distribution)
+  let result = [];
+  if (items.length === 1) result = [`Introduction to ${items[0]}`, `Core concepts of ${items[0]}`, `Advanced techniques in ${items[0]}`, `Practical application and labs`, `Real-world project and review`];
+  else if (items.length === 2) result = [`Basics of ${items[0]}`, `Advanced ${items[0]}`, `Basics of ${items[1]}`, `Advanced ${items[1]}`, `Capstone integration project`];
+  else if (items.length === 3) result = [items[0], items[1], items[2], `Advanced concepts & optimization`, `Build a real-world portfolio project`];
+  else if (items.length === 4) result = [items[0], items[1], items[2], items[3], `Capstone project and review`];
+  else if (items.length === 6) result = [items[0], items[1], items[2], items[3], `${items[4]} & ${items[5]}`];
+  else if (items.length >= 7) result = [items[0], items[1], items[2], `${items[3]} & ${items[4]}`, `${items.slice(5).join(" & ")}`];
+  else result = items; // fallback
+  return result;
+}
+Object.keys(roadmaps).forEach(d => { [1, 2, 3, 4].forEach(y => { if (roadmaps[d][y]) roadmaps[d][y] = normalizeToFive(roadmaps[d][y], d, y); }); });
+
 const domainList = document.getElementById("domainList");
-Object.keys(roadmaps).forEach(d => {
+// Sort domains alphabetically for easier searching
+Object.keys(roadmaps).sort().forEach(d => {
   let option=document.createElement("option");
   option.value=d;
   domainList.appendChild(option);
@@ -272,13 +299,253 @@ function saveProgress(domain, year, checked){
   localStorage.setItem(`progress_${domain}_${year}`, JSON.stringify(checked));
 }
 
+const weeklyPlans = {
+    // === WEB DEVELOPER - YEAR 1 ===
+    "Learn Internet Basics & Version Control": [
+        "Week 1: Understand IP addresses, packets, HTTP/HTTPS, and the request/response cycle.",
+        "Week 2: Learn how DNS works and explore web hosting types (shared, VPS).",
+        "Week 3: Install Git, configure it, and learn core commands (init, add, commit).",
+        "Week 4: Work with remote repositories on GitHub (clone, push, pull, branch)."
+    ],
+    "Master HTML5 Semantics & Accessibility": [
+        "Week 1: Master basic HTML tags, document structure, and common attributes.",
+        "Week 2: Learn semantic HTML5 tags (<header>, <nav>, <main>, <article>).",
+        "Week 3: Understand web accessibility (WCAG), ARIA roles, and accessible forms.",
+        "Week 4: Build a complex, semantically structured, and accessible web page."
+    ],
+    "Master CSS3 Basics, Flexbox, & Grid": [
+        "Week 1: Learn CSS selectors, properties, the box model, and colors.",
+        "Week 2: Deep dive into Flexbox for creating one-dimensional layouts.",
+        "Week 3: Master CSS Grid for complex two-dimensional responsive designs.",
+        "Week 4: Recreate a complex website layout using Flexbox and Grid."
+    ],
+    "Learn JavaScript Basics & DOM Manipulation": [
+        "Week 1: Learn JS data types, variables, operators, and control flow.",
+        "Week 2: Understand functions, parameters, return values, and scope.",
+        "Week 3: Learn DOM selection (querySelector) and modify elements/styles.",
+        "Week 4: Master JS Events and build an interactive to-do list."
+    ],
+    "Build 3 Simple Static Websites": [
+        "Week 1: Project 1: A personal tribute page using semantic HTML and CSS.",
+        "Week 2: Project 2: A technical documentation page with sidebar navigation.",
+        "Week 3: Project 3: A product landing page with a responsive feature section.",
+        "Week 4: Refactor and deploy all three projects to GitHub Pages."
+    ],
+    // === WEB DEVELOPER - YEAR 2 ===
+    "Advanced JavaScript (ES6+, Async/Await)": [
+        "Week 1: Learn ES6 arrow functions, destructuring, and spread/rest operators.",
+        "Week 2: Understand the event loop, callbacks, and asynchronous JS.",
+        "Week 3: Master Promises (.then, .catch, Promise.all) for async operations.",
+        "Week 4: Learn async/await syntax to write cleaner asynchronous code."
+    ],
+    "Learn a CSS Framework (Tailwind/Bootstrap)": [
+        "Week 1: Understand CSS frameworks and set up a Tailwind CSS project.",
+        "Week 2: Learn utility-first workflow and build responsive components.",
+        "Week 3: Explore advanced Tailwind features (custom config, dark mode).",
+        "Week 4: Rebuild a static website from scratch using Tailwind CSS."
+    ],
+    "Master React.js Basics & Hooks": [
+        "Week 1: Understand JSX and create your first functional components.",
+        "Week 2: Learn about props to pass data and render dynamic lists.",
+        "Week 3: Master the useState hook to manage component-level state.",
+        "Week 4: Deep dive into the useEffect hook for handling side effects."
+    ],
+    "Understand REST APIs & Data Fetching": [
+        "Week 1: Understand RESTful principles and how to interact with APIs.",
+        "Week 2: Use the Fetch API to retrieve data from a public endpoint.",
+        "Week 3: Handle loading states, errors, and conditional rendering in React.",
+        "Week 4: Implement React Router to build a multi-page single-page app (SPA)."
+    ],
+    "Build Responsive Dynamic Web Projects": [
+        "Week 1: Plan and design a dynamic app like a movie database browser.",
+        "Week 2: Build the core UI components and configure routing.",
+        "Week 3: Integrate with a free public API to fetch and display data.",
+        "Week 4: Add features like search/filtering and deploy to Vercel/Netlify."
+    ],
+    // === WEB DEVELOPER - YEAR 3 ===
+    "Learn Node.js & Express.js Fundamentals": [
+        "Week 1: Intro to Node.js, the event loop, and built-in modules.",
+        "Week 2: Set up an Express.js server, routing, and handle requests.",
+        "Week 3: Learn middleware and implement custom logging functions.",
+        "Week 4: Build a basic REST API with GET, POST, PUT, DELETE endpoints."
+    ],
+    "Master Relational & NoSQL Databases": [
+        "Week 1: Database theory, SQL DDL/DML, and PostgreSQL basics.",
+        "Week 2: Practice complex SQL queries (JOINs, GROUP BY, aggregations).",
+        "Week 3: Intro to NoSQL, document-based DBs, and set up MongoDB Atlas.",
+        "Week 4: Learn basic CRUD operations in MongoDB and schema design."
+    ],
+    "Understand RESTful APIs & Authentication": [
+        "Week 1: Deep dive into API design, status codes, and use Postman.",
+        "Week 2: Connect your Express API to a database (PostgreSQL/MongoDB).",
+        "Week 3: Understand auth vs authorization; hash passwords with bcrypt.",
+        "Week 4: Implement JSON Web Tokens (JWT) and protect routes."
+    ],
+    "Implement CRUD Operations Securely": [
+        "Week 1: Build robust Create and Read endpoints for your resources.",
+        "Week 2: Build Update and Delete routes with proper access control.",
+        "Week 3: Add input data validation (e.g., using Joi or Express-validator).",
+        "Week 4: Implement global error handling and secure HTTP headers."
+    ],
+    "Build a Full-Stack Web Application": [
+        "Week 1: Plan a full-stack project (e.g., a simple blog or dashboard).",
+        "Week 2: Build the complete backend API with Node.js and your DB.",
+        "Week 3: Build the React frontend, including forms and data displays.",
+        "Week 4: Connect frontend to backend, handle state, and deploy."
+    ],
+    // === WEB DEVELOPER - YEAR 4 ===
+    "Learn TypeScript & Next.js": [
+        "Week 1: Intro to TypeScript static typing, interfaces, and types.",
+        "Week 2: Advanced TS features (generics, enums) and converting JS projects.",
+        "Week 3: Intro to Next.js file-based routing, SSR, and SSG.",
+        "Week 4: Build a Next.js application fetching data with server-side functions."
+    ],
+    "Learn Docker & Containerization": [
+        "Week 1: What is Docker? Write your first Dockerfile for a Node app.",
+        "Week 2: Learn Docker commands, port mapping, and volumes.",
+        "Week 3: Create a multi-container app using docker-compose.",
+        "Week 4: Push Docker images to a registry and understand best practices."
+    ],
+    "Deploy on Cloud & CI/CD Pipelines": [
+        "Week 1: Deploy a Next.js app to Vercel and a Node API to Render/Heroku.",
+        "Week 2: Intro to AWS (EC2/S3) and manual deployments on Linux instances.",
+        "Week 3: Understand Continuous Integration and Continuous Deployment (CI/CD).",
+        "Week 4: Create a GitHub Actions workflow to automate tests and deployments."
+    ],
+    "Understand System Design & Microservices": [
+        "Week 1: System design fundamentals: scalability, load balancing, CDNs.",
+        "Week 2: Monolith vs. Microservices and communication patterns (REST/gRPC).",
+        "Week 3: Asynchronous messaging (message queues like RabbitMQ).",
+        "Week 4: Design scalable systems and practice architecture interviews."
+    ],
+    "Build a Large-Scale Production Project": [
+        "Week 1: Plan a complex architecture (e.g., an e-commerce or real-time chat app).",
+        "Week 2: Implement microservices/backend logic and containerize them.",
+        "Week 3: Build a feature-rich frontend and integrate complex state management.",
+        "Week 4: Set up CI/CD, deploy to the cloud, and implement monitoring."
+    ]
+};
+
+function getSubProgress(domain, year, total){
+  const key=`progress_sub_${domain}_${year}`;
+  let saved = JSON.parse(localStorage.getItem(key));
+  if (!saved || saved.length !== total) {
+    // Backward compatibility: if main tasks were already checked, reflect that in sub-tasks
+    const mainChecked = getProgress(domain, year);
+    saved = Array.from({length: total}, (_, i) => {
+      const isDone = mainChecked[i] === true;
+      return [isDone, isDone, isDone, isDone];
+    });
+    saveSubProgress(domain, year, saved);
+  }
+  return saved;
+}
+function saveSubProgress(domain, year, subChecked){
+  localStorage.setItem(`progress_sub_${domain}_${year}`, JSON.stringify(subChecked));
+}
+
+function generateMonthWisePlan(title, color, domain, year, idx, subCheckedItem) {
+  let weeks;
+  
+  // Extract title correctly if an object was passed
+  const taskTitle = typeof title === 'object' ? title.title : title;
+  
+  // Check for a specific, detailed plan first
+  if (weeklyPlans[taskTitle]) {
+      weeks = weeklyPlans[taskTitle];
+  } else {
+      // Advanced Dynamic Weekly Planner for all domains
+      const lowerTitle = taskTitle.toLowerCase();
+      
+      // Extract the core subject from the task title
+      let subject = taskTitle.replace(/^(Learn |Master |Understand |Build |Develop |Participate in |Create |Advanced |Work with |Work on |Get |Practice |Deploy |Publish |Apply for |Prepare for |Analyse |Use |Write |Implement )/i, '').trim();
+      if (!subject) subject = taskTitle; // Fallback
+
+      // Categorize task to generate accurate linear roadmap
+      if (lowerTitle.includes("build") || lowerTitle.includes("create") || lowerTitle.includes("develop") || lowerTitle.includes("project")) {
+          weeks = [
+            `Planning & Architecture. Define the scope, requirements, wireframes, and tech stack for ${subject}.`,
+            `Core Implementation. Write the foundational code, set up the database/environment, and build main features.`,
+            `Refinement & Advanced Features. Add polish, handle edge cases, improve UI/UX, and optimize performance.`,
+            `Testing & Deployment. Perform thorough testing, fix critical bugs, and deploy the project to production.`
+          ];
+      } else if (lowerTitle.includes("deploy") || lowerTitle.includes("publish") || lowerTitle.includes("cloud")) {
+          weeks = [
+            `Environment Setup. Prepare the production environment, configure servers, and manage environment variables.`,
+            `CI/CD & Automation. Set up pipelines (e.g., GitHub Actions) for automated testing and building.`,
+            `Deployment & Migration. Safely deploy the application, configure domain/SSL, and migrate any necessary data.`,
+            `Monitoring & Maintenance. Set up logging, monitor application health, and plan for scaling.`
+          ];
+      } else if (lowerTitle.includes("prepare") || lowerTitle.includes("apply") || lowerTitle.includes("interview") || lowerTitle.includes("portfolio")) {
+          weeks = [
+            `Resume & Portfolio. Update your resume, optimize your LinkedIn profile, and polish your portfolio projects.`,
+            `Core Concepts Review. Deeply review fundamental concepts, data structures, algorithms, and system design.`,
+            `Mock Interviews. Practice common technical and behavioral interview questions. Do peer mock interviews.`,
+            `Application Strategy. Start applying to target companies, attend networking events, and follow up.`
+          ];
+      } else if (lowerTitle.includes("test") || lowerTitle.includes("qa") || lowerTitle.includes("verify") || lowerTitle.includes("bug")) {
+          weeks = [
+            `Test Planning. Understand requirements, identify test scenarios, and write comprehensive test cases for ${subject}.`,
+            `Manual & Functional Testing. Execute test cases, identify edge cases, and report bugs effectively.`,
+            `Automation Setup. Write automated test scripts (unit/integration/E2E) for the identified core flows.`,
+            `CI/CD Integration. Integrate automated tests into the deployment pipeline and analyze coverage reports.`
+          ];
+      } else if (lowerTitle.includes("database") || lowerTitle.includes("sql") || lowerTitle.includes("data ")) {
+          weeks = [
+            `Data Modeling & Fundamentals. Understand schema design, data types, and basic querying for ${subject}.`,
+            `Advanced Operations. Master complex queries, aggregations, joins, or indexing strategies.`,
+            `Performance & Optimization. Analyze query performance, implement caching, and optimize data retrieval.`,
+            `Integration. Connect the database/data pipeline to an application and perform real-world CRUD operations.`
+          ];
+      } else {
+          // Default learning pattern
+          weeks = [
+            `Introduction & Fundamentals. Learn the basic theory, syntax, and environment setup for ${subject}.`,
+            `Core Concepts & Practice. Deep dive into the main features, APIs, and complete hands-on exercises.`,
+            `Advanced Topics. Explore complex patterns, best practices, and edge cases related to ${subject}.`,
+            `Mini-Project Integration. Consolidate your knowledge by building a small real-world module utilizing ${subject}.`
+          ];
+      }
+  }
+  let html = `<div class="subtask-list">`;
+  for(let i=0; i<4; i++){
+    const isDone = subCheckedItem[i] ? 'checked' : '';
+    html += `
+      <div class="subtask-item" style="border-left-color: ${color}; align-items: flex-start;">
+        <input type="checkbox" class="item-checkbox sub-checkbox" id="subcheck-${year}-${idx}-${i}" ${isDone}
+          onchange="toggleSubItem('${domain}', ${year}, ${idx}, ${i}, this)" onclick="event.stopPropagation()">
+        <div>
+          <div class="subtask-month" style="display:inline-block;">Week ${i+1}</div>
+          <div class="subtask-desc" style="margin-top:6px;">${weeks[i]}</div>
+        </div>
+      </div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
 function generateRoadmap(){
   const domain = document.getElementById("domain").value;
   if (!domain || !roadmaps[domain]) {
     document.getElementById("roadmapOutput").innerHTML = `<p style="color:var(--red);">Please search and select a valid domain.</p>`;
+    const timeIndicator = document.getElementById("time-indicator");
+    if (timeIndicator) timeIndicator.style.display = 'none';
     return;
   }
   const year = parseInt(document.getElementById("year").value);
+  const startYear = year === 0 ? 1 : year;
+  const endYear = 4; // Always output up to year 4 so users see the job application phase
+
+  // ===== DYNAMIC TIME INDICATOR LOGIC =====
+  const yearsToComplete = endYear - startYear + 1;
+  const timeText = yearsToComplete > 1 ? `${yearsToComplete} years` : `1 year`;
+  const timeIndicator = document.getElementById("time-indicator");
+  if (timeIndicator) {
+    timeIndicator.innerHTML = `<i class="fa-solid fa-hourglass-half"></i> &nbsp; Estimated Time to Complete: <strong>${timeText}</strong>`;
+    timeIndicator.style.display = 'block';
+  }
+  // ========================================
+
   let output=`<div class="domain-label"><i class="fa-solid fa-map"></i> &nbsp;${domain}</div>`;
 
   if(roadmaps[domain].free || roadmaps[domain].paid){
@@ -288,12 +555,17 @@ function generateRoadmap(){
     output+=`</div>`;
   }
 
-  for(let y=year; y<=4; y++){
+  for(let y=startYear; y<=endYear; y++){
     const items=roadmaps[domain][y];
-    const checked=getProgress(domain,y);
     const total=Array.isArray(items)?items.length:0;
-    const done=checked.filter(Boolean).length;
-    const pct=total>0?Math.round((done/total)*100):0;
+    const checked=getProgress(domain,y);
+    if(checked.length<total) saveProgress(domain, y, Array(total).fill(false)); // pad array
+    const subChecked=getSubProgress(domain,y,total);
+    
+    let doneSub = 0;
+    subChecked.forEach(arr => doneSub += arr.filter(Boolean).length);
+    const totalSub = total * 4;
+    const pct = totalSub > 0 ? Math.round((doneSub/totalSub)*100) : 0;
 
     output+=`
     <div class="year-header">
@@ -304,7 +576,7 @@ function generateRoadmap(){
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
         <span class="year-progress-label" id="pct-label-${y}">${pct}%</span>
-        <span id="done-label-${y}" style="font-size:11px;color:var(--muted);">${done}/${total} done</span>
+        <span id="done-label-${y}" style="font-size:11px;color:var(--muted);">${doneSub}/${totalSub} weeks done</span>
       </div>
     </div>
     <div class="year-progress-wrap">
@@ -319,9 +591,9 @@ function generateRoadmap(){
           const icon=domainIcons[item.domain]||"fa-solid fa-circle";
           const isDone=checked[i]||false;
           output+=`
-          <div class="roadmap-card ${isDone?'completed':''}" id="card-${y}-${i}" style="border-left:4px solid ${color};">
+          <div class="roadmap-card ${isDone?'completed':''}" id="card-${y}-${i}" style="border-left:4px solid ${color};" onclick="toggleSubtasks('sub-${y}-${i}')">
             <div style="display:flex;align-items:flex-start;gap:14px;">
-              <input type="checkbox" class="item-checkbox" ${isDone?'checked':''}
+              <input type="checkbox" class="item-checkbox" id="check-${y}-${i}" ${isDone?'checked':''}
                 onchange="toggleItem('${domain}',${y},${i},this)" onclick="event.stopPropagation()">
               <div style="flex:1;">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
@@ -331,6 +603,7 @@ function generateRoadmap(){
                     </span>
                     <strong class="card-title" style="font-size:15px;color:var(--text);font-weight:600;">${i+1}. ${item.title}</strong>
                   </div>
+                  <i class="fa-solid fa-chevron-down expand-icon" id="icon-sub-${y}-${i}" style="color:var(--muted); font-size: 12px; transition: 0.3s;"></i>
                 </div>
                 <p style="font-size:13px;color:var(--text-secondary);margin:0 0 12px;line-height:1.6;">${item.desc}</p>
                 <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
@@ -339,17 +612,37 @@ function generateRoadmap(){
                 <div style="font-size:12px;color:${color};display:flex;align-items:center;gap:6px;">
                   <i class="fa-solid fa-circle-check"></i> ${item.outcome}
                 </div>
+                
+                <!-- Subtasks Container (Month-wise) -->
+                <div id="sub-${y}-${i}" class="subtasks-container" onclick="event.stopPropagation()">
+                  <div style="font-size: 12px; font-weight: 600; color: ${color}; margin-bottom: 12px; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;">
+                    <i class="fa-regular fa-calendar-check"></i> 1-Month Detail Plan
+                  </div>
+                  ${generateMonthWisePlan(item.title, color, domain, y, i, subChecked[i])}
+                </div>
               </div>
             </div>
           </div>`;
         } else {
           const isDone=checked[i]||false;
           output+=`
-          <div class="roadmap-card ${isDone?'completed':''}" id="card-${y}-${i}" style="border-left:4px solid var(--green);">
-            <div style="display:flex;align-items:center;gap:14px;">
-              <input type="checkbox" class="item-checkbox" ${isDone?'checked':''}
+          <div class="roadmap-card ${isDone?'completed':''}" id="card-${y}-${i}" style="border-left:4px solid var(--green);" onclick="toggleSubtasks('sub-${y}-${i}')">
+            <div style="display:flex;align-items:flex-start;gap:14px;">
+              <input type="checkbox" class="item-checkbox" id="check-${y}-${i}" ${isDone?'checked':''}
                 onchange="toggleItem('${domain}',${y},${i},this)" onclick="event.stopPropagation()">
-              <span class="card-title" style="font-size:14px;">${item}</span>
+              <div style="flex:1;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span class="card-title" style="font-size:14px; font-weight: 500;">${item}</span>
+                  <i class="fa-solid fa-chevron-down expand-icon" id="icon-sub-${y}-${i}" style="color:var(--muted); font-size: 12px; transition: 0.3s;"></i>
+                </div>
+                <!-- Subtasks Container (Month-wise) -->
+                <div id="sub-${y}-${i}" class="subtasks-container" onclick="event.stopPropagation()">
+                  <div style="font-size: 12px; font-weight: 600; color: var(--green); margin-bottom: 12px; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;">
+                    <i class="fa-regular fa-calendar-check"></i> 1-Month Detail Plan
+                  </div>
+                  ${generateMonthWisePlan(item, 'var(--green)', domain, y, i, subChecked[i])}
+                </div>
+              </div>
             </div>
           </div>`;
         }
@@ -360,29 +653,125 @@ function generateRoadmap(){
   document.getElementById("roadmapOutput").innerHTML = output;
 }
 
+function toggleSubtasks(id) {
+  const container = document.getElementById(id);
+  const icon = document.getElementById('icon-' + id);
+  if (container.classList.contains('active')) {
+    container.classList.remove('active');
+    if(icon) icon.style.transform = 'rotate(0deg)';
+  } else {
+    container.classList.add('active');
+    if(icon) icon.style.transform = 'rotate(180deg)';
+  }
+}
+
 function toggleItem(domain, year, idx, el){
   const items=roadmaps[domain][year];
   const total=Array.isArray(items)?items.length:0;
+  
+  // Update Main Progress
   let checked=getProgress(domain,year);
   if(checked.length<total) checked=Array(total).fill(false);
   checked[idx]=el.checked;
   saveProgress(domain,year,checked);
+  
   const card=document.getElementById(`card-${year}-${idx}`);
   if(card) card.classList.toggle('completed',el.checked);
-  const done=checked.filter(Boolean).length;
-  const pct=total>0?Math.round((done/total)*100):0;
+  
+  // Sync Sub-tasks (4 weeks) when main task is toggled
+  let subChecked = getSubProgress(domain, year, total);
+  subChecked[idx] = [el.checked, el.checked, el.checked, el.checked];
+  saveSubProgress(domain, year, subChecked);
+  
+  // Visually update the UI checkboxes
+  for(let i=0; i<4; i++) {
+    let subBox = document.getElementById(`subcheck-${year}-${idx}-${i}`);
+    if(subBox) subBox.checked = el.checked;
+  }
+  
+  updateProgressBar(domain, year, total, subChecked);
+}
+
+function toggleSubItem(domain, year, idx, subIdx, el) {
+  const items = roadmaps[domain][year];
+  const total = Array.isArray(items) ? items.length : 0;
+  let subChecked = getSubProgress(domain, year, total);
+  
+  subChecked[idx][subIdx] = el.checked;
+  saveSubProgress(domain, year, subChecked);
+  
+  // Auto-check main task if all 4 weeks are completed
+  const allSubDone = subChecked[idx].every(Boolean);
+  const mainCheck = document.getElementById(`check-${year}-${idx}`);
+  if (mainCheck && mainCheck.checked !== allSubDone) {
+    mainCheck.checked = allSubDone;
+    toggleItem(domain, year, idx, mainCheck);
+  } else {
+    updateProgressBar(domain, year, total, subChecked);
+  }
+}
+
+function updateProgressBar(domain, year, total, subChecked) {
+  let doneSub = 0;
+  subChecked.forEach(arr => doneSub += arr.filter(Boolean).length);
+  const totalSub = total * 4;
+  const pct = totalSub > 0 ? Math.round((doneSub/totalSub)*100) : 0;
+  
   const bar=document.getElementById(`prog-${year}`);
   if(bar) bar.style.width=pct+'%';
   const lbl=document.getElementById(`pct-label-${year}`);
   if(lbl) lbl.textContent=pct+'%';
   const sub=document.getElementById(`done-label-${year}`);
-  if(sub) sub.textContent=`${done}/${total} done`;
+  if(sub) sub.textContent=`${doneSub}/${totalSub} weeks done`;
 }
 
-function downloadRoadmap() {
+function downloadRoadmap(type = 'pdf') {
   const domain = document.getElementById("domain").value;
   if (!roadmaps[domain]) {
     alert("Please select a domain to download.");
+    return;
+  }
+
+  const yearVal = parseInt(document.getElementById("year").value);
+  const startYear = yearVal === 0 ? 1 : yearVal;
+  const endYear = 4;
+
+  if (type === 'word') {
+    let content = `<html><head><meta charset='utf-8'><title>${domain} - Career Roadmap</title></head><body style="font-family: Arial, sans-serif;">`;
+    content += `<h1 style="color: #0055aa;">${domain} - Career Roadmap</h1>`;
+    if (roadmaps[domain].free || roadmaps[domain].paid) {
+      content += `<h3>Recommended Resources:</h3><ul>`;
+      if (roadmaps[domain].free) content += `<li>Free: <a href="${roadmaps[domain].free}">${roadmaps[domain].free}</a></li>`;
+      if (roadmaps[domain].paid) content += `<li>Paid: <a href="${roadmaps[domain].paid}">${roadmaps[domain].paid}</a></li>`;
+      content += `</ul><hr/>`;
+    }
+    for (let y = startYear; y <= endYear; y++) {
+      if (!roadmaps[domain][y]) continue;
+      content += `<h2 style="color: #0055aa;">Year ${y}</h2>`;
+      const items = roadmaps[domain][y];
+      if (Array.isArray(items)) {
+        content += `<ol>`;
+        items.forEach((item, idx) => {
+          if (typeof item === 'string') {
+            content += `<li style="margin-bottom: 8px;">${item}</li>`;
+          } else {
+            content += `<li style="margin-bottom: 12px;"><strong>${item.title} [${item.domain}]</strong><br/>${item.desc}`;
+            if (item.tools) content += `<br/><em>Tools: ${item.tools.join(", ")}</em>`;
+            content += `</li>`;
+          }
+        });
+        content += `</ol>`;
+      }
+    }
+    content += `</body></html>`;
+    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${domain.replace(/\s+/g, '_')}_Roadmap.doc`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
     return;
   }
 
@@ -417,7 +806,7 @@ function downloadRoadmap() {
     yPos += 10;
   }
 
-  for (let y = 1; y <= 4; y++) {
+  for (let y = startYear; y <= endYear; y++) {
     if (!roadmaps[domain][y]) continue;
     if (yPos > pageHeight - 40) { doc.addPage(); yPos = 20; }
 
@@ -853,10 +1242,68 @@ ${getVal("achieve")}
   document.getElementById("resumeOutput").style.display="block";
 }
 
-function downloadResume(){
+function downloadResume(type = 'pdf'){
+    const getVal = (id) => document.getElementById(id).value.trim();
+
+    if (type === 'word') {
+        let content = `<html><head><meta charset='utf-8'><title>Resume - ${getVal("name")}</title></head><body style="font-family: Arial, sans-serif;">`;
+        content += `<h1 style="text-align: center; color: #333;">${getVal("name").toUpperCase()}</h1>`;
+        let contactInfo = [getVal("city"), getVal("phone"), getVal("email")].filter(Boolean).join(' | ');
+        content += `<p style="text-align: center; color: #555;">${contactInfo}</p>`;
+        let links = [`GitHub: ${getVal("github")}`, `LinkedIn: ${getVal("linkedin")}`].filter(l => l.endsWith(': ') === false);
+        if (links.length > 0) {
+            content += `<p style="text-align: center; color: #555;">${links.join(' | ')}</p>`;
+        }
+        content += `<hr/>`;
+        if (getVal('summary')) { 
+            content += `<h2 style="color: #0055aa;">Profile</h2><p>${getVal('summary').replace(/\n/g, '<br/>')}</p>`;
+        }
+        if (getVal('skills')) { 
+            content += `<h2 style="color: #0055aa;">Technical Skills</h2><ul>`;
+            getVal('skills').split(',').forEach(skill => {
+                if(skill.trim()) content += `<li>${skill.trim()}</li>`;
+            });
+            content += `</ul>`;
+        }
+        if (getVal('college')) {
+            content += `<h2 style="color: #0055aa;">Education</h2>`;
+            content += `<p><strong>${getVal('college')}</strong><br/>`;
+            content += `${getVal('degree')} | Graduation Year: ${getVal('gradYear')}<br/>`;
+            if (getVal('cgpa')) { content += `CGPA: ${getVal('cgpa')}`; }
+            content += `</p>`;
+        }
+        if (getVal('projTitle')) {
+            content += `<h2 style="color: #0055aa;">Projects</h2>`;
+            content += `<p><strong>${getVal('projTitle')}</strong> <em>(${getVal('projTech')})</em></p><ul>`;
+            getVal('projDesc').split('\n').filter(item => item.trim()).forEach(item => {
+                content += `<li>${item.trim()}</li>`;
+            });
+            content += `</ul>`;
+        }
+        if (getVal('certs')) { 
+            content += `<h2 style="color: #0055aa;">Certifications</h2><ul>`;
+            getVal('certs').split('\n').filter(item => item.trim()).forEach(item => { content += `<li>${item.trim()}</li>`; });
+            content += `</ul>`;
+        }
+        if (getVal('achieve')) { 
+            content += `<h2 style="color: #0055aa;">Achievements & Activities</h2><ul>`;
+            getVal('achieve').split('\n').filter(item => item.trim()).forEach(item => { content += `<li>${item.trim()}</li>`; });
+            content += `</ul>`;
+        }
+        content += `</body></html>`;
+        const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Resume_${getVal("name").replace(/\s+/g, '_') || 'Generated'}.doc`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        return;
+    }
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'pt', 'a4');
-    const getVal = (id) => document.getElementById(id).value.trim();
 
     const margin = 40;
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -1224,4 +1671,671 @@ window.onload=function(){
     }
   }
   initParticles();
+  renderSavedStartups(); // Load saved startups on boot
+  renderSavedSimulations(); // Load saved simulations
+  
+  // Safeguard: Completely remove the loading overlay so it never blocks clicks
+  setTimeout(() => {
+    const loader = document.querySelector('.page-transition');
+    if (loader) loader.remove();
+  }, 1500);
+}
+
+// ==========================================
+// 🚀 STARTUP IDEA GENERATOR LOGIC
+// ==========================================
+
+let currentGeneratedIdea = null;
+
+async function generateStartup() {
+  const interest = document.getElementById("suInterest").value || "General Tech";
+  const budget = document.getElementById("suBudget").value || "Low";
+  const goal = document.getElementById("suGoal").value || "Startup";
+  const time = document.getElementById("suTime").value || "Part-time";
+  const skills = document.getElementById("suSkills").value || "General IT skills";
+
+  document.getElementById("startupOutput").innerHTML = "";
+  document.getElementById("startupLoading").style.display = "block";
+
+  const prompt = `Generate a highly practical and innovative startup idea based on the following:
+Interests: ${interest}
+Skills: ${skills}
+Budget: ${budget}
+Goal: ${goal}
+Time Availability: ${time}
+
+Return STRICTLY in valid JSON format. Do not include markdown code blocks, just raw JSON:
+{
+  "name": "Idea Name",
+  "tagline": "Catchy tagline",
+  "description": "2-3 sentences explaining the core concept",
+  "problem": "The exact problem this solves",
+  "solution": "How this product/service solves it",
+  "targetAudience": "Who will buy this",
+  "revenueModel": "How it makes money (e.g. Subscription, Freemium)",
+  "difficulty": "Low / Medium / High",
+  "growth": "Local / Scalable / High / Exponential",
+  "steps": ["Step 1 to start", "Step 2", "Step 3", "Step 4"]
+}`;
+
+  let ideaData = null;
+
+  try {
+    // Primary Method: Call Gemini AI
+    const API_KEY = "YOUR_GEMINI_API_KEY"; // Uses the same key format you set up previously
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      })
+    });
+
+    const data = await response.json();
+    let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    
+    if (rawText) {
+      // Clean markdown JSON formatting if Gemini included it
+      rawText = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+      ideaData = JSON.parse(rawText);
+    }
+  } catch (error) {
+    console.warn("AI Generation Failed or API Key missing. Falling back to local JSON data...", error);
+  }
+
+  // Fallback Method: Fetch from local startupIdeas.json
+  if (!ideaData || !ideaData.name) {
+    try {
+      const localRes = await fetch("startupIdeas.json");
+      const localIdeas = await localRes.json();
+      
+      // Try to filter by budget or just pick random if filters are too strict
+      let filtered = localIdeas.filter(i => i.budget.includes(budget.split(" ")[0]) || i.category.includes(interest.split(" ")[0]));
+      if (filtered.length === 0) filtered = localIdeas; // Fallback to all if no match
+      
+      const randomIdea = filtered[Math.floor(Math.random() * filtered.length)];
+      
+      // Map local format to expected format
+      ideaData = {
+        name: randomIdea.name,
+        tagline: `A ${randomIdea.type} in ${randomIdea.category}`,
+        description: randomIdea.description,
+        problem: randomIdea.problem || "Existing solutions are too expensive or inefficient.",
+        solution: randomIdea.solution || "An optimized, automated, and accessible alternative.",
+        targetAudience: randomIdea.targetAudience || "Small businesses and independent creators.",
+        revenueModel: randomIdea.revenueModel || "Subscription / Pay-per-use",
+        difficulty: randomIdea.difficulty || "Medium",
+        growth: randomIdea.growth || "High Scalability",
+        steps: randomIdea.steps || ["Market Research", "Build MVP", "Launch Beta", "Gather Feedback"]
+      };
+    } catch (localError) {
+      console.error("Local JSON fetch failed too.", localError);
+      document.getElementById("startupLoading").style.display = "none";
+      document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red);">Failed to generate idea. Please ensure you are running on a local server (Live Server) to load the JSON file, or check your API key.</p>`;
+      return;
+    }
+  }
+
+  currentGeneratedIdea = ideaData;
+  document.getElementById("startupLoading").style.display = "none";
+  renderStartupIdea(ideaData);
+}
+
+function renderStartupIdea(idea) {
+  const outputDiv = document.getElementById("startupOutput");
+  
+  let stepsHtml = idea.steps.map(s => `<li>${s}</li>`).join("");
+
+  outputDiv.innerHTML = `
+    <div class="startup-result-card">
+      <div class="startup-header">
+        <div class="startup-name">${idea.name}</div>
+        <div class="startup-tagline">"${idea.tagline}"</div>
+      </div>
+      
+      <div class="startup-tags">
+        <span class="s-tag diff"><i class="fa-solid fa-gauge-high"></i> Difficulty: ${idea.difficulty}</span>
+        <span class="s-tag growth"><i class="fa-solid fa-arrow-trend-up"></i> Growth: ${idea.growth}</span>
+        <span class="s-tag rev"><i class="fa-solid fa-sack-dollar"></i> Model: ${idea.revenueModel}</span>
+      </div>
+
+      <div class="startup-detail-box">
+        <div class="startup-detail-title">Description</div>
+        <div class="startup-detail-content">${idea.description}</div>
+      </div>
+
+      <div class="resume-grid" style="margin-bottom:0;">
+        <div class="startup-detail-box" style="border-left-color: var(--red);">
+          <div class="startup-detail-title" style="color: var(--red);">The Problem</div>
+          <div class="startup-detail-content">${idea.problem}</div>
+        </div>
+        <div class="startup-detail-box" style="border-left-color: var(--green);">
+          <div class="startup-detail-title" style="color: var(--green);">The Solution</div>
+          <div class="startup-detail-content">${idea.solution}</div>
+        </div>
+      </div>
+
+      <div class="startup-detail-box" style="border-left-color: var(--purple);">
+        <div class="startup-detail-title" style="color: var(--purple);">Target Audience</div>
+        <div class="startup-detail-content">${idea.targetAudience}</div>
+      </div>
+
+      <div class="resume-btns" style="margin-top: 25px;">
+        <button class="btn btn-outline" onclick="generateStartup()"><i class="fa-solid fa-rotate-right"></i> Regenerate</button>
+        <button class="btn btn-green" onclick="saveCurrentIdea()"><i class="fa-solid fa-floppy-disk"></i> Save Idea</button>
+        <button class="btn btn-blue" onclick="downloadStartupIdea('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+        <button class="btn btn-blue" onclick="downloadStartupIdea('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
+        <button class="btn btn-outline" onclick="document.getElementById('execSteps').classList.toggle('expanded')" style="border-color: var(--text-secondary) !important; color: var(--text);"><i class="fa-solid fa-list-check"></i> Execution Steps</button>
+      </div>
+
+      <div id="execSteps" class="startup-steps">
+        <div class="startup-detail-title" style="color: var(--cyan); margin-bottom:10px;">First Steps to Execute:</div>
+        <ul>${stepsHtml}</ul>
+      </div>
+    </div>
+  `;
+}
+
+function saveCurrentIdea() {
+  if (!currentGeneratedIdea) return;
+  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
+  saved.push(currentGeneratedIdea);
+  localStorage.setItem("savedStartups", JSON.stringify(saved));
+  alert("Idea saved successfully!");
+  renderSavedStartups();
+}
+
+function downloadStartupIdea(type = 'pdf') {
+  if (!currentGeneratedIdea) return;
+  const idea = currentGeneratedIdea;
+
+  if (type === 'word') {
+    let content = `<html><head><meta charset='utf-8'><title>Startup Idea - ${idea.name}</title></head><body style="font-family: Arial, sans-serif; line-height: 1.6;">`;
+    content += `<h1 style="text-align: center; color: #0055aa;">${idea.name.toUpperCase()}</h1>`;
+    content += `<p style="text-align: center; font-size: 14px;"><em>"${idea.tagline}"</em></p>`;
+    content += `<div style="text-align: center; margin-bottom: 20px;"><strong>Difficulty:</strong> ${idea.difficulty} | <strong>Growth:</strong> ${idea.growth} | <strong>Model:</strong> ${idea.revenueModel}</div>`;
+    content += `<hr style="margin-bottom: 20px;" />`;
+
+    content += `<h2 style="color: #0055aa;">Description</h2><p>${idea.description}</p>`;
+    content += `<h2 style="color: #0055aa;">The Problem</h2><p>${idea.problem}</p>`;
+    content += `<h2 style="color: #0055aa;">The Solution</h2><p>${idea.solution}</p>`;
+    content += `<h2 style="color: #0055aa;">Target Audience</h2><p>${idea.targetAudience}</p>`;
+
+    if (idea.steps && idea.steps.length > 0) {
+      content += `<h2 style="color: #0055aa;">Execution Steps</h2><ol>`;
+      idea.steps.forEach(step => {
+        content += `<li>${step}</li>`;
+      });
+      content += `</ol>`;
+    }
+    content += `</body></html>`;
+
+    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Startup_Idea_${idea.name.replace(/\s+/g, '_')}.doc`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    return;
+  }
+  
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p', 'pt', 'a4');
+  const margin = 40;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const contentWidth = pageWidth - (margin * 2);
+  let cursorY = margin;
+
+  const drawSectionTitle = (title) => {
+    if (cursorY > 750) { doc.addPage(); cursorY = margin; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text(title.toUpperCase(), margin, cursorY);
+    cursorY += 8;
+    doc.setLineWidth(1.5);
+    doc.line(margin, cursorY, pageWidth - margin, cursorY);
+    cursorY += 15;
+  };
+
+  const drawBodyText = (text) => {
+    if (!text) return;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    const lines = doc.splitTextToSize(text, contentWidth);
+    doc.text(lines, margin, cursorY);
+    cursorY += (lines.length * 12) + 10;
+  };
+
+  const drawList = (items) => {
+    if (!items || items.length === 0) return;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    items.forEach((item, idx) => {
+        const itemText = `${idx + 1}.  ${item.trim()}`;
+        const lines = doc.splitTextToSize(itemText, contentWidth - 10);
+        doc.text(lines, margin + 10, cursorY);
+        cursorY += (lines.length * 12) + 4;
+    });
+    cursorY += 10;
+  };
+
+  // HEADER
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.text(idea.name.toUpperCase(), pageWidth / 2, cursorY, { align: 'center' });
+  cursorY += 20;
+
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(12);
+  doc.text(`"${idea.tagline}"`, pageWidth / 2, cursorY, { align: 'center' });
+  cursorY += 20;
+  
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  const metadata = `Difficulty: ${idea.difficulty}   |   Growth: ${idea.growth}   |   Model: ${idea.revenueModel}`;
+  doc.text(metadata, pageWidth / 2, cursorY, { align: 'center' });
+  cursorY += 30;
+
+  // SECTIONS
+  drawSectionTitle('Description');
+  drawBodyText(idea.description);
+
+  drawSectionTitle('The Problem');
+  drawBodyText(idea.problem);
+
+  drawSectionTitle('The Solution');
+  drawBodyText(idea.solution);
+
+  drawSectionTitle('Target Audience');
+  drawBodyText(idea.targetAudience);
+
+  if (idea.steps && idea.steps.length > 0) {
+    drawSectionTitle('Execution Steps');
+    drawList(idea.steps);
+  }
+
+  doc.save(`Startup_Idea_${idea.name.replace(/\s+/g, '_')}.pdf`);
+}
+
+function deleteSavedIdea(index) {
+  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
+  saved.splice(index, 1);
+  localStorage.setItem("savedStartups", JSON.stringify(saved));
+  renderSavedStartups();
+}
+
+function renderSavedStartups() {
+  const grid = document.getElementById("savedStartupsGrid");
+  if(!grid) return;
+  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
+  
+  if (saved.length === 0) {
+    grid.innerHTML = `<p style="color:var(--muted); font-size: 14px;">No ideas saved yet.</p>`;
+    return;
+  }
+
+  grid.innerHTML = saved.map((idea, idx) => `
+    <div class="saved-card">
+      <button class="delete-saved-btn" onclick="deleteSavedIdea(${idx})" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+      <div class="saved-card-name">${idea.name}</div>
+      <div class="saved-card-tag">${idea.tagline}</div>
+      <div style="font-size: 12px; color: var(--text-secondary);">${idea.description.substring(0, 80)}...</div>
+    </div>
+  `).join("");
+}
+
+// ==========================================
+// 🧠 AI LIFE SIMULATOR (DECISION ENGINE)
+// ==========================================
+
+let currentSimulationData = null;
+let currentSimParams = null;
+
+function generateAdvancedSimulation() {
+  const status = document.getElementById("simStatus").value || "Beginner";
+  const finance = document.getElementById("simFinance").value || "Medium";
+  const risk = document.getElementById("simRisk").value || "Medium";
+  const time = document.getElementById("simTime").value || "Full-time (40 hrs/week)";
+  const marks = document.getElementById("simMarks").value || "Average";
+  const goal = document.getElementById("simGoal").value || "Career Success";
+  const skills = document.getElementById("simSkills").value || "General Tech Skills";
+  const interests = document.getElementById("simInterests").value || "General IT";
+
+  currentSimParams = { status, finance, risk, time, marks, goal, skills, interests };
+
+  document.getElementById("simOutputMain").innerHTML = "";
+  document.getElementById("simLoading").style.display = "block";
+
+  // Adding a slight delay to simulate "AI thinking" for better user experience
+  setTimeout(() => {
+    const simData = analyzeUser(currentSimParams);
+    document.getElementById("simLoading").style.display = "none";
+    
+    currentSimulationData = simData;
+    renderSimulationData(simData);
+  }, 800);
+}
+
+function analyzeUser(params) {
+  // 1. INPUT PARSING & WEIGHTS
+  const skillsLower = params.skills.toLowerCase();
+  const interestLower = params.interests.toLowerCase();
+  const isHighRisk = params.risk === "High";
+  const isLowRisk = params.risk === "Low";
+  const isFullTime = params.time.includes("Full-time") || params.time.includes("All-in");
+  const isPartTime = params.time.includes("Part-time");
+  const hasTechBiz = /tech|business|code|marketing|manage|python|java|html|css|js|react/i.test(skillsLower);
+  const isResearch = /research|core|science|study|phd|master/i.test(interestLower);
+  const isBeginner = params.status === "Beginner" || params.status === "Student";
+  const isLowFinance = params.finance === "Low";
+  
+  // Parse marks safely
+  let marksNum = parseFloat(params.marks.replace(/[^0-9.]/g, ''));
+  if (isNaN(marksNum)) {
+    if (params.marks.toLowerCase().includes("high") || params.marks.toLowerCase().includes("excellent") || params.marks.toLowerCase().includes("9") || params.marks.toLowerCase().includes("10")) marksNum = 9;
+    else marksNum = 7;
+  }
+  
+  const primarySkill = params.skills.split(",")[0].trim() || "General Operations";
+  const primaryInterest = params.interests.split(",")[0].trim() || "Tech";
+
+  // 2. DYNAMIC DECISION ENGINE
+  let path = "Corporate Job"; 
+  let reason = "";
+  let whyNotOthers = "";
+  
+  // Apply core rules
+  if (isHighRisk && hasTechBiz && isFullTime) {
+    path = "Business";
+    reason = `Your high risk tolerance, full-time availability, and background in ${primarySkill} make you an ideal candidate to build a startup in the ${primaryInterest} space.`;
+    whyNotOthers = "A traditional corporate job caps your potential upside, and higher studies would unnecessarily delay your entry into the fast-moving market.";
+  } else if (marksNum >= 8 && isResearch) {
+    path = "Higher Studies";
+    reason = `With a strong academic record (${params.marks}) and an interest in ${primaryInterest}, pursuing advanced research or higher education offers the best long-term leverage.`;
+    whyNotOthers = "Immediate corporate jobs might underutilize your academic potential, and business ventures require capital over research.";
+  } else {
+    path = "Corporate Job";
+    reason = `Given your ${params.risk} risk tolerance and ${params.time} availability, a corporate trajectory in ${primarySkill} provides the most reliable foundation to reach your goal of ${params.goal}.`;
+    whyNotOthers = "Business requires high immediate capital/risk which contradicts your profile, while higher studies require upfront investment without immediate financial returns.";
+  }
+
+  // 3. DYNAMIC SIMULATION GENERATOR
+  let baseSalary = isBeginner ? 4 : 8; // in Lakhs
+  if (isFullTime) baseSalary += 2;
+  if (isPartTime) baseSalary -= 2;
+  if (hasTechBiz) baseSalary += 2;
+
+  const rolePrefix = isBeginner ? "Junior" : "Lead";
+  const targetRole = path === "Business" ? `Founder (${primaryInterest})` : path === "Higher Studies" ? `Researcher / Scholar` : `${rolePrefix} ${primarySkill} Specialist`;
+
+  let sim = {};
+  
+  if (path === "Business") {
+    const y1Inc = isLowFinance ? "Bootstrap / ₹0 (Reinvesting)" : `Seed / Drawing ₹${(baseSalary/2).toFixed(1)}L/yr`;
+    const y3Inc = isHighRisk ? `₹${(baseSalary * 3).toFixed(1)}L/yr or ₹0 (Boom/Bust)` : `₹${(baseSalary * 1.5).toFixed(1)}L/yr (Profitable)`;
+    const y5Inc = isHighRisk ? "Acquisition / ₹1Cr+ Equity" : `₹${(baseSalary * 4).toFixed(1)}L/yr (Stable Scale)`;
+    sim = {
+      oneYear: { stage: `Early Stage ${targetRole}`, income: y1Inc, skills: ["Hustling", "Sales", `Applying ${primarySkill} to Product`], activities: ["Building MVP", `Finding ${primaryInterest} Customers`] },
+      threeYear: { stage: `Scaling ${targetRole}`, income: y3Inc, achievements: ["Product-Market Fit", "Hired initial team", "Secured key partnerships"], skills: ["Leadership", "Operations Management", "Pitching"] },
+      fiveYear: { stage: "Established Business Owner", income: y5Inc, stability: isHighRisk ? "Volatile but Lucrative" : "Moderate-High", lifestyle: "High autonomy, intense responsibility, unlimited upside." }
+    };
+  } else if (path === "Higher Studies") {
+    const y1Inc = isPartTime ? `Part-time Job / ₹${(baseSalary/2).toFixed(1)}L/yr` : `Stipend / ₹${(baseSalary/3).toFixed(1)}L/yr`;
+    const y5Inc = `Premium Salary / ₹${(baseSalary * 2.5).toFixed(1)}L/yr`;
+    sim = {
+      oneYear: { stage: "Master's/PhD Student", income: y1Inc, skills: [`Advanced ${primarySkill}`, "Academic Writing", "Methodology"], activities: ["Intense Coursework", `Deep-dive into ${primaryInterest} Literature`] },
+      threeYear: { stage: "Graduating / Post-Doc", income: `High Starting Package / ₹${(baseSalary * 1.5).toFixed(1)}L/yr`, achievements: ["Published Papers", `Deep Specialization in ${primaryInterest}`], skills: ["Data Analysis", "Domain Mastery"] },
+      fiveYear: { stage: "Subject Matter Expert / R&D", income: y5Inc, stability: "Very High", lifestyle: "Intellectually stimulating, prestigious, geographically flexible." }
+    };
+  } else {
+    const y1Inc = isPartTime ? `₹${(baseSalary * 0.6).toFixed(1)}L/yr (Part-time)` : `₹${baseSalary.toFixed(1)}L/yr`;
+    const y3Inc = isPartTime ? `₹${(baseSalary * 0.9).toFixed(1)}L/yr` : `₹${(baseSalary * 1.6).toFixed(1)}L/yr`;
+    const y5Inc = isPartTime ? `₹${(baseSalary * 1.2).toFixed(1)}L/yr` : `₹${(baseSalary * 2.4).toFixed(1)}L/yr`;
+    sim = {
+      oneYear: { stage: targetRole, income: y1Inc, skills: ["Corporate Communication", `Practical ${primarySkill}`, "Agile Workflows"], activities: ["Onboarding", `Delivering ${primaryInterest} projects`, "Networking"] },
+      threeYear: { stage: `Mid-Level ${primarySkill} Expert`, income: y3Inc, achievements: ["Leading minor projects", "Recognized Domain Expertise"], skills: ["Mentorship", "Advanced Technicals", "Cross-team Collab"] },
+      fiveYear: { stage: `Senior/Lead Position (${params.goal})`, income: y5Inc, stability: isLowRisk ? "Extremely High" : "High", lifestyle: "Comfortable, good work-life balance, high disposable income." }
+    };
+  }
+
+  // 4. DYNAMIC ACTION PLAN GENERATOR
+  let plan = { "30days": [], "3months": [], "6months": [], "1year": [] };
+  
+  // Universal starting step based on status
+  if (isBeginner) plan["30days"].push(`Start structured learning/courses specifically in ${primarySkill}.`);
+  else plan["30days"].push(`Audit current portfolio and optimize it around ${primarySkill} and ${primaryInterest}.`);
+
+  if (path === "Business") {
+    plan["30days"].push(isLowFinance ? `Validate ${primaryInterest} idea with zero cost using organic social media` : `Draft pitch deck and allocate initial budget for ${primaryInterest} prototype`);
+    plan["30days"].push("Draft a lean business model canvas");
+    plan["3months"].push(`Launch MVP using your ${primarySkill} skills to early adopters`);
+    plan["3months"].push(isHighRisk ? "Run aggressive paid marketing tests" : "Acquire first 10-50 customers organically");
+    plan["6months"].push("Achieve consistent monthly revenue and gather user testimonials");
+    plan["6months"].push(isFullTime ? "Dedicate 100% focus to scaling operations" : "Balance side-hustle tasks without burning out");
+    plan["1year"].push(isLowFinance ? "Reinvest all profits to grow without external funding" : "Explore Angel/Seed funding options");
+    plan["1year"].push("Hire first contractor or employee to offload operational tasks");
+  } else if (path === "Higher Studies") {
+    plan["30days"].push(`Shortlist target universities known for ${primaryInterest} programs`);
+    plan["30days"].push("Prepare for entrance exams (GRE/GATE/IELTS)");
+    plan["3months"].push("Draft Statement of Purpose connecting your past to your future goals");
+    plan["3months"].push(isBeginner ? "Secure academic letters of recommendation" : "Secure professional letters of recommendation");
+    plan["6months"].push("Submit all applications and actively apply for scholarships/grants");
+    plan["6months"].push(isLowFinance ? "Secure student loans or graduate assistantships" : "Arrange personal finances and visas");
+    plan["1year"].push(`Begin first semester focusing heavily on ${primarySkill} fundamentals`);
+    plan["1year"].push("Identify a core thesis topic and connect with research professors");
+  } else {
+    plan["30days"].push(`Update Resume & LinkedIn highlighting ${primarySkill}`);
+    plan["30days"].push(isLowRisk ? `Apply to 20+ stable corporate ${targetRole} positions` : `Apply to high-growth startup ${targetRole} positions`);
+    plan["3months"].push(`Prepare extensively for technical interviews testing ${primarySkill}`);
+    plan["3months"].push("Clear interviews and complete company onboarding");
+    plan["6months"].push(`Deliver first major project involving ${primaryInterest}`);
+    plan["6months"].push("Build internal network and identify mentors within the company");
+    plan["1year"].push(isPartTime ? "Request transition to full-time or higher hourly rate" : "Complete annual performance review and negotiate a raise");
+    plan["1year"].push("Plan the next 2-year trajectory towards your ultimate goal");
+  }
+
+  // 5. DYNAMIC ANALYSIS METRICS
+  let probNum = 65;
+  if (isFullTime) probNum += 15;
+  else if (isPartTime) probNum -= 10;
+  if (isHighRisk) probNum -= 15;
+  if (!isBeginner) probNum += 20;
+  if (path === "Business" && isLowFinance) probNum -= 10;
+  probNum = Math.min(Math.max(probNum, 10), 98); // clamp between 10-98
+
+  let diff = isBeginner ? "High" : "Medium";
+  if (path === "Business") diff = isLowFinance ? "Very High" : "High";
+  if (path === "Corporate Job" && !isBeginner) diff = "Low-Medium";
+
+  let backup = "";
+  if (path === "Business") backup = `Leverage your hands-on experience in ${primarySkill} to pivot into a Corporate Product Manager or Lead role.`;
+  else if (path === "Higher Studies") backup = `Pause studies and enter the corporate market directly as a ${targetRole}.`;
+  else backup = `Pivot to freelance consulting in ${primaryInterest} or upskill in adjacent domains.`;
+
+  // Format download output
+  const downloadSummary = `AI Life Simulation Report
+Path: ${path}
+Goal: ${params.goal}
+Reason: ${reason}
+
+--- 1 YEAR OUTLOOK ---
+Stage: ${sim.oneYear.stage}
+Income: ${sim.oneYear.income}
+
+--- 3 YEAR OUTLOOK ---
+Stage: ${sim.threeYear.stage}
+Income: ${sim.threeYear.income}
+
+--- 5 YEAR OUTLOOK ---
+Stage: ${sim.fiveYear.stage}
+Income: ${sim.fiveYear.income}
+Stability: ${sim.fiveYear.stability}`;
+
+  return {
+    selectedPath: path,
+    reason: reason,
+    whyNotOthers: whyNotOthers,
+    simulation: sim,
+    actionPlan: plan,
+    analysis: {
+      successProbability: `${probNum}%`,
+      riskLevel: params.risk,
+      difficulty: diff,
+      backupPlan: backup 
+    },
+    download: {
+      pdfContent: downloadSummary,
+      wordContent: downloadSummary
+    }
+  };
+}
+
+function renderSimulationData(data) {
+  const container = document.getElementById("simOutputMain");
+  
+  const riskClass = data.analysis.riskLevel.toLowerCase().includes('high') ? 'high-risk' : 
+                   (data.analysis.riskLevel.toLowerCase().includes('medium') ? 'med-risk' : '');
+
+  let html = `
+    <div class="decision-card">
+      <div style="font-size: 12px; color: var(--muted); text-transform:uppercase; letter-spacing: 2px;">AI Selected Path:</div>
+      <div class="decision-path"><i class="fa-solid fa-route"></i> ${data.selectedPath}</div>
+      
+      <div class="decision-reason-box">
+        <strong style="color:var(--green); font-size:12px; display:block; margin-bottom:4px;">Why this path?</strong>
+        <div style="font-size:14px; color:var(--text); line-height: 1.5;">${data.reason}</div>
+      </div>
+      <div class="decision-reason-box alt">
+        <strong style="color:var(--orange); font-size:12px; display:block; margin-bottom:4px;">Why not the others?</strong>
+        <div style="font-size:14px; color:var(--text); line-height: 1.5;">${data.whyNotOthers}</div>
+      </div>
+
+      <!-- Analysis Grid -->
+      <div class="analysis-grid">
+        <div class="analysis-stat">
+          <div class="sim-data-title">Success Prob.</div>
+          <div class="stat-val" style="color:var(--cyan);">${data.analysis.successProbability}</div>
+        </div>
+        <div class="analysis-stat ${riskClass}">
+          <div class="sim-data-title">Risk Level</div>
+          <div class="stat-val">${data.analysis.riskLevel}</div>
+        </div>
+        <div class="analysis-stat">
+          <div class="sim-data-title">Difficulty</div>
+          <div class="stat-val">${data.analysis.difficulty}</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,51,102,0.1); border:1px dashed var(--red); padding:12px; border-radius:8px; font-size:13px; margin-bottom:30px;">
+        <strong style="color:var(--red);">Backup Plan:</strong> ${data.analysis.backupPlan}
+      </div>
+
+      <!-- Timeline -->
+      <div class="sim-section-title"><i class="fa-solid fa-clock-rotate-left"></i> Future Simulation Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">
+          <div class="timeline-year">Year 1</div>
+          <div style="font-size:15px; font-weight:600; color:var(--text);">${data.simulation.oneYear.stage}</div>
+          <div style="font-size:13px; color:var(--green); margin-bottom:10px;"><i class="fa-solid fa-money-bill-trend-up"></i> ${data.simulation.oneYear.income}</div>
+          <div class="sim-data-grid">
+            <div class="sim-data-box"><div class="sim-data-title">Skills Gained</div><div class="sim-data-value">${data.simulation.oneYear.skills.join(", ")}</div></div>
+            <div class="sim-data-box"><div class="sim-data-title">Key Activities</div><div class="sim-data-value">${data.simulation.oneYear.activities.join(", ")}</div></div>
+          </div>
+        </div></div>
+
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">
+          <div class="timeline-year">Year 3</div>
+          <div style="font-size:15px; font-weight:600; color:var(--text);">${data.simulation.threeYear.stage}</div>
+          <div style="font-size:13px; color:var(--green); margin-bottom:10px;"><i class="fa-solid fa-money-bill-trend-up"></i> ${data.simulation.threeYear.income}</div>
+          <div class="sim-data-grid">
+            <div class="sim-data-box"><div class="sim-data-title">Achievements</div><div class="sim-data-value">${data.simulation.threeYear.achievements.join(", ")}</div></div>
+            <div class="sim-data-box"><div class="sim-data-title">Skills Gained</div><div class="sim-data-value">${data.simulation.threeYear.skills.join(", ")}</div></div>
+          </div>
+        </div></div>
+
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">
+          <div class="timeline-year">Year 5</div>
+          <div style="font-size:15px; font-weight:600; color:var(--text);">${data.simulation.fiveYear.stage}</div>
+          <div style="font-size:13px; color:var(--green); margin-bottom:10px;"><i class="fa-solid fa-money-bill-trend-up"></i> ${data.simulation.fiveYear.income}</div>
+          <div class="sim-data-grid">
+            <div class="sim-data-box"><div class="sim-data-title">Stability</div><div class="sim-data-value">${data.simulation.fiveYear.stability}</div></div>
+            <div class="sim-data-box"><div class="sim-data-title">Lifestyle</div><div class="sim-data-value">${data.simulation.fiveYear.lifestyle}</div></div>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- Action Plan -->
+      <div class="sim-section-title"><i class="fa-solid fa-list-check"></i> Step-by-Step Action Plan</div>
+      <div class="action-plan-grid">
+        <div class="action-card"><h4>First 30 Days</h4><ul>${data.actionPlan["30days"].map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="action-card"><h4>3 Months</h4><ul>${data.actionPlan["3months"].map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="action-card"><h4>6 Months</h4><ul>${data.actionPlan["6months"].map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="action-card"><h4>1 Year</h4><ul>${data.actionPlan["1year"].map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="resume-btns" style="margin-top: 30px; display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="generateAdvancedSimulation()"><i class="fa-solid fa-rotate-right"></i> Resimulate</button>
+        <button class="btn btn-green" onclick="saveSimulationData()"><i class="fa-solid fa-floppy-disk"></i> Save Plan</button>
+        <button class="btn btn-blue" onclick="downloadSimulation('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+        <button class="btn btn-blue" onclick="downloadSimulation('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
+      </div>
+    </div>
+  `;
+  container.innerHTML = html;
+}
+
+function saveSimulationData() {
+  if (!currentSimulationData || !currentSimParams) return;
+  let saved = JSON.parse(localStorage.getItem("savedSimulations") || "[]");
+  saved.push({ date: new Date().toLocaleDateString(), params: currentSimParams, data: currentSimulationData });
+  localStorage.setItem("savedSimulations", JSON.stringify(saved));
+  alert("Life Path Simulation saved successfully!");
+  renderSavedSimulations();
+}
+
+function renderSavedSimulations() {
+  const grid = document.getElementById("savedSimsGrid");
+  if(!grid) return;
+  let saved = JSON.parse(localStorage.getItem("savedSimulations") || "[]");
+  if (saved.length === 0) { grid.innerHTML = `<p style="color:var(--muted); font-size: 14px;">No simulations saved yet.</p>`; return; }
+  grid.innerHTML = saved.map((sim, idx) => `
+    <div class="saved-card" style="border-top: 3px solid var(--purple);">
+      <button class="delete-saved-btn" onclick="deleteSavedSimulation(${idx})" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+      <div class="saved-card-name">${sim.data.selectedPath} Path</div>
+      <div class="saved-card-tag">Goal: ${sim.params.goal} • ${sim.date}</div>
+      <div style="font-size: 12px; color: var(--text-secondary);"><strong>Yr 5 Expectation:</strong><br/>${sim.data.simulation.fiveYear.stage}<br/><span style="color:var(--green)">${sim.data.simulation.fiveYear.income}</span></div>
+    </div>
+  `).join("");
+}
+
+function deleteSavedSimulation(index) {
+  let saved = JSON.parse(localStorage.getItem("savedSimulations") || "[]");
+  saved.splice(index, 1);
+  localStorage.setItem("savedSimulations", JSON.stringify(saved));
+  renderSavedSimulations();
+}
+
+function downloadSimulation(type) {
+  if (!currentSimulationData) return;
+  let rawText = type === 'pdf' ? currentSimulationData.download.pdfContent : currentSimulationData.download.wordContent;
+  if (!rawText) rawText = "Data could not be formatted properly for download.";
+
+  if (type === 'word') {
+    let content = `<html><head><meta charset='utf-8'><title>Life Path Simulation</title></head><body style="font-family: Arial, sans-serif; line-height: 1.6;">`;
+    content += `<h1 style="color: #6c3fc5; text-align: center;">Your Selected Path: ${currentSimulationData.selectedPath}</h1><hr/>`;
+    content += `<p>${rawText.replace(/\n/g, '<br/>')}</p></body></html>`;
+    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `Life_Path_${currentSimulationData.selectedPath.replace(/\s+/g, '_')}.doc`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  } else {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const lines = doc.splitTextToSize(rawText, 500);
+    doc.setFontSize(16); doc.text(`Life Path: ${currentSimulationData.selectedPath}`, 40, 40);
+    doc.setFontSize(10); doc.text(lines, 40, 70);
+    doc.save(`Life_Path_${currentSimulationData.selectedPath.replace(/\s+/g, '_')}.pdf`);
+  }
 }
