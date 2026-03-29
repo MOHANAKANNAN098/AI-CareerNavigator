@@ -1291,7 +1291,8 @@ select:focus, input:focus, textarea:focus {
     top: 0;
     left: -100%; /* Start off-screen */
     width: 100%; /* FORCE FULL SCREEN FIT */
-    height: 100vh;
+    bottom: 0; /* Use top/bottom for robust full-height */
+    /* height: 100vh; - This is replaced by top/bottom */
     background: #0a0f2c;
     padding: 20px 5px 100px; /* Add bottom padding so last items are reachable */
     overflow-y: auto !important; /* CRITICAL: ENABLE SCROLL */
