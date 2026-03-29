@@ -1,11 +1,15 @@
 function showSection(id){
   document.querySelectorAll("section").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
-  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".nav-links button").forEach(b=>b.classList.remove("active"));
   document.getElementById("btn-"+id).classList.add("active");
   if(id==="jobs") renderChart();
   if(id==="mentor" && chatHistory.length === 0) initChatSuggestions();
   if(id==="analytics") updateAnalyticsDashboard();
+
+  // Close mobile nav menu on selection
+  const navLinks = document.querySelector('.nav-links');
+  if (navLinks) navLinks.classList.remove('open');
 }
 
 // ===== ANALYTICS ACTIVITY TRACKER =====
@@ -1712,6 +1716,21 @@ window.onload=function(){
   // LIVE DASHBOARD CONFIGURATION
   if (!sessionStorage.getItem('appSessionStart')) sessionStorage.setItem('appSessionStart', Date.now());
   setInterval(updateLiveDashboard, 3000); // Auto-Refresh loop
+
+  // Hamburger Menu Logic
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navLinks = document.querySelector('.nav-links');
+  if (hamburgerBtn && navLinks) {
+    hamburgerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+        navLinks.classList.remove('open');
+      }
+    });
+  }
 }
 
 // ==========================================

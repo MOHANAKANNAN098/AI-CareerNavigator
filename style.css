@@ -151,7 +151,7 @@ header::after {
 
 header h1 {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(26px, 5vw, 56px);
+  font-size: clamp(26px, 7vw, 56px); /* Adjusted for better scaling */
   font-weight: 900;
   letter-spacing: 4px;
   background: linear-gradient(135deg, var(--blue), var(--cyan), var(--green));
@@ -235,6 +235,19 @@ nav {
   z-index: 100;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   animation: fadeInDown 0.8s ease 1s both;
+}
+
+/* Hamburger Menu Button */
+.hamburger-btn {
+  display: none; /* Hidden on desktop */
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+  transition: var(--transition);
 }
 
 nav button {
@@ -323,7 +336,7 @@ section {
 /* ===== SECTION TITLE ===== */
 .stitle {
   font-family: 'Orbitron', monospace;
-  font-size: clamp(14px, 2.5vw, 20px);
+  font-size: clamp(16px, 3vw, 20px); /* Adjusted for responsiveness */
   font-weight: 700;
   letter-spacing: 3px;
   color: var(--cyan);
@@ -1255,20 +1268,78 @@ select:focus, input:focus, textarea:focus {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  nav {
+    justify-content: flex-end;
+    padding-right: 60px; /* Space for hamburger */
+  }
+  .hamburger-btn {
+    display: block;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -100%; /* Start off-screen */
+    width: 280px;
+    height: 100vh;
+    background: var(--surface);
+    backdrop-filter: blur(20px);
+    padding-top: 70px;
+    gap: 0;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.4);
+    border-right: 1px solid var(--glass-border);
+  }
+  .nav-links.open {
+    left: 0;
+  }
+  .nav-links button {
+    width: 100%;
+    text-align: left;
+    padding: 16px 24px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .nav-links button:hover, .nav-links button.active {
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--cyan);
+    transform: none;
+  }
+  .nav-links button::before {
+    left: 0;
+    transform: none;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(var(--blue), var(--cyan));
+    transition: width 0.3s ease;
+  }
+  .nav-links button:hover::before, .nav-links button.active::before {
+    width: 4px;
+  }
+}
+
 @media (max-width: 768px) {
   section { padding: 0 16px 60px; margin: 28px auto; }
   .resume-grid { grid-template-columns: 1fr; }
   .span2 { grid-column: span 1; }
-  nav { gap: 6px; padding: 10px 12px; }
-  nav button { font-size: 9px; padding: 7px 12px; }
   .card { padding: 18px; }
   .roadmap-card { padding: 16px; }
   .lang-selector {
-    top: 20px;
+    top: 14px;
     right: 10px;
     padding: 6px 10px;
   }
-  select, input[list], #roadmap .card button {
+  select, input, textarea, #roadmap .card button {
     width: 100%;
     margin-right: 0;
     margin-bottom: 10px;
@@ -1282,14 +1353,42 @@ select:focus, input:focus, textarea:focus {
   .res-view-btn { width: 100%; margin-top: 5px; }
   .likert-btn { padding: 12px 16px; font-size: 14px; }
   header h1 { letter-spacing: 2px; }
+  .analytics-row { grid-template-columns: 1fr; }
+  .ai-chat-wrap { height: 75vh; }
+  .team-img { width: 100px; height: 100px; }
+  .profile-btn-wrap {
+    top: 12px;
+    left: auto;
+    right: 55px; /* Position next to lang selector */
+  }
+  .profile-trigger-btn {
+    padding: 6px 6px 6px 6px;
+  }
+  .profile-username-label {
+    display: none; /* Hide username on small screens to save space */
+  }
+  .profile-dropdown {
+    left: auto;
+    right: 0;
+  }
 }
 
 @media (max-width: 480px) {
-  header { padding: 32px 16px 24px; }
+  header { padding: 40px 16px 24px; text-align: center; }
   .stitle { font-size: 13px; letter-spacing: 2px; }
   .btn { padding: 10px 16px; font-size: 9px; }
   .likert-btn { padding: 10px 14px; font-size: 13px; gap: 10px; }
   .likert-btn span { width: 22px; height: 22px; font-size: 10px; }
+  .auth-card { padding: 30px 20px; }
+  .auth-form-row { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-value { font-size: 24px; }
+  .decision-path { font-size: 22px; }
+  .startup-name { font-size: 22px; }
+  .profile-btn-wrap { right: 50px; }
+  .lang-selector { right: 5px; }
+  nav { padding-right: 10px; }
+  .hamburger-btn { left: 10px; }
 }
 
 /* ===== AI LIFE SIMULATOR ===== */
