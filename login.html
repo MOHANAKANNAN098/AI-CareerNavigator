@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — CareerForge AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg:#020810; --blue:#00aaff; --cyan:#00e5ff; --green:#00ffb3;
+    --red:#ff3366; --text:#e2eeff; --text-secondary:#8ba4c0; --muted:#4a6a8a;
+    --glass-border:rgba(255,255,255,0.08);
+    --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', sans-serif; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow-x: hidden; padding: 24px 16px;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,170,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,170,255,0.025) 1px, transparent 1px);
+    background-size: 50px 50px; pointer-events: none; z-index: 0;
+    animation: gridPulse 8s ease-in-out infinite;
+  }
+  body::after {
+    content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 600px;
+    background: radial-gradient(ellipse, rgba(0,170,255,0.07) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  @keyframes gridPulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+  @keyframes cardIn { from{opacity:0;transform:translateY(28px) scale(0.98);} to{opacity:1;transform:translateY(0) scale(1);} }
+  @keyframes shake { 0%,100%{transform:translateX(0);} 20%,60%{transform:translateX(-9px);} 40%,80%{transform:translateX(9px);} }
+  @keyframes spin { 100%{transform:rotate(360deg);} }
+  @keyframes iconPulse { 0%,100%{box-shadow:0 0 36px rgba(0,229,255,0.4);} 50%{box-shadow:0 0 56px rgba(0,229,255,0.7);} }
+
+  ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--cyan));border-radius:10px;}
+
+  .auth-card {
+    position: relative; z-index: 1;
+    background: rgba(11,21,38,0.92);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px; padding: 48px 42px;
+    width: 100%; max-width: 420px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,170,255,0.06);
+    animation: cardIn 0.55s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .auth-card.shake { animation: shake 0.4s ease; }
+
+  .auth-logo { text-align: center; margin-bottom: 36px; }
+  .auth-logo-icon {
+    width: 66px; height: 66px; border-radius: 20px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; color: #000; margin: 0 auto 16px;
+    box-shadow: 0 0 36px rgba(0,229,255,0.4);
+    animation: iconPulse 3s ease-in-out infinite;
+  }
+  .auth-logo h1 {
+    font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; letter-spacing: 3px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan), var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .auth-logo p { color: var(--muted); font-size: 12px; letter-spacing: 2px; margin-top: 5px; text-transform: uppercase; }
+
+  .auth-alert {
+    display: none; align-items: center; gap: 10px;
+    padding: 12px 16px; border-radius: 10px;
+    font-size: 13px; font-weight: 500; margin-bottom: 20px;
+  }
+  .auth-alert.show { display: flex; }
+  .auth-alert.error { background: rgba(255,51,102,0.1); border: 1px solid rgba(255,51,102,0.3); color: #ff7096; }
+  .auth-alert.success { background: rgba(0,255,179,0.08); border: 1px solid rgba(0,255,179,0.3); color: var(--green); }
+
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block; font-size: 11px; font-weight: 600;
+    color: var(--text-secondary); letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .input-wrap { position: relative; }
+  .input-wrap .fi {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 14px; pointer-events: none; transition: color 0.3s ease;
+  }
+  .input-wrap:focus-within .fi { color: var(--cyan); }
+  .form-input {
+    width: 100%; padding: 14px 44px 14px 42px;
+    background: rgba(15,30,53,0.65); border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text); border-radius: 11px;
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    outline: none; transition: all 0.3s ease; margin: 0;
+  }
+  .form-input:focus {
+    border-color: rgba(0,170,255,0.55);
+    box-shadow: 0 0 0 3px rgba(0,170,255,0.12);
+    background: rgba(15,30,53,0.9);
+  }
+  .form-input::placeholder { color: var(--muted); }
+  .pw-toggle {
+    position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 14px; padding: 0; transition: color 0.2s ease;
+  }
+  .pw-toggle:hover { color: var(--cyan); }
+
+  .auth-btn {
+    width: 100%; padding: 15px; margin-top: 6px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    border: none; border-radius: 11px;
+    color: #000; font-family: 'Orbitron', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
+  }
+  .auth-btn:hover {
+    background: linear-gradient(135deg, var(--cyan), var(--green));
+    box-shadow: 0 0 32px rgba(0,229,255,0.45); transform: translateY(-2px);
+  }
+  .auth-btn:active { transform: translateY(0); }
+  .auth-btn.loading { pointer-events: none; opacity: 0.75; }
+  .auth-btn .btn-spinner {
+    display: none; width: 16px; height: 16px;
+    border: 2px solid rgba(0,0,0,0.25); border-top-color: #000;
+    border-radius: 50%; animation: spin 0.6s linear infinite; margin: 0 auto;
+  }
+  .auth-btn.loading .btn-text { display: none; }
+  .auth-btn.loading .btn-spinner { display: block; }
+
+  .auth-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 24px 0; color: var(--muted); font-size: 12px;
+  }
+  .auth-divider::before, .auth-divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.07); }
+  .auth-footer { text-align: center; font-size: 13px; color: var(--text-secondary); }
+  .auth-footer a { color: var(--cyan); text-decoration: none; font-weight: 600; transition: color 0.2s ease; }
+  .auth-footer a:hover { color: var(--green); text-shadow: 0 0 10px rgba(0,255,179,0.3); }
+</style>
+</head>
+<body>
+<div class="auth-card" id="authCard">
+
+  <div class="auth-logo">
+    <div class="auth-logo-icon"><i class="fa-solid fa-rocket"></i></div>
+    <h1>CareerForge AI</h1>
+    <p>Welcome back — sign in</p>
+  </div>
+
+  <div class="auth-alert error" id="alertErr"><i class="fa-solid fa-circle-exclamation"></i><span id="alertErrText"></span></div>
+  <div class="auth-alert success" id="alertOk"><i class="fa-solid fa-circle-check"></i><span id="alertOkText"></span></div>
+
+  <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+
+    <div class="form-group">
+      <label class="form-label">Email or Username</label>
+      <div class="input-wrap">
+        <input type="text" id="li_id" class="form-input"
+          placeholder="email@example.com or username" autocomplete="username">
+        <i class="fa-solid fa-user fi"></i>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="input-wrap">
+        <input type="password" id="li_pw" class="form-input"
+          placeholder="Your password" autocomplete="current-password">
+        <i class="fa-solid fa-lock fi"></i>
+        <button type="button" class="pw-toggle" onclick="togglePw()">
+          <i class="fa-solid fa-eye" id="pwIcon"></i>
+        </button>
+      </div>
+    </div>
+
+    <button type="submit" class="auth-btn" id="loginBtn">
+      <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Sign In</span>
+      <div class="btn-spinner"></div>
+    </button>
+  </form>
+
+  <div class="auth-divider">New to CareerForge?</div>
+  <div class="auth-footer"><a href="signup.html"><i class="fa-solid fa-user-plus"></i> &nbsp;Create Account</a></div>
+</div>
+
+<script>
+  // Already logged in → skip
+  if (localStorage.getItem("currentUser")) location.href = "index.html";
+
+  function togglePw() {
+    const inp = document.getElementById("li_pw");
+    const icon = document.getElementById("pwIcon");
+    inp.type = inp.type === "password" ? "text" : "password";
+    icon.className = inp.type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
+  }
+
+  function showAlert(type, text) {
+    document.getElementById("alertErr").classList.remove("show");
+    document.getElementById("alertOk").classList.remove("show");
+    if (type === "error") {
+      document.getElementById("alertErrText").textContent = text;
+      document.getElementById("alertErr").classList.add("show");
+      // Shake card
+      const card = document.getElementById("authCard");
+      card.style.animation = "none";
+      void card.offsetWidth;
+      card.style.animation = "shake 0.4s ease";
+    } else {
+      document.getElementById("alertOkText").textContent = text;
+      document.getElementById("alertOk").classList.add("show");
+    }
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    const identifier = document.getElementById("li_id").value.trim().toLowerCase();
+    const password   = document.getElementById("li_pw").value;
+
+    if (!identifier) { showAlert("error", "Please enter your email or username."); return; }
+    if (!password)   { showAlert("error", "Please enter your password."); return; }
+
+    const btn = document.getElementById("loginBtn");
+    btn.classList.add("loading");
+
+    setTimeout(() => {
+      const users = JSON.parse(localStorage.getItem("cf_users") || "[]");
+      const user = users.find(u =>
+        (u.email === identifier || u.username === identifier) && u.password === password
+      );
+
+      if (!user) {
+        btn.classList.remove("loading");
+        showAlert("error", "Invalid credentials. Please check and try again.");
+        return;
+      }
+
+      // Save session
+      localStorage.setItem("currentUser", JSON.stringify({
+        name: user.name, username: user.username,
+        email: user.email, phone: user.phone, image: user.image
+      }));
+
+      btn.classList.remove("loading");
+      showAlert("success", `Welcome back, ${user.name}! Redirecting…`);
+      setTimeout(() => location.href = "index.html", 1200);
+    }, 800);
+  }
+</script>
+</body>
+</html>

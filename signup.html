@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up — CareerForge AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg:#020810; --blue:#00aaff; --cyan:#00e5ff; --green:#00ffb3;
+    --red:#ff3366; --yellow:#ffd600; --purple:#bf5af2; --orange:#ff9500;
+    --text:#e2eeff; --text-secondary:#8ba4c0; --muted:#4a6a8a;
+    --glass:rgba(255,255,255,0.04); --glass-border:rgba(255,255,255,0.08);
+    --radius:14px; --radius-sm:8px;
+    --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', sans-serif; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow-x: hidden; padding: 24px 16px;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,170,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,170,255,0.025) 1px, transparent 1px);
+    background-size: 50px 50px; pointer-events: none; z-index: 0;
+    animation: gridPulse 8s ease-in-out infinite;
+  }
+  body::after {
+    content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 600px;
+    background: radial-gradient(ellipse, rgba(0,170,255,0.07) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  @keyframes gridPulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+  @keyframes cardIn { from{opacity:0;transform:translateY(28px) scale(0.98);} to{opacity:1;transform:translateY(0) scale(1);} }
+  @keyframes spin { 100%{transform:rotate(360deg);} }
+  @keyframes iconPulse { 0%,100%{box-shadow:0 0 36px rgba(0,229,255,0.4);} 50%{box-shadow:0 0 56px rgba(0,229,255,0.7);} }
+
+  ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--cyan));border-radius:10px;}
+
+  /* ===== CARD ===== */
+  .auth-card {
+    position: relative; z-index: 1;
+    background: rgba(11,21,38,0.92);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px; padding: 40px 38px;
+    width: 100%; max-width: 480px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,170,255,0.06);
+    animation: cardIn 0.55s cubic-bezier(0.4,0,0.2,1) both;
+  }
+
+  /* ===== LOGO ===== */
+  .auth-logo { text-align: center; margin-bottom: 28px; }
+  .auth-logo-icon {
+    width: 62px; height: 62px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: #000; margin: 0 auto 14px;
+    box-shadow: 0 0 36px rgba(0,229,255,0.4);
+    animation: iconPulse 3s ease-in-out infinite;
+  }
+  .auth-logo h1 {
+    font-family: 'Orbitron', monospace; font-size: 20px; font-weight: 900; letter-spacing: 3px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan), var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .auth-logo p { color: var(--muted); font-size: 11px; letter-spacing: 2px; margin-top: 4px; text-transform: uppercase; }
+
+  /* ===== ALERT ===== */
+  .auth-alert {
+    display: none; align-items: center; gap: 10px;
+    padding: 12px 16px; border-radius: 10px;
+    font-size: 13px; font-weight: 500; margin-bottom: 18px;
+  }
+  .auth-alert.show { display: flex; }
+  .auth-alert.error { background: rgba(255,51,102,0.1); border: 1px solid rgba(255,51,102,0.3); color: #ff7096; }
+  .auth-alert.success { background: rgba(0,255,179,0.08); border: 1px solid rgba(0,255,179,0.3); color: var(--green); }
+
+  /* ===== FORM ===== */
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block; font-size: 11px; font-weight: 600;
+    color: var(--text-secondary); letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 7px;
+  }
+  .input-wrap { position: relative; }
+  .input-wrap .fi {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 14px; pointer-events: none; transition: color 0.3s ease;
+  }
+  .input-wrap:focus-within .fi { color: var(--cyan); }
+  .form-input {
+    width: 100%; padding: 12px 42px 12px 42px;
+    background: rgba(15,30,53,0.65); border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text); border-radius: 11px;
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    outline: none; transition: all 0.3s ease; margin: 0;
+  }
+  .form-input:focus {
+    border-color: rgba(0,170,255,0.55);
+    box-shadow: 0 0 0 3px rgba(0,170,255,0.12);
+    background: rgba(15,30,53,0.9);
+  }
+  .form-input::placeholder { color: var(--muted); }
+  .pw-toggle {
+    position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 14px; padding: 0; transition: color 0.2s ease;
+  }
+  .pw-toggle:hover { color: var(--cyan); }
+
+  /* two-col */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:480px){ .form-row{grid-template-columns:1fr;} }
+
+  /* avatar upload */
+  .avatar-upload-box {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(15,30,53,0.4);
+    border: 1px dashed rgba(0,170,255,0.3);
+    border-radius: 11px; padding: 14px 16px;
+    cursor: pointer; transition: all 0.3s ease;
+  }
+  .avatar-upload-box:hover { border-color: rgba(0,229,255,0.55); background: rgba(15,30,53,0.65); }
+  .avatar-preview-circle {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(0,170,255,0.15), rgba(0,229,255,0.08));
+    border: 2px solid rgba(0,170,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: var(--muted); overflow: hidden; flex-shrink: 0;
+  }
+  .avatar-preview-circle img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+  .avatar-upload-text strong { display:block; font-size:13px; color:var(--text); margin-bottom:2px; }
+  .avatar-upload-text span { font-size:11px; color:var(--muted); }
+  #avatarFileInput { display: none; }
+
+  /* password strength */
+  .pw-strength { margin-top: 7px; display: none; }
+  .pw-strength-bar { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.06); overflow: hidden; margin-bottom: 4px; }
+  .pw-strength-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease, background 0.4s ease; width: 0; }
+  .pw-strength-label { font-size: 10px; color: var(--muted); }
+
+  /* submit */
+  .auth-btn {
+    width: 100%; padding: 14px; margin-top: 8px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    border: none; border-radius: 11px;
+    color: #000; font-family: 'Orbitron', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
+  }
+  .auth-btn:hover {
+    background: linear-gradient(135deg, var(--cyan), var(--green));
+    box-shadow: 0 0 32px rgba(0,229,255,0.45); transform: translateY(-2px);
+  }
+  .auth-btn:active { transform: translateY(0); }
+  .auth-btn.loading { pointer-events: none; opacity: 0.75; }
+  .auth-btn .btn-spinner {
+    display: none; width: 16px; height: 16px;
+    border: 2px solid rgba(0,0,0,0.25); border-top-color: #000;
+    border-radius: 50%; animation: spin 0.6s linear infinite; margin: 0 auto;
+  }
+  .auth-btn.loading .btn-text { display: none; }
+  .auth-btn.loading .btn-spinner { display: block; }
+
+  /* divider + link */
+  .auth-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 22px 0; color: var(--muted); font-size: 12px;
+  }
+  .auth-divider::before, .auth-divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.07); }
+  .auth-footer { text-align: center; font-size: 13px; color: var(--text-secondary); }
+  .auth-footer a { color: var(--cyan); text-decoration: none; font-weight: 600; transition: color 0.2s ease; }
+  .auth-footer a:hover { color: var(--green); text-shadow: 0 0 10px rgba(0,255,179,0.3); }
+</style>
+</head>
+<body>
+<div class="auth-card">
+
+  <!-- Logo -->
+  <div class="auth-logo">
+    <div class="auth-logo-icon"><i class="fa-solid fa-rocket"></i></div>
+    <h1>CareerForge AI</h1>
+    <p>Create your free account</p>
+  </div>
+
+  <!-- Alerts -->
+  <div class="auth-alert error" id="alertErr"><i class="fa-solid fa-circle-exclamation"></i><span id="alertErrText"></span></div>
+  <div class="auth-alert success" id="alertOk"><i class="fa-solid fa-circle-check"></i><span id="alertOkText"></span></div>
+
+  <form id="signupForm" onsubmit="handleSignup(event)" novalidate autocomplete="off">
+
+    <!-- Avatar -->
+    <div class="form-group">
+      <label class="form-label">Profile Photo <span style="color:var(--muted);font-size:10px;">(optional)</span></label>
+      <div class="avatar-upload-box" onclick="document.getElementById('avatarFileInput').click()">
+        <div class="avatar-preview-circle" id="avatarPreview">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="avatar-upload-text">
+          <strong>Upload Photo</strong>
+          <span>JPG, PNG · Max 2 MB</span>
+        </div>
+        <i class="fa-solid fa-cloud-arrow-up" style="color:var(--muted);font-size:18px;margin-left:auto;"></i>
+      </div>
+      <input type="file" id="avatarFileInput" accept="image/*" onchange="previewAvatar(this)">
+    </div>
+
+    <!-- Name + Username -->
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <div class="input-wrap">
+          <input type="text" id="su_name" class="form-input" placeholder="John Doe" autocomplete="name">
+          <i class="fa-solid fa-id-card fi"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <div class="input-wrap">
+          <input type="text" id="su_username" class="form-input" placeholder="johndoe" autocomplete="username">
+          <i class="fa-solid fa-at fi"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <div class="input-wrap">
+        <input type="email" id="su_email" class="form-input" placeholder="john@example.com" autocomplete="email">
+        <i class="fa-solid fa-envelope fi"></i>
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="form-group">
+      <label class="form-label">Phone Number</label>
+      <div class="input-wrap">
+        <input type="tel" id="su_phone" class="form-input" placeholder="+91 9876543210" autocomplete="tel">
+        <i class="fa-solid fa-phone fi"></i>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="input-wrap">
+        <input type="password" id="su_password" class="form-input" placeholder="Min 6 characters"
+          autocomplete="new-password" oninput="checkStrength(this.value)">
+        <i class="fa-solid fa-lock fi"></i>
+        <button type="button" class="pw-toggle" onclick="togglePw('su_password',this)"><i class="fa-solid fa-eye"></i></button>
+      </div>
+      <div class="pw-strength" id="pwStrengthWrap">
+        <div class="pw-strength-bar"><div class="pw-strength-fill" id="pwFill"></div></div>
+        <div class="pw-strength-label" id="pwLabel"></div>
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="form-group">
+      <label class="form-label">Confirm Password</label>
+      <div class="input-wrap">
+        <input type="password" id="su_confirm" class="form-input" placeholder="Repeat password" autocomplete="new-password">
+        <i class="fa-solid fa-lock fi"></i>
+        <button type="button" class="pw-toggle" onclick="togglePw('su_confirm',this)"><i class="fa-solid fa-eye"></i></button>
+      </div>
+    </div>
+
+    <button type="submit" class="auth-btn" id="signupBtn">
+      <span class="btn-text"><i class="fa-solid fa-user-plus"></i> &nbsp;Create Account</span>
+      <div class="btn-spinner"></div>
+    </button>
+  </form>
+
+  <div class="auth-divider">Already have an account?</div>
+  <div class="auth-footer"><a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Sign In</a></div>
+</div>
+
+<script>
+  // Redirect if already logged in
+  if (localStorage.getItem("currentUser")) location.href = "index.html";
+
+  let avatarBase64 = "";
+
+  function previewAvatar(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { showAlert("error", "Image must be under 2 MB."); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      avatarBase64 = e.target.result;
+      document.getElementById("avatarPreview").innerHTML = `<img src="${avatarBase64}" alt="avatar">`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function togglePw(id, btn) {
+    const inp = document.getElementById(id);
+    const icon = btn.querySelector("i");
+    inp.type = inp.type === "password" ? "text" : "password";
+    icon.className = inp.type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
+  }
+
+  function checkStrength(val) {
+    const wrap = document.getElementById("pwStrengthWrap");
+    const fill = document.getElementById("pwFill");
+    const label = document.getElementById("pwLabel");
+    if (!val) { wrap.style.display = "none"; return; }
+    wrap.style.display = "block";
+    let score = 0;
+    if (val.length >= 6) score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+    const levels = [
+      { w:"20%", bg:"#ff3366", txt:"Very Weak" },
+      { w:"40%", bg:"#ff9500", txt:"Weak" },
+      { w:"60%", bg:"#ffd600", txt:"Fair" },
+      { w:"80%", bg:"#00aaff", txt:"Strong" },
+      { w:"100%", bg:"#00ffb3", txt:"Very Strong" }
+    ];
+    const l = levels[Math.min(score - 1, 4)] || levels[0];
+    fill.style.width = l.w; fill.style.background = l.bg;
+    label.textContent = l.txt; label.style.color = l.bg;
+  }
+
+  function showAlert(type, text) {
+    document.getElementById("alertErr").classList.remove("show");
+    document.getElementById("alertOk").classList.remove("show");
+    if (type === "error") {
+      document.getElementById("alertErrText").textContent = text;
+      document.getElementById("alertErr").classList.add("show");
+    } else {
+      document.getElementById("alertOkText").textContent = text;
+      document.getElementById("alertOk").classList.add("show");
+    }
+  }
+
+  function handleSignup(e) {
+    e.preventDefault();
+    const name     = document.getElementById("su_name").value.trim();
+    const username = document.getElementById("su_username").value.trim().toLowerCase();
+    const email    = document.getElementById("su_email").value.trim().toLowerCase();
+    const phone    = document.getElementById("su_phone").value.trim();
+    const password = document.getElementById("su_password").value;
+    const confirm  = document.getElementById("su_confirm").value;
+
+    if (!name)     { showAlert("error", "Full name is required."); return; }
+    if (!username) { showAlert("error", "Username is required."); return; }
+    if (username.length < 3) { showAlert("error", "Username must be at least 3 characters."); return; }
+    if (!/^[a-z0-9_]+$/.test(username)) { showAlert("error", "Username: only letters, numbers, underscores."); return; }
+    if (!email)    { showAlert("error", "Email address is required."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showAlert("error", "Enter a valid email address."); return; }
+    if (!phone)    { showAlert("error", "Phone number is required."); return; }
+    if (!/^\+?[\d\s\-]{7,15}$/.test(phone)) { showAlert("error", "Enter a valid phone number."); return; }
+    if (!password) { showAlert("error", "Password is required."); return; }
+    if (password.length < 6) { showAlert("error", "Password must be at least 6 characters."); return; }
+    if (password !== confirm) { showAlert("error", "Passwords do not match."); return; }
+
+    const users = JSON.parse(localStorage.getItem("cf_users") || "[]");
+    if (users.find(u => u.email === email))    { showAlert("error", "This email is already registered."); return; }
+    if (users.find(u => u.username === username)) { showAlert("error", "This username is already taken."); return; }
+
+    const btn = document.getElementById("signupBtn");
+    btn.classList.add("loading");
+
+    setTimeout(() => {
+      users.push({ name, username, email, phone, password, image: avatarBase64, createdAt: new Date().toISOString() });
+      localStorage.setItem("cf_users", JSON.stringify(users));
+      btn.classList.remove("loading");
+      showAlert("success", "Account created! Redirecting to login…");
+      setTimeout(() => location.href = "login.html", 1400);
+    }, 900);
+  }
+</script>
+</body>
+</html>
