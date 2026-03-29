@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile — CareerForge AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  .profile-wrapper { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 60px 20px; position: relative; z-index: 1; }
+  .profile-card { max-width: 600px; width: 100%; text-align: left; animation: fadeInUp 0.5s ease both; }
+  .profile-header { text-align: center; margin-bottom: 30px; position: relative; }
+  .profile-avatar-container { position: relative; width: 110px; height: 110px; margin: 0 auto 15px; }
+  .profile-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cyan); box-shadow: 0 0 20px rgba(0,229,255,0.3); background: var(--bg); }
+  .upload-btn { position: absolute; bottom: 0; right: 0; background: var(--blue); color: #000; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); border: 3px solid var(--surface); box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+  .upload-btn:hover { background: var(--cyan); transform: scale(1.1); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 480px) { .form-grid { grid-template-columns: 1fr; } }
+  .section-divider { height: 1px; background: var(--glass-border); margin: 30px 0; }
+  .btn-danger { background: rgba(255, 51, 102, 0.1); border: 1px solid var(--red); color: var(--red); padding: 12px 20px; border-radius: 10px; cursor: pointer; transition: var(--transition); font-weight: 600; font-size: 13px; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-danger:hover { background: var(--red); color: #fff; box-shadow: 0 0 15px rgba(255, 51, 102, 0.4); }
+  .back-btn { position: absolute; top: 25px; left: 25px; color: var(--cyan); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 8px; z-index: 10; transition: var(--transition); }
+  .back-btn:hover { color: var(--blue); transform: translateX(-3px); }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="profile-wrapper">
+  <div class="auth-card profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar-container">
+        <img id="profileImg" src="https://via.placeholder.com/150/0b1526/00aaff?text=U" alt="Profile" class="profile-avatar">
+        <label for="imageUpload" class="upload-btn" title="Change Profile Picture"><i class="fa-solid fa-camera"></i></label>
+        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+      </div>
+      <h2 style="font-family: 'Orbitron', monospace; color: var(--text); font-size: 24px;">My Profile</h2>
+      <p style="color: var(--muted); font-size: 13px; margin-top: 5px;">Manage your account settings</p>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Full Name</label>
+        <input type="text" id="name" class="form-input" placeholder="Your Full Name">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Username</label>
+        <input type="text" id="username" class="form-input" placeholder="Your Username">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Email (Read Only)</label>
+        <input type="email" id="email" class="form-input" disabled style="opacity: 0.6; cursor: not-allowed;" title="Email cannot be changed">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" id="phone" class="form-input" placeholder="Your Phone Number">
+      </div>
+    </div>
+    
+    <button id="saveProfileBtn" class="auth-btn"><i class="fa-solid fa-floppy-disk"></i> &nbsp;Save Profile Details</button>
+
+    <div class="section-divider"></div>
+
+    <div class="stitle" style="font-size: 14px; margin-bottom: 20px; padding-bottom: 8px;">Change Password</div>
+    <div class="form-grid">
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Old Password</label>
+        <input type="password" id="oldPassword" class="form-input" placeholder="Enter current password">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">New Password</label>
+        <input type="password" id="newPassword" class="form-input" placeholder="Enter new password">
+      </div>
+    </div>
+    
+    <button id="changePwdBtn" class="auth-btn" style="background: linear-gradient(135deg, var(--purple), var(--blue));"><i class="fa-solid fa-key"></i> &nbsp;Update Password</button>
+
+    <div class="section-divider"></div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 12px; color: var(--muted);">Need to step away?</span>
+      <button id="logoutBtn" class="btn-danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 8. Auto Load Profile Data
+  window.onload = function() {
+    // 2. Load current user data
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    
+    // If no user -> redirect to login
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    document.getElementById("name").value = user.name || "";
+    document.getElementById("username").value = user.username || "";
+    document.getElementById("email").value = user.email || "";
+    document.getElementById("phone").value = user.phone || "";
+    
+    // 3. Show profile image
+    if (user.image) {
+      document.getElementById("profileImg").src = user.image;
+    } else {
+      document.getElementById("profileImg").src = "https://via.placeholder.com/150/0b1526/00aaff?text=" + (user.name ? user.name[0].toUpperCase() : "U");
+    }
+  };
+
+  // 4. Enable Image Upload (Change Profile Pic)
+  document.getElementById("imageUpload").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        document.getElementById("profileImg").src = reader.result;
+        let user = JSON.parse(localStorage.getItem("currentUser"));
+        user.image = reader.result;
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        updateUserInArray(user);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // 5. Enable Edit Profile
+  document.getElementById("saveProfileBtn").addEventListener("click", function() {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    let updatedUser = {
+      ...user,
+      name: document.getElementById("name").value.trim(),
+      username: document.getElementById("username").value.trim(),
+      phone: document.getElementById("phone").value.trim()
+    };
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+    updateUserInArray(updatedUser);
+    alert("Profile details updated successfully!");
+  });
+
+  // Helper to keep main users array strictly in sync
+  function updateUserInArray(updatedUser) {
+    let users = JSON.parse(localStorage.getItem("cf_users")) || [];
+    // Map to find the user by their email (which is unique) and preserve their secure password
+    users = users.map(u => u.email === updatedUser.email ? { ...u, ...updatedUser, password: u.password } : u);
+    localStorage.setItem("cf_users", JSON.stringify(users));
+  }
+
+  // 6. Enable Change Password
+  document.getElementById("changePwdBtn").addEventListener("click", function() {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    let oldPwd = document.getElementById("oldPassword").value;
+    let newPwd = document.getElementById("newPassword").value;
+
+    if (!oldPwd || !newPwd) { alert("Please fill in both password fields."); return; }
+
+    let users = JSON.parse(localStorage.getItem("cf_users")) || [];
+    let userIndex = users.findIndex(u => u.email === user.email);
+
+    if (userIndex !== -1) {
+      // Check old password matches
+      if (users[userIndex].password === oldPwd) {
+        users[userIndex].password = newPwd;
+        localStorage.setItem("cf_users", JSON.stringify(users));
+        alert("Password updated successfully!");
+        document.getElementById("oldPassword").value = "";
+        document.getElementById("newPassword").value = "";
+      } else {
+        alert("Error: Old password does not match.");
+      }
+    }
+  });
+
+  // 7. Add Logout Button
+  document.getElementById("logoutBtn").addEventListener("click", function() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+  });
+</script>
+</body>
+</html>
