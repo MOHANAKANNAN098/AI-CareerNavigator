@@ -19,6 +19,7 @@ function showSection(id){
   if(id==="jobs") renderChart();
   if(id==="mentor" && chatHistory.length === 0) initChatSuggestions();
   if(id==="analytics") updateAnalyticsDashboard();
+  if(id==="degree-finder") initDegreeFinder();
 }
 
 // Wrapper to load the original roadmap section content into home
@@ -1724,6 +1725,7 @@ function initParticles() {
 window.onload=function(){
   const initialSection = "roadmap";
   showSection(initialSection);
+  initDegreeFinder(); // Initialize on load
 
   let savedState = localStorage.getItem('careerTestState');
   if(savedState){
@@ -1753,6 +1755,259 @@ window.onload=function(){
   setInterval(updateLiveDashboard, 3000); // Auto-Refresh loop
 }
 
+// ==========================================
+// 🎓 SMART DEGREE FINDER LOGIC
+// ==========================================
+
+const degreeFields = {
+  engineering: {
+    title: "Engineering (B.E/B.Tech)",
+    description: "Your answers suggest a strong aptitude for logic, problem-solving, and applying scientific principles. An engineering degree would allow you to design, build, and maintain systems, structures, and machines, turning complex ideas into reality.",
+    careers: ["Mechanical Engineer", "Civil Engineer", "Electrical Engineer", "Aerospace Engineer", "Chemical Engineer"]
+  },
+  cs_it: {
+    title: "Computer Science / IT (B.Sc. CS/IT, BCA, B.Tech)",
+    description: "You show a clear interest in technology, logical thinking, and creating digital solutions. A degree in Computer Science or IT will equip you with skills in programming, software development, and data management to build the tech of the future.",
+    careers: ["Software Developer", "Data Scientist", "Cybersecurity Analyst", "AI/ML Engineer", "Network Architect"]
+  },
+  medicine: {
+    title: "Medicine / Healthcare (MBBS, BDS, B.Pharm)",
+    description: "Your profile indicates a passion for biology, helping others, and meticulous work. A career in medicine or healthcare would be highly rewarding, allowing you to diagnose, treat, and care for people's health and well-being.",
+    careers: ["Doctor (Physician)", "Dentist", "Pharmacist", "Biomedical Scientist", "Public Health Specialist"]
+  },
+  commerce: {
+    title: "Commerce / Business (B.Com, BBA)",
+    description: "You have an inclination towards economics, management, and financial systems. A degree in commerce or business will prepare you for the corporate world, focusing on finance, accounting, marketing, and business operations.",
+    careers: ["Chartered Accountant (CA)", "Financial Analyst", "Marketing Manager", "Investment Banker", "HR Manager"]
+  },
+  arts_design: {
+    title: "Arts / Design (B.A., B.Des, BFA)",
+    description: "Your creative and imaginative personality shines through. A degree in arts or design will allow you to express your ideas visually, whether through fine arts, graphic design, fashion, or digital media, creating aesthetically pleasing and impactful work.",
+    careers: ["Graphic Designer", "UI/UX Designer", "Animator", "Fashion Designer", "Fine Artist"]
+  },
+  law: {
+    title: "Law (B.A. LLB, BBA LLB)",
+    description: "You demonstrate strong communication skills, a sense of justice, and an interest in societal structures. A law degree will train you in legal principles and argumentation, enabling you to advocate for others and uphold the law.",
+    careers: ["Corporate Lawyer", "Litigation Lawyer", "Judge", "Legal Advisor", "Human Rights Advocate"]
+  },
+  science_research: {
+    title: "Pure Sciences / Research (B.Sc.)",
+    description: "Your curiosity about the natural world and desire for deep knowledge points towards a career in science. A B.Sc. degree will provide a strong foundation for research, experimentation, and discovery in fields like Physics, Chemistry, or Biology.",
+    careers: ["Research Scientist", "Professor", "Environmental Scientist", "Astrophysicist", "Statistician"]
+  },
+  management: {
+    title: "Management / Entrepreneurship (BBA, BMS)",
+    description: "You exhibit leadership qualities, strategic thinking, and an interest in organizing people and resources. A management degree can fast-track your journey to leading teams, managing projects, or even starting your own business.",
+    careers: ["Product Manager", "Management Consultant", "Entrepreneur", "Operations Manager", "Business Development Manager"]
+  }
+};
+
+const degreeFinderQuestions = [
+  {
+    question: "Which subject from this list excites you the most?",
+    answers: [
+      { text: "Physics & Mathematics", scores: { engineering: 3, cs_it: 1, science_research: 2 } },
+      { text: "Biology & Chemistry", scores: { medicine: 3, science_research: 2 } },
+      { text: "Computer Science & Applications", scores: { cs_it: 3, engineering: 1 } },
+      { text: "Business, Accounts & Economics", scores: { commerce: 3, management: 2, law: 1 } }
+    ]
+  },
+  {
+    question: "When faced with a complex problem, you tend to:",
+    answers: [
+      { text: "Break it down logically and find a step-by-step solution.", scores: { engineering: 2, cs_it: 2, science_research: 1 } },
+      { text: "Think of creative, out-of-the-box solutions.", scores: { arts_design: 3, management: 1 } },
+      { text: "Research extensively to understand all aspects before deciding.", scores: { science_research: 2, law: 2, medicine: 1 } },
+      { text: "Organize a team and delegate tasks to solve it.", scores: { management: 3, commerce: 1 } }
+    ]
+  },
+  {
+    question: "What kind of work environment do you prefer?",
+    answers: [
+      { text: "A lab or workshop, doing hands-on experiments or building things.", scores: { engineering: 2, science_research: 2, medicine: 1 } },
+      { text: "A modern office, collaborating with a team on a computer.", scores: { cs_it: 2, commerce: 1, management: 1 } },
+      { text: "A studio or a flexible space where I can be creative.", scores: { arts_design: 3 } },
+      { text: "A dynamic environment like a courtroom, hospital, or a bustling market.", scores: { law: 2, medicine: 2, commerce: 1 } }
+    ]
+  },
+  {
+    question: "What's your primary motivation for a career?",
+    answers: [
+      { text: "To invent or build something new that solves a real-world problem.", scores: { engineering: 2, cs_it: 2, management: 1 } },
+      { text: "To help and care for people or living beings.", scores: { medicine: 3 } },
+      { text: "To achieve financial success and understand economic systems.", scores: { commerce: 3, management: 2 } },
+      { text: "To express my creativity and ideas to the world.", scores: { arts_design: 3 } }
+    ]
+  },
+  {
+    question: "Which of these activities sounds most appealing?",
+    answers: [
+      { text: "Designing a video game or a mobile app.", scores: { cs_it: 3, arts_design: 1 } },
+      { text: "Conducting a scientific experiment to discover something new.", scores: { science_research: 3, medicine: 1 } },
+      { text: "Arguing a case or debating on a complex topic.", scores: { law: 3 } },
+      { text: "Creating a business plan for a new startup.", scores: { management: 3, commerce: 2 } }
+    ]
+  },
+  {
+    question: "How do you feel about working with data and numbers?",
+    answers: [
+      { text: "I love it. I enjoy finding patterns and making calculations.", scores: { cs_it: 2, commerce: 2, science_research: 1, engineering: 1 } },
+      { text: "I'm okay with it if it serves a practical purpose.", scores: { engineering: 1, management: 1 } },
+      { text: "I prefer working with ideas, words, or visuals.", scores: { arts_design: 2, law: 1 } },
+      { text: "I'd rather work with people directly.", scores: { medicine: 1 } }
+    ]
+  },
+  {
+    question: "You are more of a:",
+    answers: [
+      { text: "Logical and analytical thinker.", scores: { engineering: 2, cs_it: 2, law: 1, science_research: 1 } },
+      { text: "Creative and intuitive person.", scores: { arts_design: 3 } },
+      { text: "Empathetic and caring person.", scores: { medicine: 3 } },
+      { text: "Strategic and organized leader.", scores: { management: 3, commerce: 1 } }
+    ]
+  },
+  {
+    question: "What kind of impact do you want to make?",
+    answers: [
+      { text: "Technological advancement and innovation.", scores: { cs_it: 2, engineering: 2, science_research: 1 } },
+      { text: "Social justice and policy change.", scores: { law: 3 } },
+      { text: "Economic growth and business development.", scores: { commerce: 2, management: 2 } },
+      { text: "Cultural and artistic enrichment.", scores: { arts_design: 2 } }
+    ]
+  },
+  {
+    question: "How comfortable are you with a long duration of study (e.g., 5+ years)?",
+    answers: [
+      { text: "Very comfortable, if it leads to a specialized, high-impact career.", scores: { medicine: 2, law: 2, science_research: 2 } },
+      { text: "I prefer a standard 3-4 year degree to start my career quickly.", scores: { cs_it: 1, commerce: 1, arts_design: 1 } },
+      { text: "I'm open to it, but it's not my first choice.", scores: { engineering: 1, management: 1 } }
+    ]
+  },
+  {
+    question: "Which task would you find most satisfying?",
+    answers: [
+      { text: "Optimizing a complex system for maximum efficiency.", scores: { engineering: 3, cs_it: 2 } },
+      { text: "Diagnosing a rare disease.", scores: { medicine: 3 } },
+      { text: "Creating a beautiful and functional website.", scores: { cs_it: 2, arts_design: 2 } },
+      { text: "Winning a negotiation for a business deal.", scores: { commerce: 2, management: 2, law: 1 } }
+    ]
+  }
+];
+
+let degreeFinderState = {
+  currentQuestion: 0,
+  scores: {}
+};
+
+function initDegreeFinder() {
+  const box = document.getElementById("degreeFinderBox");
+  if (!box) return;
+  box.innerHTML = `
+    <div class="anim-slide">
+      <div style="font-size: 48px; color: var(--blue); margin-bottom: 10px;"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text);">Find Your Perfect Degree</h2>
+      <p style="color:var(--muted);font-size:16px; margin-bottom: 30px; max-width: 500px; margin: 0 auto 30px;">Answer ${degreeFinderQuestions.length} questions to discover the degree path that best matches your interests and skills after 12th grade.</p>
+      <button class="btn btn-blue" onclick="startDegreeFinderTest()"><i class="fa-solid fa-play"></i> Start the Test</button>
+    </div>
+  `;
+}
+
+function startDegreeFinderTest() {
+  degreeFinderState = {
+    currentQuestion: 0,
+    scores: {
+      engineering: 0, cs_it: 0, medicine: 0, commerce: 0,
+      arts_design: 0, law: 0, science_research: 0, management: 0
+    }
+  };
+  renderDegreeFinderQuestion();
+}
+
+function renderDegreeFinderQuestion() {
+  const box = document.getElementById("degreeFinderBox");
+  const qIndex = degreeFinderState.currentQuestion;
+
+  if (qIndex >= degreeFinderQuestions.length) {
+    showDegreeFinderResult();
+    return;
+  }
+
+  const qData = degreeFinderQuestions[qIndex];
+  const progress = Math.round(((qIndex) / degreeFinderQuestions.length) * 100);
+
+  let answersHTML = qData.answers.map((answer, index) =>
+    `<button class="likert-btn" onclick="selectDegreeAnswer(${index})">${answer.text}</button>`
+  ).join('');
+
+  box.innerHTML = `
+    <div class="anim-slide" style="text-align: left; width: 100%;">
+      <div class="test-header">
+        <div class="q-meta"><i class="fa-solid fa-list-check"></i> QUESTION ${qIndex + 1} OF ${degreeFinderQuestions.length}</div>
+      </div>
+      <div class="progress-wrap" style="margin-bottom: 25px;"><div class="progress-bar" style="width:${progress}%"></div></div>
+      <h2 class="q-text" style="font-size: 20px; margin-bottom: 30px; font-weight: 500; line-height: 1.5; color: var(--text);">${qData.question}</h2>
+      <div class="likert-scale">
+        ${answersHTML}
+      </div>
+    </div>
+  `;
+}
+
+function selectDegreeAnswer(answerIndex) {
+  const qIndex = degreeFinderState.currentQuestion;
+  const answer = degreeFinderQuestions[qIndex].answers[answerIndex];
+
+  // Add scores
+  for (const field in answer.scores) {
+    if (degreeFinderState.scores.hasOwnProperty(field)) {
+      degreeFinderState.scores[field] += answer.scores[field];
+    }
+  }
+
+  // Next question
+  degreeFinderState.currentQuestion++;
+  renderDegreeFinderQuestion();
+}
+
+function showDegreeFinderResult() {
+  const box = document.getElementById("degreeFinderBox");
+  box.innerHTML = `<div class="startup-spinner" style="border-top-color: var(--blue);"></div><p>Analyzing your results...</p>`;
+
+  setTimeout(() => {
+    let topField = 'engineering';
+    let maxScore = -1;
+    for (const field in degreeFinderState.scores) {
+      if (degreeFinderState.scores[field] > maxScore) {
+        maxScore = degreeFinderState.scores[field];
+        topField = field;
+      }
+    }
+
+    const result = degreeFields[topField];
+    trackActivity('Degree Finder Completed', `Recommended: ${result.title}`);
+
+    box.innerHTML = `
+      <div class="anim-slide" style="text-align: left;">
+        <div class="q-meta" style="text-align: center; margin-bottom: 15px;"><i class="fa-solid fa-award"></i> YOUR RECOMMENDED PATH</div>
+        <h2 style="font-size: 28px; color: var(--cyan); margin-bottom: 10px; font-family: 'Orbitron', monospace; text-align: center;">${result.title}</h2>
+        
+        <div class="decision-reason-box" style="margin-top: 25px;">
+          <strong style="color:var(--green); font-size:12px; display:block; margin-bottom:4px;">Why this fits you:</strong>
+          <div style="font-size:14px; color:var(--text); line-height: 1.6;">${result.description}</div>
+        </div>
+
+        <div class="sim-section-title" style="font-size: 14px; margin-top: 25px;"><i class="fa-solid fa-briefcase"></i> Potential Career Paths</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          ${result.careers.map(c => `<span class="tool-chip">${c}</span>`).join('')}
+        </div>
+
+        <div style="text-align: center; margin-top: 35px;">
+          <button class="btn btn-outline" onclick="initDegreeFinder()"><i class="fa-solid fa-rotate-right"></i> Retake Test</button>
+        </div>
+      </div>
+    `;
+  }, 1000);
+}
 // ==========================================
 // 🚀 STARTUP IDEA GENERATOR LOGIC
 // ==========================================
