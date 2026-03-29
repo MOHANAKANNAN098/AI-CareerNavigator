@@ -1,31 +1,57 @@
 function showSection(id, btnElement = null){
-  document.querySelectorAll("section").forEach(s=>s.style.display="none");
-  document.getElementById(id).style.display="block";
-  document.querySelectorAll(".nav-links button").forEach(b=>b.classList.remove("active"));
-  document.getElementById("btn-"+id).classList.add("active");
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Mobile App-like Behavior
+    document.querySelectorAll("section").forEach(s => s.style.display = "none");
+    
+    const homeContent = document.getElementById('homeContent');
+    const targetSection = document.getElementById(id);
+
+    if (id === 'home' || id === 'features' || id === 'about' || id === 'interview' || id === 'profile') {
+      // These are main tabs, show them directly
+      if(id === 'profile') {
+        window.location.href = 'profile.html'; // Redirect for profile
+        return;
+      }
+      if(id === 'features'){
+        document.getElementById('features').style.display = 'block';
+      } else {
+        document.getElementById('home').style.display = 'block';
+        homeContent.innerHTML = targetSection.innerHTML;
+      }
+    } else {
+      // This is a feature selected from the features menu
+      document.getElementById('home').style.display = 'block';
+      homeContent.innerHTML = targetSection.innerHTML;
+      // After loading the feature, set the 'Home' tab to active
+      document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
+      document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
+    }
+
+    // Sync active state for mobile bottom nav
+    if (btnElement && btnElement.closest && btnElement.closest('.mobile-bottom-nav')) {
+      document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
+      btnElement.classList.add("active");
+    }
+
+  } else {
+    // Desktop Behavior
+    document.querySelectorAll("section").forEach(s=>s.style.display="none");
+    document.getElementById(id).style.display="block";
+    document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+    document.getElementById("btn-"+id).classList.add("active");
+  }
+
+  // Common logic for both
   if(id==="jobs") renderChart();
   if(id==="mentor" && chatHistory.length === 0) initChatSuggestions();
   if(id==="analytics") updateAnalyticsDashboard();
+}
 
-  // Close mobile nav menu on selection
-  const navLinks = document.querySelector('.nav-links');
-  const overlay = document.getElementById('overlay');
-  if (navLinks && navLinks.classList.contains('open')) {
-    navLinks.classList.remove('open');
-    if (overlay) overlay.classList.remove('active');
-    document.body.style.overflow = "auto";
-  }
-
-  // Sync active state for mobile bottom nav
-  if (btnElement && btnElement.closest && btnElement.closest('.mobile-bottom-nav')) {
-    document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
-    btnElement.classList.add("active");
-  } else {
-    document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
-    if (id === 'roadmap') document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
-    if (id === 'about') document.querySelector('.mobile-bottom-nav button:nth-child(3)').classList.add('active');
-    if (id === 'interview') document.querySelector('.mobile-bottom-nav button:nth-child(4)').classList.add('active');
-  }
+// Wrapper to load the original roadmap section content into home
+function loadRoadmap() {
+  showSection('roadmap');
 }
 
 // ===== ANALYTICS ACTIVITY TRACKER =====
@@ -1724,7 +1750,7 @@ function initParticles() {
 }
 
 window.onload=function(){
-  showSection("roadmap");
+  showSection(window.innerWidth <= 768 ? "home" : "roadmap");
   let savedState = localStorage.getItem('careerTestState');
   if(savedState){
     let parsed = JSON.parse(savedState);
@@ -1751,40 +1777,6 @@ window.onload=function(){
   // LIVE DASHBOARD CONFIGURATION
   if (!sessionStorage.getItem('appSessionStart')) sessionStorage.setItem('appSessionStart', Date.now());
   setInterval(updateLiveDashboard, 3000); // Auto-Refresh loop
-
-  // Hamburger Menu Logic
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-  const navLinks = document.querySelector('.nav-links');
-  const overlay = document.getElementById('overlay');
-  const closeMenuBtn = document.getElementById('close-menu-btn');
-
-  function openMenu() {
-    if (navLinks) navLinks.classList.add('open');
-    if (overlay) overlay.classList.add('active');
-    document.body.style.overflow = "hidden"; // Prevent overlapping content scroll
-  }
-
-  function closeMenu() {
-    if (navLinks) navLinks.classList.remove('open');
-    if (overlay) overlay.classList.remove('active');
-    document.body.style.overflow = "auto";
-  }
-  window.closeMobileFeatures = closeMenu;
-
-  if (hamburgerBtn && navLinks) {
-    hamburgerBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (navLinks.classList.contains('open')) closeMenu();
-      else openMenu();
-    });
-    if (overlay) overlay.addEventListener('click', closeMenu);
-    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
-    
-    // Ensure touch events are not blocked inside the mobile menu container
-    navLinks.addEventListener("touchmove", function(e) {
-      e.stopPropagation();   // allow menu scroll
-    }, { passive: true });
-  }
 }
 
 // ==========================================
@@ -1806,18 +1798,6 @@ if ('serviceWorker' in navigator) {
       .then(reg => console.log('PWA Service Worker registered:', reg.scope))
       .catch(err => console.error('PWA Service Worker registration failed:', err));
   });
-}
-
-// 📱 Mobile Features Menu Wrapper
-window.openMobileFeatures = function() {
-  document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
-  document.querySelector('.mobile-bottom-nav button:nth-child(2)').classList.add('active');
-  
-  const navLinks = document.querySelector('.nav-links');
-  const overlay = document.getElementById('overlay');
-  if (navLinks) navLinks.classList.add('open');
-  if (overlay) overlay.classList.add('active');
-  document.body.style.overflow = "hidden";
 }
 
 // ==========================================

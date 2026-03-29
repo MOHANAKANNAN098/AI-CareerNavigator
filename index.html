@@ -168,14 +168,8 @@
     </select>
   </div>
 </header>
-<div id="overlay"></div>
 <nav>
-  <button id="hamburger-btn" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
   <div class="nav-links">
-    <div class="mobile-menu-header">
-      <h2>Features <button class="close-menu-btn" aria-label="Close menu" onclick="closeMobileFeatures()" style="padding:0 !important; margin-left:auto; font-size:24px !important;"><i class="fa-solid fa-xmark"></i></button></h2>
-    </div>
-    <button id="btn-roadmap" onclick="showSection('roadmap')">Career Roadmap</button>
     <button id="btn-test"    onclick="showSection('test')">Career Test</button>
     <button id="btn-jobs"    onclick="showSection('jobs')">Job Demand</button>
     <button id="btn-mentor"  onclick="showSection('mentor')">AI Mentor</button>
@@ -189,24 +183,9 @@
   </div>
 </nav>
 
-<section id="roadmap">
-  <div class="stitle">Career Roadmap</div>
-  <div class="card">
-    <input type="text" id="domain" list="domainList" placeholder="Search from 1000+ domains (e.g. Web Developer, AI, Cloud)..." style="width: 100%; margin-bottom: 15px;">
-    <datalist id="domainList"></datalist>
-    <select id="year" onchange="generateRoadmap()">
-      <option value="0">All Years</option>
-      <option value="1">1st Year</option>
-      <option value="2">2nd Year</option>
-      <option value="3">3rd Year</option>
-      <option value="4">4th Year</option>
-    </select>
-    <button class="btn btn-blue" onclick="generateRoadmap()"><i class="fa-solid fa-magnifying-glass"></i> Generate Roadmap</button>
-    <button class="btn btn-outline" onclick="downloadRoadmap('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
-    <button class="btn btn-outline" onclick="downloadRoadmap('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
-    <div id="time-indicator" class="time-indicator"></div>
-  </div>
-  <div id="roadmapOutput"></div>
+<section id="home">
+  <!-- This will be the main container for mobile content -->
+  <div id="homeContent"></div>
 </section>
 
 <section id="test">
@@ -578,11 +557,11 @@
 
 <!-- Mobile Bottom Navigation -->
 <div class="mobile-bottom-nav">
-  <button class="active" onclick="showSection('roadmap', this)"><i class="fa-solid fa-house"></i><span>Home</span></button>
-  <button onclick="openMobileFeatures()"><i class="fa-solid fa-layer-group"></i><span>Features</span></button>
+  <button class="active" onclick="showSection('home', this)"><i class="fa-solid fa-house"></i><span>Home</span></button>
+  <button onclick="showSection('features', this)"><i class="fa-solid fa-layer-group"></i><span>Features</span></button>
   <button onclick="showSection('about', this)"><i class="fa-solid fa-circle-info"></i><span>About</span></button>
   <button onclick="showSection('interview', this)"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
-  <button onclick="location.href='profile.html'"><i class="fa-solid fa-user"></i><span>Profile</span></button>
+  <button onclick="showSection('profile', this)"><i class="fa-solid fa-user"></i><span>Profile</span></button>
 </div>
 
 <script src="app.js"></script>
