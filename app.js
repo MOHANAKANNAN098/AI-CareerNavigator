@@ -5,6 +5,19 @@ function showSection(id){
   document.getElementById("btn-"+id).classList.add("active");
   if(id==="jobs") renderChart();
   if(id==="mentor" && chatHistory.length === 0) initChatSuggestions();
+  if(id==="analytics") updateAnalyticsDashboard();
+}
+
+// ===== ANALYTICS ACTIVITY TRACKER =====
+function trackActivity(action, detail) {
+  let analytics = JSON.parse(localStorage.getItem('appAnalytics')) || { activityLog: [] };
+  if (!analytics.activityLog) analytics.activityLog = [];
+  analytics.activityLog.unshift({ time: new Date().toISOString(), action, detail });
+  if (analytics.activityLog.length > 50) analytics.activityLog.pop(); // Keep only last 50 activities
+  localStorage.setItem('appAnalytics', JSON.stringify(analytics));
+  
+  // Instantly trigger live dashboard update
+  if(typeof updateLiveDashboard === 'function') updateLiveDashboard();
 }
 
 const roadmaps={
@@ -536,6 +549,8 @@ function generateRoadmap(){
   const startYear = year === 0 ? 1 : year;
   const endYear = 4; // Always output up to year 4 so users see the job application phase
 
+  trackActivity('Roadmap Generated', `Viewed roadmap for ${domain}`);
+
   // ===== DYNAMIC TIME INDICATOR LOGIC =====
   const yearsToComplete = endYear - startYear + 1;
   const timeText = yearsToComplete > 1 ? `${yearsToComplete} years` : `1 year`;
@@ -678,6 +693,10 @@ function toggleItem(domain, year, idx, el){
   const card=document.getElementById(`card-${year}-${idx}`);
   if(card) card.classList.toggle('completed',el.checked);
   
+  // Track Activity
+  const taskName = typeof roadmaps[domain][year][idx] === 'object' ? roadmaps[domain][year][idx].title : roadmaps[domain][year][idx];
+  if (el.checked) trackActivity('Task Completed', `Checked main task in ${domain}: ${taskName}`);
+
   // Sync Sub-tasks (4 weeks) when main task is toggled
   let subChecked = getSubProgress(domain, year, total);
   subChecked[idx] = [el.checked, el.checked, el.checked, el.checked];
@@ -700,6 +719,9 @@ function toggleSubItem(domain, year, idx, subIdx, el) {
   subChecked[idx][subIdx] = el.checked;
   saveSubProgress(domain, year, subChecked);
   
+  // Track Activity
+  if (el.checked) trackActivity('Sub-Task Completed', `Checked Week ${subIdx+1} for ${domain}`);
+
   // Auto-check main task if all 4 weeks are completed
   const allSubDone = subChecked[idx].every(Boolean);
   const mainCheck = document.getElementById(`check-${year}-${idx}`);
@@ -906,6 +928,7 @@ function startTest(){
   index=0;
   Object.keys(roadmaps).forEach(d=>score[d]=0);
   localStorage.removeItem('careerTestState');
+  trackActivity('Career Test Started', 'Began aptitude assessment');
   showQuestion();
 }
 
@@ -952,6 +975,8 @@ function showResult(){
     .map(d => ({ domain: d, pct: Math.round((score[d] / maxScores[d]) * 100) }))
     .filter(r => r.pct >= 10) // Show all matches 10% and above
     .sort((a,b) => b.pct - a.pct);
+
+  trackActivity('Career Test Completed', `Top match: ${results.length > 0 ? results[0].domain : 'None'}`);
 
   let resultHTML = `
     <div class="anim-slide">
@@ -1205,6 +1230,8 @@ function clearChat() {
 function generateResume(){
   const getVal = (id) => document.getElementById(id).value;
   
+  trackActivity('Generated Resume', `Resume built for ${getVal("name") || 'User'}`);
+
   const output = `
 ${getVal("name").toUpperCase()}
 ${getVal("city")}
@@ -1674,11 +1701,17 @@ window.onload=function(){
   renderSavedStartups(); // Load saved startups on boot
   renderSavedSimulations(); // Load saved simulations
   
+  trackActivity('Session Started', 'User opened the application');
+
   // Safeguard: Completely remove the loading overlay so it never blocks clicks
   setTimeout(() => {
     const loader = document.querySelector('.page-transition');
     if (loader) loader.remove();
   }, 1500);
+
+  // LIVE DASHBOARD CONFIGURATION
+  if (!sessionStorage.getItem('appSessionStart')) sessionStorage.setItem('appSessionStart', Date.now());
+  setInterval(updateLiveDashboard, 3000); // Auto-Refresh loop
 }
 
 // ==========================================
@@ -1686,6 +1719,53 @@ window.onload=function(){
 // ==========================================
 
 let currentGeneratedIdea = null;
+
+function generateIdeaLocally(input, ideasDataset) {
+  console.log("User Input:", input);
+  const { interest, budget } = input;
+  let localIdeas = ideasDataset;
+
+  let budgetTerm = budget.split(" ")[0];
+  if (budgetTerm === "Zero" || budgetTerm === "Micro") {
+    budgetTerm = "Low";
+  }
+  const interestTerm = interest.split(" ")[0];
+
+  // Tier 1: Strict match on budget AND interest
+  let filtered = localIdeas.filter(i => 
+    i.budget.toLowerCase().includes(budgetTerm.toLowerCase()) && 
+    i.category.toLowerCase().includes(interestTerm.toLowerCase())
+  );
+
+  // Tier 2: Match on interest only, if strict match fails
+  if (filtered.length === 0) {
+    filtered = localIdeas.filter(i => i.category.toLowerCase().includes(interestTerm.toLowerCase()));
+  }
+
+  // Tier 3: No filters matched, use all ideas as a final fallback
+  if (filtered.length === 0) {
+    console.log("No exact match found. Here is a recommended startup idea for you.");
+    filtered = localIdeas;
+  }
+  
+  const randomIdea = filtered[Math.floor(Math.random() * filtered.length)];
+  
+  const idea = {
+    name: randomIdea.name,
+    tagline: `A ${randomIdea.type} in ${randomIdea.category}`,
+    description: randomIdea.description,
+    problem: randomIdea.problem || "Existing solutions are too expensive or inefficient.",
+    solution: randomIdea.solution || "An optimized, automated, and accessible alternative.",
+    targetAudience: randomIdea.targetAudience || "Small businesses and independent creators.",
+    revenueModel: randomIdea.revenueModel || "Subscription / Pay-per-use",
+    difficulty: randomIdea.difficulty || "Medium",
+    growth: randomIdea.growth || "High Scalability",
+    steps: randomIdea.steps || ["Market Research", "Build MVP", "Launch Beta", "Gather Feedback"]
+  };
+
+  console.log("Generated Idea:", idea);
+  return idea;
+}
 
 async function generateStartup() {
   const interest = document.getElementById("suInterest").value || "General Tech";
@@ -1697,88 +1777,36 @@ async function generateStartup() {
   document.getElementById("startupOutput").innerHTML = "";
   document.getElementById("startupLoading").style.display = "block";
 
-  const prompt = `Generate a highly practical and innovative startup idea based on the following:
-Interests: ${interest}
-Skills: ${skills}
-Budget: ${budget}
-Goal: ${goal}
-Time Availability: ${time}
+  const userInput = { interest, budget, goal, time, skills };
 
-Return STRICTLY in valid JSON format. Do not include markdown code blocks, just raw JSON:
-{
-  "name": "Idea Name",
-  "tagline": "Catchy tagline",
-  "description": "2-3 sentences explaining the core concept",
-  "problem": "The exact problem this solves",
-  "solution": "How this product/service solves it",
-  "targetAudience": "Who will buy this",
-  "revenueModel": "How it makes money (e.g. Subscription, Freemium)",
-  "difficulty": "Low / Medium / High",
-  "growth": "Local / Scalable / High / Exponential",
-  "steps": ["Step 1 to start", "Step 2", "Step 3", "Step 4"]
-}`;
-
-  let ideaData = null;
-
+  let ideasDataset = [];
   try {
-    // Primary Method: Call Gemini AI
-    const API_KEY = "YOUR_GEMINI_API_KEY"; // Uses the same key format you set up previously
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      })
-    });
-
-    const data = await response.json();
-    let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    
-    if (rawText) {
-      // Clean markdown JSON formatting if Gemini included it
-      rawText = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
-      ideaData = JSON.parse(rawText);
+    const response = await fetch("startupIdeas.json");
+    if (response.ok) {
+      ideasDataset = await response.json();
+    } else {
+      throw new Error("Failed to load startup ideas.");
     }
-  } catch (error) {
-    console.warn("AI Generation Failed or API Key missing. Falling back to local JSON data...", error);
+  } catch (err) {
+    console.error(err);
+    document.getElementById("startupLoading").style.display = "none";
+    document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red);">Error loading startup ideas. Please ensure you are running on a local server (e.g., Live Server).</p>`;
+    return;
   }
 
-  // Fallback Method: Fetch from local startupIdeas.json
-  if (!ideaData || !ideaData.name) {
+  setTimeout(() => {
     try {
-      const localRes = await fetch("startupIdeas.json");
-      const localIdeas = await localRes.json();
-      
-      // Try to filter by budget or just pick random if filters are too strict
-      let filtered = localIdeas.filter(i => i.budget.includes(budget.split(" ")[0]) || i.category.includes(interest.split(" ")[0]));
-      if (filtered.length === 0) filtered = localIdeas; // Fallback to all if no match
-      
-      const randomIdea = filtered[Math.floor(Math.random() * filtered.length)];
-      
-      // Map local format to expected format
-      ideaData = {
-        name: randomIdea.name,
-        tagline: `A ${randomIdea.type} in ${randomIdea.category}`,
-        description: randomIdea.description,
-        problem: randomIdea.problem || "Existing solutions are too expensive or inefficient.",
-        solution: randomIdea.solution || "An optimized, automated, and accessible alternative.",
-        targetAudience: randomIdea.targetAudience || "Small businesses and independent creators.",
-        revenueModel: randomIdea.revenueModel || "Subscription / Pay-per-use",
-        difficulty: randomIdea.difficulty || "Medium",
-        growth: randomIdea.growth || "High Scalability",
-        steps: randomIdea.steps || ["Market Research", "Build MVP", "Launch Beta", "Gather Feedback"]
-      };
-    } catch (localError) {
-      console.error("Local JSON fetch failed too.", localError);
+      const ideaData = generateIdeaLocally(userInput, ideasDataset);
+      currentGeneratedIdea = ideaData;
       document.getElementById("startupLoading").style.display = "none";
-      document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red);">Failed to generate idea. Please ensure you are running on a local server (Live Server) to load the JSON file, or check your API key.</p>`;
-      return;
+      trackActivity('Generated Startup', `Idea for ${interest}`);
+      renderStartupIdea(ideaData);
+    } catch (error) {
+      console.error("Error generating idea:", error);
+      document.getElementById("startupLoading").style.display = "none";
+      document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red);">An unexpected error occurred while generating an idea. Please check the console for details.</p>`;
     }
-  }
-
-  currentGeneratedIdea = ideaData;
-  document.getElementById("startupLoading").style.display = "none";
-  renderStartupIdea(ideaData);
+  }, 600); // 600ms artificial delay to simulate calculation time
 }
 
 function renderStartupIdea(idea) {
@@ -2011,6 +2039,7 @@ function generateAdvancedSimulation() {
   // Adding a slight delay to simulate "AI thinking" for better user experience
   setTimeout(() => {
     const simData = analyzeUser(currentSimParams);
+    trackActivity('Simulation Run', `Generated path: ${simData.selectedPath}`);
     document.getElementById("simLoading").style.display = "none";
     
     currentSimulationData = simData;
@@ -2291,6 +2320,7 @@ function saveSimulationData() {
   let saved = JSON.parse(localStorage.getItem("savedSimulations") || "[]");
   saved.push({ date: new Date().toLocaleDateString(), params: currentSimParams, data: currentSimulationData });
   localStorage.setItem("savedSimulations", JSON.stringify(saved));
+  trackActivity('Simulation Saved', `Saved ${currentSimulationData.selectedPath} plan`);
   alert("Life Path Simulation saved successfully!");
   renderSavedSimulations();
 }
@@ -2338,4 +2368,306 @@ function downloadSimulation(type) {
     doc.setFontSize(10); doc.text(lines, 40, 70);
     doc.save(`Life_Path_${currentSimulationData.selectedPath.replace(/\s+/g, '_')}.pdf`);
   }
+}
+
+// ==========================================
+// 📊 PRO ANALYTICS DASHBOARD ENGINE
+// ==========================================
+
+let growthChartInstance = null;
+let pathPieChartInstance = null;
+let skillChartInstance = null;
+
+function updateLiveDashboard() { 
+  try {
+    updateAnalyticsDashboard(); 
+  } catch (error) {
+    console.warn("Live Dashboard background update suppressed:", error);
+  }
+}
+
+function updateAnalyticsDashboard() {
+  let analytics = JSON.parse(localStorage.getItem('appAnalytics')) || { activityLog: [] };
+  let savedSims = JSON.parse(localStorage.getItem("savedSimulations") || "[]");
+  let savedStartups = JSON.parse(localStorage.getItem("savedStartups") || "[]");
+  
+  // 1. Calculate Career Readiness Score (Tasks Completed)
+  let totalTasks = 0;
+  let completedTasks = 0;
+  Object.keys(localStorage).forEach(key => {
+    if (key.startsWith("progress_sub_")) {
+       const sub = JSON.parse(localStorage.getItem(key));
+       sub.forEach(arr => {
+         totalTasks += arr.length;
+         completedTasks += arr.filter(Boolean).length;
+       });
+    }
+  });
+  let readiness = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+  
+  // 2. Fetch latest AI Simulation Data for KPIs
+  let latestSim = savedSims.length > 0 ? savedSims[savedSims.length - 1] : null;
+  let recPath = latestSim ? latestSim.data.selectedPath : "--";
+  
+  // Session Time Tracker
+  let start = parseInt(sessionStorage.getItem('appSessionStart')) || Date.now();
+  let elapsedMins = Math.floor((Date.now() - start) / 60000);
+  
+  // Update KPI Cards
+  if(document.getElementById('kpi-time')) document.getElementById('kpi-time').innerText = elapsedMins + ' mins';
+  if(document.getElementById('kpi-sims')) document.getElementById('kpi-sims').innerText = savedSims.length;
+  if(document.getElementById('kpi-tasks')) document.getElementById('kpi-tasks').innerText = completedTasks;
+  if(document.getElementById('kpi-path')) document.getElementById('kpi-path').innerText = recPath;
+  
+  // 3. Update Last Result Snapshot
+  const snapshotEl = document.getElementById('live-snapshot-content');
+  if (snapshotEl) {
+    if (latestSim) {
+      snapshotEl.innerHTML = `
+        <div style="display:flex; gap:15px; flex-wrap:wrap;">
+          <div style="flex:1; background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border-left:3px solid var(--purple);">
+            <div style="font-size:11px; color:var(--muted); text-transform:uppercase;">Last Selected Path</div>
+            <div style="font-size:18px; color:var(--text); font-weight:bold; margin-top:5px;">${latestSim.data.selectedPath}</div>
+          </div>
+          <div style="flex:1; background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border-left:3px solid var(--cyan);">
+            <div style="font-size:11px; color:var(--muted); text-transform:uppercase;">Success Probability</div>
+            <div style="font-size:18px; color:var(--cyan); font-weight:bold; margin-top:5px;">${latestSim.data.analysis.successProbability}</div>
+          </div>
+          <div style="flex:2; background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border-left:3px solid var(--green);">
+            <div style="font-size:11px; color:var(--muted); text-transform:uppercase;">Last Simulation Summary (Yr 5)</div>
+            <div style="font-size:14px; color:var(--text-secondary); margin-top:5px;">${latestSim.data.simulation.fiveYear.stage} — <span style="color:var(--green)">${latestSim.data.simulation.fiveYear.income}</span></div>
+          </div>
+        </div>`;
+    } else {
+      // Dynamic live placeholder based on overall website usage
+      snapshotEl.innerHTML = `
+        <div style="display:flex; gap:15px; flex-wrap:wrap;">
+          <div style="flex:1; background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border-left:3px solid var(--purple);">
+            <div style="font-size:11px; color:var(--muted); text-transform:uppercase;">Overall Readiness</div>
+            <div style="font-size:18px; color:var(--text); font-weight:bold; margin-top:5px;">${readiness}%</div>
+          </div>
+          <div style="flex:1; background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border-left:3px solid var(--cyan);">
+            <div style="font-size:11px; color:var(--muted); text-transform:uppercase;">Tasks Mastered</div>
+            <div style="font-size:18px; color:var(--cyan); font-weight:bold; margin-top:5px;">${completedTasks}</div>
+          </div>
+          <div style="flex:2; background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border-left:3px solid var(--green);">
+            <div style="font-size:11px; color:var(--muted); text-transform:uppercase;">Action Required</div>
+            <div style="font-size:14px; color:var(--text-secondary); margin-top:5px;">Run <span style="color:var(--green)">AI Simulator</span> to unlock deeper predictive insights.</div>
+          </div>
+        </div>`;
+    }
+  }
+  
+  // 3. Render Charts
+  renderGrowthTrendChart(latestSim, readiness);
+  renderPathInclinationChart(savedSims, savedStartups, analytics.activityLog);
+  renderSkillDistributionChart(latestSim, readiness);
+  
+  // 4. Generate Insights & Recommendations
+  generateDynamicInsights(readiness, latestSim, savedSims.length);
+  
+  // 5. Render Activity Log
+  renderActivityLog(analytics.activityLog);
+}
+
+function extractIncome(incomeStr) {
+  const match = incomeStr.match(/₹([0-9.]+)/);
+  return match ? parseFloat(match[1]) : 0;
+}
+
+function renderGrowthTrendChart(latestSim, readiness) {
+  const ctx = document.getElementById('growthChart').getContext('2d');
+  let dataPoints = [0, 0, 0];
+  
+  if (latestSim) {
+    dataPoints = [
+      extractIncome(latestSim.data.simulation.oneYear.income),
+      extractIncome(latestSim.data.simulation.threeYear.income),
+      extractIncome(latestSim.data.simulation.fiveYear.income)
+    ];
+  } else if (readiness > 0) {
+    // Dynamically project growth based purely on roadmap task completion usage
+    let base = 3 + (readiness / 15);
+    dataPoints = [parseFloat(base.toFixed(1)), parseFloat((base * 1.5).toFixed(1)), parseFloat((base * 2.5).toFixed(1))];
+  }
+
+  if (growthChartInstance) {
+    growthChartInstance.data.datasets[0].data = dataPoints;
+    growthChartInstance.update('none'); // Update without flickering
+  } else {
+    growthChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Year 1', 'Year 3', 'Year 5'],
+        datasets: [{
+          label: 'Projected Income (Lakhs ₹/yr)',
+          data: dataPoints,
+          borderColor: '#00e5ff',
+          backgroundColor: 'rgba(0, 229, 255, 0.1)',
+          borderWidth: 3,
+          pointBackgroundColor: '#00ffb3',
+          pointBorderColor: '#020810',
+          pointBorderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#8ba4c0' } },
+          x: { grid: { display: false }, ticks: { color: '#8ba4c0' } }
+        },
+        plugins: { legend: { labels: { color: '#e2eeff', font: { family: 'Inter' } } } }
+      }
+    });
+  }
+}
+
+function renderPathInclinationChart(savedSims, savedStartups, activityLog) {
+  const ctx = document.getElementById('pathPieChart').getContext('2d');
+  
+  // Connect UI Options usage directly to the path inclination chart
+  let business = savedStartups.length * 2; 
+  let corporate = activityLog.filter(a => a.action === 'Generated Resume').length * 2;
+  let studies = activityLog.filter(a => a.action === 'Career Test Completed').length * 2;
+  
+  savedSims.forEach(sim => { 
+    if(sim.data.selectedPath === 'Business') business += 3;
+    else if(sim.data.selectedPath === 'Corporate Job') corporate += 3;
+    else if(sim.data.selectedPath === 'Higher Studies') studies += 3;
+  });
+  
+  let dataVals = [business, corporate, studies];
+  if(business === 0 && corporate === 0 && studies === 0) dataVals = [1, 1, 1]; // Fallback empty state
+
+  if (pathPieChartInstance) {
+    pathPieChartInstance.data.labels = ['Business', 'Corporate Job', 'Higher Studies'];
+    pathPieChartInstance.data.datasets[0].data = dataVals;
+    pathPieChartInstance.update('none');
+  } else {
+    pathPieChartInstance = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Business', 'Corporate Job', 'Higher Studies'],
+        datasets: [{
+          data: dataVals,
+          backgroundColor: ['#ff9500', '#00aaff', '#bf5af2'],
+          borderColor: '#0b1526',
+          borderWidth: 3,
+          hoverOffset: 5
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { color: '#e2eeff', padding: 20, font: { family: 'Inter' } } } },
+        cutout: '70%'
+      }
+    });
+  }
+}
+
+function renderSkillDistributionChart(latestSim, readiness) {
+  const ctx = document.getElementById('skillRadarChart').getContext('2d');
+  let tech = 0, soft = 0, core = 0;
+  
+  if (latestSim) {
+    const skills = latestSim.params.skills.toLowerCase();
+    const techWords = ['python','java','html','css','js','react','node','sql','aws','cloud','data','ai','ml','tech','code'];
+    const softWords = ['lead','manage','comm','speak','write','team','agile','scrum','market','sale','design'];
+    let techBoost = 0, softBoost = 0;
+    techWords.forEach(w => { if(skills.includes(w)) techBoost += 25; });
+    softWords.forEach(w => { if(skills.includes(w)) softBoost += 25; });
+    
+    tech = Math.min(100, Math.max(30, 40 + techBoost + (readiness * 0.5)));
+    soft = Math.min(100, Math.max(30, 40 + softBoost + (readiness * 0.5)));
+    core = Math.min(100, Math.max(30, 40 + (readiness * 0.8)));
+  } else { 
+    // Dynamically increase skill strength solely based on ticking roadmap tasks
+    tech = Math.min(100, 40 + readiness);
+    soft = Math.min(100, 40 + (readiness * 0.6));
+    core = Math.min(100, 40 + (readiness * 0.8));
+  }
+
+  if (skillChartInstance) {
+    skillChartInstance.data.datasets[0].data = [tech, soft, core];
+    skillChartInstance.update('none');
+  } else {
+    skillChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Tech & Dev', 'Soft & Lead', 'Core Domain'],
+        datasets: [{
+          data: [tech, soft, core],
+          backgroundColor: ['#00e5ff', '#ff3366', '#ffd600'],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true, max: 100, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#8ba4c0' } },
+          x: { grid: { display: false }, ticks: { color: '#8ba4c0' } }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+}
+
+function generateDynamicInsights(readiness, latestSim, simCount) {
+  const list = document.getElementById('ai-insights-list');
+  let insights = [];
+  
+  if (readiness > 75) insights.push(`<div class="insight-item"><i class="fa-solid fa-check-circle" style="color:var(--green)"></i> Excellent metric! You are ${readiness}% through your roadmap tracking, showing high consistency.</div>`);
+  else if (readiness > 30) insights.push(`<div class="insight-item"><i class="fa-solid fa-arrow-up-right-dots" style="color:var(--blue)"></i> Steady progress at ${readiness}% roadmap completion. Focus on the advanced technical nodes next.</div>`);
+  else insights.push(`<div class="insight-item"><i class="fa-solid fa-triangle-exclamation" style="color:var(--orange)"></i> Roadmap completion is low (${readiness}%). To improve predictability, start checking off your learning nodes.</div>`);
+  
+  if (latestSim) {
+    const prob = parseInt(latestSim.data.analysis.successProbability);
+    if (prob > 70) insights.push(`<div class="insight-item"><i class="fa-solid fa-bolt" style="color:var(--yellow)"></i> The ${latestSim.data.selectedPath} trajectory shows a highly viable ${prob}% success probability given your current input profile.</div>`);
+    else insights.push(`<div class="insight-item"><i class="fa-solid fa-scale-balanced" style="color:var(--cyan)"></i> The ${latestSim.data.selectedPath} trajectory shows a moderate ${prob}% probability. Skill expansion recommended.</div>`);
+    
+    if (latestSim.data.analysis.riskLevel === "High") insights.push(`<div class="insight-item"><i class="fa-solid fa-fire" style="color:var(--red)"></i> High risk tolerance mapped. Make sure to establish a 6-month financial runway before massive pivots.</div>`);
+  } else {
+    insights.push(`<div class="insight-item"><i class="fa-solid fa-brain" style="color:var(--purple)"></i> Action required: Run the AI Life Simulator to populate deep predictive analytics.</div>`);
+  }
+  
+  if (simCount > 3) insights.push(`<div class="insight-item"><i class="fa-solid fa-magnifying-glass-chart" style="color:var(--text)"></i> You've run ${simCount} simulations. Based on permutations, you are actively analyzing your options.</div>`);
+
+  list.innerHTML = insights.join('');
+}
+
+function renderActivityLog(log) {
+  const container = document.getElementById('activity-log');
+  if (!log || log.length === 0) {
+    container.innerHTML = '<div style="color:var(--muted); font-size:13px; text-align:center; padding: 20px;">No recent system activity logged.</div>';
+    return;
+  }
+  
+  let html = '';
+  log.slice(0, 10).forEach(item => {
+    const date = new Date(item.time).toLocaleTimeString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    let icon = "fa-solid fa-bolt";
+    let color = "var(--blue)";
+    
+    if (item.action.includes('Task')) { icon = "fa-solid fa-list-check"; color = "var(--green)"; }
+    else if (item.action.includes('Simulation')) { icon = "fa-solid fa-brain"; color = "var(--purple)"; }
+    else if (item.action.includes('Test')) { icon = "fa-solid fa-clipboard-user"; color = "var(--orange)"; }
+    else if (item.action.includes('Startup')) { icon = "fa-solid fa-rocket"; color = "var(--cyan)"; }
+    
+    html += `
+      <div class="activity-item">
+        <div class="act-icon" style="color: ${color}; background: ${color}22;"><i class="${icon}"></i></div>
+        <div class="act-content">
+          <div class="act-title">${item.action}</div>
+          <div class="act-desc">${item.detail}</div>
+        </div>
+        <div class="act-time">${date}</div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
 }
