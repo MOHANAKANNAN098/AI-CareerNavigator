@@ -1293,13 +1293,11 @@ select:focus, input:focus, textarea:focus {
     width: 80%;
     max-width: 340px;
     height: 100vh;
-    background: #0a0f2c; /* Solid dark background */
-    padding-top: 15px;
-    padding-bottom: 100px; /* Ensure last item is reachable */
-    overflow-y: scroll !important; /* CRITICAL: Force Scroll */
+    background: #0a0f2c;
+    padding: 0;
+    overflow-y: hidden !important; /* Disable scroll */
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* Smooth scroll for mobile */
-    touch-action: pan-y; /* Force vertical scroll gesture */
+    justify-content: space-evenly; /* Distribute items to fill height */
     gap: 0;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 9999;
@@ -1312,7 +1310,7 @@ select:focus, input:focus, textarea:focus {
   .close-menu-btn {
     display: block;
     text-align: right !important;
-    padding: 10px 24px 20px !important;
+    padding: 1.5vh 24px !important; /* Reduced padding */
     font-size: 24px !important;
     color: #ffffff !important;
     border-bottom: none !important;
@@ -1332,11 +1330,11 @@ select:focus, input:focus, textarea:focus {
   .nav-links button {
     width: 100%;
     text-align: left;
-    padding: 15px 24px;
+    padding: 1.5vh 24px; /* Dynamically adjust padding based on screen height */
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Readable border */
-    font-size: 16px;
+    font-size: 14px; /* Reduced font size */
     color: #ffffff; /* Readable text */
     letter-spacing: 1px;
   }
