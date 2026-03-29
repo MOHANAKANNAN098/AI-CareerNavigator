@@ -188,7 +188,6 @@ header p {
   z-index: 1000;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  transition: var(--transition);
 }
 .lang-selector:hover {
   border-color: rgba(0, 229, 255, 0.4);
@@ -225,10 +224,6 @@ iframe.skiptranslate { display: none !important; pointer-events: none !important
 /* ===== NAVBAR ===== */
 nav {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 20px;
   background: rgba(11, 21, 38, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -236,8 +231,12 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  animation: fadeInDown 0.8s ease 1s both;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  animation: fadeInDown 0.8s ease 1s both
 }
 
 nav button {
@@ -300,6 +299,9 @@ section {
 }
 /* Initially hide the home section on desktop */
 section#home {
+  display: none;
+}
+section#features {
   display: none;
 }
 
@@ -1441,7 +1443,8 @@ select:focus, input:focus, textarea:focus {
 
 /* Hide desktop nav on mobile */
 @media (max-width: 768px) {
-  nav { display: none; }
+  nav { display: none !important; }
+  .lang-selector { display: none !important; }
 }
 
 /* ===== MOBILE BOTTOM NAVIGATION (Hidden on Desktop) ===== */
@@ -1459,10 +1462,32 @@ select:focus, input:focus, textarea:focus {
   .nav-links button {
     display: block;
     width: 100%;
-    padding: 16px 24px;
+    padding: 18px 24px;
     font-size: 16px;
     color: #ffffff;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    text-align: left;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+  }
+  .nav-links button i {
+    color: var(--cyan);
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+  }
+  .nav-links button:hover {
+    background: var(--surface2);
+    border-color: var(--cyan);
+    transform: translateX(5px);
+  }
+  section#home, section#features {
+    display: block; /* Show home section on mobile */
   }
   
   /* App-like UI Features */
@@ -1485,7 +1510,7 @@ select:focus, input:focus, textarea:focus {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70px;
+    height: 75px;
     background: rgba(11, 21, 38, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);

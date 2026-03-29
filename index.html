@@ -167,25 +167,57 @@
       <option value="zu">Zulu</option>
     </select>
   </div>
-</header>
+header>
 <nav>
-  <div class="nav-links">
-    <button id="btn-test"    onclick="showSection('test')">Career Test</button>
-    <button id="btn-jobs"    onclick="showSection('jobs')">Job Demand</button>
-    <button id="btn-mentor"  onclick="showSection('mentor')">AI Mentor</button>
-    <button id="btn-resume"  onclick="showSection('resume')">Resume Builder</button>
-    <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
-    <button id="btn-startup" onclick="showSection('startup')">🚀 Startup Ideas</button>
-    <button id="btn-simulator" onclick="showSection('simulator')">🧠 AI Life Simulator</button>
-    <button id="btn-analytics" onclick="showSection('analytics')"><i class="fa-solid fa-chart-pie"></i> Pro Analytics</button>
-    <button id="btn-team"    onclick="showSection('team')">TEAM BOYZ</button>
-    <button id="btn-about" onclick="showSection('about')">About Me</button>
-  </div>
+  <button id="btn-roadmap" onclick="showSection('roadmap')">Career Roadmap</button>
+  <button id="btn-test"    onclick="showSection('test')">Career Test</button>
+  <button id="btn-jobs"    onclick="showSection('jobs')">Job Demand</button>
+  <button id="btn-mentor"  onclick="showSection('mentor')">AI Mentor</button>
+  <button id="btn-resume"  onclick="showSection('resume')">Resume Builder</button>
+  <button id="btn-startup" onclick="showSection('startup')">🚀 Startup Ideas</button>
+  <button id="btn-simulator" onclick="showSection('simulator')">🧠 AI Life Simulator</button>
+  <button id="btn-analytics" onclick="showSection('analytics')"><i class="fa-solid fa-chart-pie"></i> Pro Analytics</button>
+  <button id="btn-team"    onclick="showSection('team')">TEAM BOYZ</button>
+  <button id="btn-about" onclick="showSection('about')">About Me</button>
+  <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
 </nav>
 
 <section id="home">
   <!-- This will be the main container for mobile content -->
   <div id="homeContent"></div>
+</section>
+
+<section id="features">
+  <div class="stitle">Features</div>
+  <div class="nav-links">
+    <button onclick="showSection('roadmap')"><i class="fa-solid fa-map-location-dot"></i> Career Roadmap</button>
+    <button onclick="showSection('test')"><i class="fa-solid fa-clipboard-user"></i> Career Test</button>
+    <button onclick="showSection('mentor')"><i class="fa-solid fa-robot"></i> AI Mentor</button>
+    <button onclick="showSection('resume')"><i class="fa-solid fa-file-lines"></i> Resume Builder</button>
+    <button onclick="showSection('simulator')"><i class="fa-solid fa-brain"></i> AI Simulator</button>
+    <button onclick="showSection('analytics')"><i class="fa-solid fa-chart-pie"></i> Pro Analytics</button>
+    <button onclick="showSection('interview')"><i class="fa-solid fa-headset"></i> Customer Support</button>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="stitle">Career Roadmap</div>
+  <div class="card">
+    <input type="text" id="domain" list="domainList" placeholder="Search from 1000+ domains (e.g. Web Developer, AI, Cloud)..." style="width: 100%; margin-bottom: 15px;">
+    <datalist id="domainList"></datalist>
+    <select id="year" onchange="generateRoadmap()">
+      <option value="0">All Years</option>
+      <option value="1">1st Year</option>
+      <option value="2">2nd Year</option>
+      <option value="3">3rd Year</option>
+      <option value="4">4th Year</option>
+    </select>
+    <button class="btn btn-blue" onclick="generateRoadmap()"><i class="fa-solid fa-magnifying-glass"></i> Generate Roadmap</button>
+    <button class="btn btn-outline" onclick="downloadRoadmap('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+    <button class="btn btn-outline" onclick="downloadRoadmap('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
+    <div id="time-indicator" class="time-indicator"></div>
+  </div>
+  <div id="roadmapOutput"></div>
 </section>
 
 <section id="test">

@@ -6,7 +6,12 @@ function showSection(id, btnElement = null){
     document.querySelectorAll("section").forEach(s => s.style.display = "none");
     
     const homeContent = document.getElementById('homeContent');
-    const targetSection = document.getElementById(id);
+    let targetSection = document.getElementById(id);
+
+    // The original 'roadmap' section is now the default home content
+    if (id === 'home' && homeContent.innerHTML.trim() === '') {
+        targetSection = document.getElementById('roadmap');
+    }
 
     if (id === 'home' || id === 'features' || id === 'about' || id === 'interview' || id === 'profile') {
       // These are main tabs, show them directly
@@ -18,19 +23,19 @@ function showSection(id, btnElement = null){
         document.getElementById('features').style.display = 'block';
       } else {
         document.getElementById('home').style.display = 'block';
-        homeContent.innerHTML = targetSection.innerHTML;
+        if (targetSection) homeContent.innerHTML = targetSection.innerHTML;
       }
     } else {
       // This is a feature selected from the features menu
       document.getElementById('home').style.display = 'block';
-      homeContent.innerHTML = targetSection.innerHTML;
+      if (targetSection) homeContent.innerHTML = targetSection.innerHTML;
       // After loading the feature, set the 'Home' tab to active
       document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
       document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
     }
 
     // Sync active state for mobile bottom nav
-    if (btnElement && btnElement.closest && btnElement.closest('.mobile-bottom-nav')) {
+    if (btnElement) {
       document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
       btnElement.classList.add("active");
     }
@@ -40,7 +45,8 @@ function showSection(id, btnElement = null){
     document.querySelectorAll("section").forEach(s=>s.style.display="none");
     document.getElementById(id).style.display="block";
     document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-    document.getElementById("btn-"+id).classList.add("active");
+    const desktopBtn = document.getElementById("btn-"+id);
+    if(desktopBtn) desktopBtn.classList.add("active");
   }
 
   // Common logic for both
@@ -1750,7 +1756,9 @@ function initParticles() {
 }
 
 window.onload=function(){
-  showSection(window.innerWidth <= 768 ? "home" : "roadmap");
+  const initialSection = window.innerWidth <= 768 ? "home" : "roadmap";
+  showSection(initialSection, document.querySelector('.mobile-bottom-nav button:nth-child(1)'));
+
   let savedState = localStorage.getItem('careerTestState');
   if(savedState){
     let parsed = JSON.parse(savedState);
@@ -1794,331 +1802,10 @@ window.addEventListener('load', detectMobileAppMode);
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/AI-CareerNavigator/service-worker.js', { scope: '/AI-CareerNavigator/' })
-      .then(reg => console.log('PWA Service Worker registered:', reg.scope))
-      .catch(err => console.error('PWA Service Worker registration failed:', err));
-  });
-}
-
-// ==========================================
-// 📱 PWA & MOBILE APP MODE LOGIC
-// ==========================================
-function detectMobileAppMode() {
-  if (window.innerWidth <= 768) {
-    document.body.classList.add('mobile-app-mode');
-  } else {
-    document.body.classList.remove('mobile-app-mode');
-  }
-}
-window.addEventListener('resize', detectMobileAppMode);
-window.addEventListener('load', detectMobileAppMode);
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js')
       .then(reg => console.log('PWA Service Worker registered:', reg.scope))
       .catch(err => console.error('PWA Service Worker registration failed:', err));
   });
-}
-
-// ==========================================
-// 🚀 STARTUP IDEA GENERATOR LOGIC
-// ==========================================
-
-let currentGeneratedIdea = null;
-
-function generateIdeaLocally(input, ideasDataset) {
-  console.log("User Input:", input);
-  const { interest, budget } = input;
-  let localIdeas = ideasDataset;
-
-  let budgetTerm = budget.split(" ")[0];
-  if (budgetTerm === "Zero" || budgetTerm === "Micro") {
-    budgetTerm = "Low";
-  }
-  const interestTerm = interest.split(" ")[0];
-
-  // Tier 1: Strict match on budget AND interest
-  let filtered = localIdeas.filter(i => 
-    i.budget.toLowerCase().includes(budgetTerm.toLowerCase()) && 
-    i.category.toLowerCase().includes(interestTerm.toLowerCase())
-  );
-
-  // Tier 2: Match on interest only, if strict match fails
-  if (filtered.length === 0) {
-    filtered = localIdeas.filter(i => i.category.toLowerCase().includes(interestTerm.toLowerCase()));
-  }
-
-  // Tier 3: No filters matched, use all ideas as a final fallback
-  if (filtered.length === 0) {
-    console.log("No exact match found. Here is a recommended startup idea for you.");
-    filtered = localIdeas;
-  }
-  
-  const randomIdea = filtered[Math.floor(Math.random() * filtered.length)];
-  
-  const idea = {
-    name: randomIdea.name,
-    tagline: `A ${randomIdea.type} in ${randomIdea.category}`,
-    description: randomIdea.description,
-    problem: randomIdea.problem || "Existing solutions are too expensive or inefficient.",
-    solution: randomIdea.solution || "An optimized, automated, and accessible alternative.",
-    targetAudience: randomIdea.targetAudience || "Small businesses and independent creators.",
-    revenueModel: randomIdea.revenueModel || "Subscription / Pay-per-use",
-    difficulty: randomIdea.difficulty || "Medium",
-    growth: randomIdea.growth || "High Scalability",
-    steps: randomIdea.steps || ["Market Research", "Build MVP", "Launch Beta", "Gather Feedback"]
-  };
-
-  console.log("Generated Idea:", idea);
-  return idea;
-}
-
-async function generateStartup() {
-  const interest = document.getElementById("suInterest").value || "General Tech";
-  const budget = document.getElementById("suBudget").value || "Low";
-  const goal = document.getElementById("suGoal").value || "Startup";
-  const time = document.getElementById("suTime").value || "Part-time";
-  const skills = document.getElementById("suSkills").value || "General IT skills";
-
-  document.getElementById("startupOutput").innerHTML = "";
-  document.getElementById("startupLoading").style.display = "block";
-
-  const userInput = { interest, budget, goal, time, skills };
-
-  let ideasDataset = [];
-  try {
-    const response = await fetch("startupIdeas.json");
-    if (response.ok) {
-      ideasDataset = await response.json();
-    } else {
-      throw new Error("Failed to load startup ideas.");
-    }
-  } catch (err) {
-    console.error(err);
-    document.getElementById("startupLoading").style.display = "none";
-    document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red);">Error loading startup ideas. Please ensure you are running on a local server (e.g., Live Server).</p>`;
-    return;
-  }
-
-  setTimeout(() => {
-    try {
-      const ideaData = generateIdeaLocally(userInput, ideasDataset);
-      currentGeneratedIdea = ideaData;
-      document.getElementById("startupLoading").style.display = "none";
-      trackActivity('Generated Startup', `Idea for ${interest}`);
-      renderStartupIdea(ideaData);
-    } catch (error) {
-      console.error("Error generating idea:", error);
-      document.getElementById("startupLoading").style.display = "none";
-      document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red);">An unexpected error occurred while generating an idea. Please check the console for details.</p>`;
-    }
-  }, 600); // 600ms artificial delay to simulate calculation time
-}
-
-function renderStartupIdea(idea) {
-  const outputDiv = document.getElementById("startupOutput");
-  
-  let stepsHtml = idea.steps.map(s => `<li>${s}</li>`).join("");
-
-  outputDiv.innerHTML = `
-    <div class="startup-result-card">
-      <div class="startup-header">
-        <div class="startup-name">${idea.name}</div>
-        <div class="startup-tagline">"${idea.tagline}"</div>
-      </div>
-      
-      <div class="startup-tags">
-        <span class="s-tag diff"><i class="fa-solid fa-gauge-high"></i> Difficulty: ${idea.difficulty}</span>
-        <span class="s-tag growth"><i class="fa-solid fa-arrow-trend-up"></i> Growth: ${idea.growth}</span>
-        <span class="s-tag rev"><i class="fa-solid fa-sack-dollar"></i> Model: ${idea.revenueModel}</span>
-      </div>
-
-      <div class="startup-detail-box">
-        <div class="startup-detail-title">Description</div>
-        <div class="startup-detail-content">${idea.description}</div>
-      </div>
-
-      <div class="resume-grid" style="margin-bottom:0;">
-        <div class="startup-detail-box" style="border-left-color: var(--red);">
-          <div class="startup-detail-title" style="color: var(--red);">The Problem</div>
-          <div class="startup-detail-content">${idea.problem}</div>
-        </div>
-        <div class="startup-detail-box" style="border-left-color: var(--green);">
-          <div class="startup-detail-title" style="color: var(--green);">The Solution</div>
-          <div class="startup-detail-content">${idea.solution}</div>
-        </div>
-      </div>
-
-      <div class="startup-detail-box" style="border-left-color: var(--purple);">
-        <div class="startup-detail-title" style="color: var(--purple);">Target Audience</div>
-        <div class="startup-detail-content">${idea.targetAudience}</div>
-      </div>
-
-      <div class="resume-btns" style="margin-top: 25px;">
-        <button class="btn btn-outline" onclick="generateStartup()"><i class="fa-solid fa-rotate-right"></i> Regenerate</button>
-        <button class="btn btn-green" onclick="saveCurrentIdea()"><i class="fa-solid fa-floppy-disk"></i> Save Idea</button>
-        <button class="btn btn-blue" onclick="downloadStartupIdea('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
-        <button class="btn btn-blue" onclick="downloadStartupIdea('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
-        <button class="btn btn-outline" onclick="document.getElementById('execSteps').classList.toggle('expanded')" style="border-color: var(--text-secondary) !important; color: var(--text);"><i class="fa-solid fa-list-check"></i> Execution Steps</button>
-      </div>
-
-      <div id="execSteps" class="startup-steps">
-        <div class="startup-detail-title" style="color: var(--cyan); margin-bottom:10px;">First Steps to Execute:</div>
-        <ul>${stepsHtml}</ul>
-      </div>
-    </div>
-  `;
-}
-
-function saveCurrentIdea() {
-  if (!currentGeneratedIdea) return;
-  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
-  saved.push(currentGeneratedIdea);
-  localStorage.setItem("savedStartups", JSON.stringify(saved));
-  alert("Idea saved successfully!");
-  renderSavedStartups();
-}
-
-function downloadStartupIdea(type = 'pdf') {
-  if (!currentGeneratedIdea) return;
-  const idea = currentGeneratedIdea;
-
-  if (type === 'word') {
-    let content = `<html><head><meta charset='utf-8'><title>Startup Idea - ${idea.name}</title></head><body style="font-family: Arial, sans-serif; line-height: 1.6;">`;
-    content += `<h1 style="text-align: center; color: #0055aa;">${idea.name.toUpperCase()}</h1>`;
-    content += `<p style="text-align: center; font-size: 14px;"><em>"${idea.tagline}"</em></p>`;
-    content += `<div style="text-align: center; margin-bottom: 20px;"><strong>Difficulty:</strong> ${idea.difficulty} | <strong>Growth:</strong> ${idea.growth} | <strong>Model:</strong> ${idea.revenueModel}</div>`;
-    content += `<hr style="margin-bottom: 20px;" />`;
-
-    content += `<h2 style="color: #0055aa;">Description</h2><p>${idea.description}</p>`;
-    content += `<h2 style="color: #0055aa;">The Problem</h2><p>${idea.problem}</p>`;
-    content += `<h2 style="color: #0055aa;">The Solution</h2><p>${idea.solution}</p>`;
-    content += `<h2 style="color: #0055aa;">Target Audience</h2><p>${idea.targetAudience}</p>`;
-
-    if (idea.steps && idea.steps.length > 0) {
-      content += `<h2 style="color: #0055aa;">Execution Steps</h2><ol>`;
-      idea.steps.forEach(step => {
-        content += `<li>${step}</li>`;
-      });
-      content += `</ol>`;
-    }
-    content += `</body></html>`;
-
-    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `Startup_Idea_${idea.name.replace(/\s+/g, '_')}.doc`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    return;
-  }
-  
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF('p', 'pt', 'a4');
-  const margin = 40;
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const contentWidth = pageWidth - (margin * 2);
-  let cursorY = margin;
-
-  const drawSectionTitle = (title) => {
-    if (cursorY > 750) { doc.addPage(); cursorY = margin; }
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text(title.toUpperCase(), margin, cursorY);
-    cursorY += 8;
-    doc.setLineWidth(1.5);
-    doc.line(margin, cursorY, pageWidth - margin, cursorY);
-    cursorY += 15;
-  };
-
-  const drawBodyText = (text) => {
-    if (!text) return;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    const lines = doc.splitTextToSize(text, contentWidth);
-    doc.text(lines, margin, cursorY);
-    cursorY += (lines.length * 12) + 10;
-  };
-
-  const drawList = (items) => {
-    if (!items || items.length === 0) return;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    items.forEach((item, idx) => {
-        const itemText = `${idx + 1}.  ${item.trim()}`;
-        const lines = doc.splitTextToSize(itemText, contentWidth - 10);
-        doc.text(lines, margin + 10, cursorY);
-        cursorY += (lines.length * 12) + 4;
-    });
-    cursorY += 10;
-  };
-
-  // HEADER
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
-  doc.text(idea.name.toUpperCase(), pageWidth / 2, cursorY, { align: 'center' });
-  cursorY += 20;
-
-  doc.setFont('helvetica', 'italic');
-  doc.setFontSize(12);
-  doc.text(`"${idea.tagline}"`, pageWidth / 2, cursorY, { align: 'center' });
-  cursorY += 20;
-  
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  const metadata = `Difficulty: ${idea.difficulty}   |   Growth: ${idea.growth}   |   Model: ${idea.revenueModel}`;
-  doc.text(metadata, pageWidth / 2, cursorY, { align: 'center' });
-  cursorY += 30;
-
-  // SECTIONS
-  drawSectionTitle('Description');
-  drawBodyText(idea.description);
-
-  drawSectionTitle('The Problem');
-  drawBodyText(idea.problem);
-
-  drawSectionTitle('The Solution');
-  drawBodyText(idea.solution);
-
-  drawSectionTitle('Target Audience');
-  drawBodyText(idea.targetAudience);
-
-  if (idea.steps && idea.steps.length > 0) {
-    drawSectionTitle('Execution Steps');
-    drawList(idea.steps);
-  }
-
-  doc.save(`Startup_Idea_${idea.name.replace(/\s+/g, '_')}.pdf`);
-}
-
-function deleteSavedIdea(index) {
-  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
-  saved.splice(index, 1);
-  localStorage.setItem("savedStartups", JSON.stringify(saved));
-  renderSavedStartups();
-}
-
-function renderSavedStartups() {
-  const grid = document.getElementById("savedStartupsGrid");
-  if(!grid) return;
-  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
-  
-  if (saved.length === 0) {
-    grid.innerHTML = `<p style="color:var(--muted); font-size: 14px;">No ideas saved yet.</p>`;
-    return;
-  }
-
-  grid.innerHTML = saved.map((idea, idx) => `
-    <div class="saved-card">
-      <button class="delete-saved-btn" onclick="deleteSavedIdea(${idx})" title="Delete"><i class="fa-solid fa-xmark"></i></button>
-      <div class="saved-card-name">${idea.name}</div>
-      <div class="saved-card-tag">${idea.tagline}</div>
-      <div style="font-size: 12px; color: var(--text-secondary);">${idea.description.substring(0, 80)}...</div>
-    </div>
-  `).join("");
 }
 
 // ==========================================
