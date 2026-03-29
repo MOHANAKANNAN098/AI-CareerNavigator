@@ -3,569 +3,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CareerForge AI - 1000+ Domains</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<title>My Profile — CareerForge AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
-<!-- Authentication Script -->
-<script src="script.js"></script>
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en', 
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-  function translateLanguage(val) {
-    var teCombo = document.querySelector('.goog-te-combo');
-    if (teCombo) {
-      teCombo.value = val;
-      teCombo.dispatchEvent(new Event('change', { bubbles: true }));
+<style>
+  .profile-wrapper { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 60px 20px; position: relative; z-index: 1; }
+  .profile-card { max-width: 600px; width: 100%; text-align: left; animation: fadeInUp 0.5s ease both; }
+  .profile-header { text-align: center; margin-bottom: 30px; position: relative; }
+  .profile-avatar-container { position: relative; width: 110px; height: 110px; margin: 0 auto 15px; }
+  .profile-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cyan); box-shadow: 0 0 20px rgba(0,229,255,0.3); background: var(--bg); }
+  .upload-btn { position: absolute; bottom: 0; right: 0; background: var(--blue); color: #000; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); border: 3px solid var(--surface); box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+  .upload-btn:hover { background: var(--cyan); transform: scale(1.1); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 480px) { .form-grid { grid-template-columns: 1fr; } }
+  .section-divider { height: 1px; background: var(--glass-border); margin: 30px 0; }
+  .btn-danger { background: rgba(255, 51, 102, 0.1); border: 1px solid var(--red); color: var(--red); padding: 12px 20px; border-radius: 10px; cursor: pointer; transition: var(--transition); font-weight: 600; font-size: 13px; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-danger:hover { background: var(--red); color: #fff; box-shadow: 0 0 15px rgba(255, 51, 102, 0.4); }
+  .back-btn { position: absolute; top: 25px; left: 25px; color: var(--cyan); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 8px; z-index: 10; transition: var(--transition); }
+  .back-btn:hover { color: var(--blue); transform: translateX(-3px); }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+
+<div class="profile-wrapper">
+  <div class="auth-card profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar-container">
+        <img id="profileImg" src="https://via.placeholder.com/150/0b1526/00aaff?text=U" alt="Profile" class="profile-avatar">
+        <label for="imageUpload" class="upload-btn" title="Change Profile Picture"><i class="fa-solid fa-camera"></i></label>
+        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+      </div>
+      <h2 style="font-family: 'Orbitron', monospace; color: var(--text); font-size: 24px;">My Profile</h2>
+      <p style="color: var(--muted); font-size: 13px; margin-top: 5px;">Manage your account settings</p>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Full Name</label>
+        <input type="text" id="name" class="form-input" placeholder="Your Full Name">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Username</label>
+        <input type="text" id="username" class="form-input" placeholder="Your Username">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Email (Read Only)</label>
+        <input type="email" id="email" class="form-input" disabled style="opacity: 0.6; cursor: not-allowed;" title="Email cannot be changed">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" id="phone" class="form-input" placeholder="Your Phone Number">
+      </div>
+    </div>
+    
+    <button id="saveProfileBtn" class="auth-btn"><i class="fa-solid fa-floppy-disk"></i> &nbsp;Save Profile Details</button>
+
+    <div class="section-divider"></div>
+
+    <div class="stitle" style="font-size: 14px; margin-bottom: 20px; padding-bottom: 8px;">Change Password</div>
+    <div class="form-grid">
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">Old Password</label>
+        <input type="password" id="oldPassword" class="form-input" placeholder="Enter current password">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label class="form-label">New Password</label>
+        <input type="password" id="newPassword" class="form-input" placeholder="Enter new password">
+      </div>
+    </div>
+    
+    <button id="changePwdBtn" class="auth-btn" style="background: linear-gradient(135deg, var(--purple), var(--blue));"><i class="fa-solid fa-key"></i> &nbsp;Update Password</button>
+
+    <div class="section-divider"></div>
+
+    <div class="stitle" style="font-size: 14px; margin-bottom: 20px; padding-bottom: 8px; color: var(--red); border-bottom-color: rgba(255, 51, 102, 0.2);">Danger Zone</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+      <button id="deleteAccountBtn" class="btn-danger" style="background: transparent; color: var(--muted); border-color: var(--glass-border);"><i class="fa-solid fa-user-xmark"></i> Delete Account</button>
+      <button id="logoutBtn" class="btn-danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 8. Auto Load Profile Data
+  window.onload = function() {
+    // 2. Load current user data
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    
+    // If no user -> redirect to login
+    if (!user) {
+      window.location.href = "login.html";
+      return;
     }
-    // Set cookie so the whole site stays translated even on reload
-    document.cookie = "googtrans=/en/" + val + "; path=/";
-    document.cookie = "googtrans=/en/" + val + "; domain=" + window.location.hostname + "; path=/";
+
+    document.getElementById("name").value = user.name || "";
+    document.getElementById("username").value = user.username || "";
+    document.getElementById("email").value = user.email || "";
+    document.getElementById("phone").value = user.phone || "";
+    
+    // 3. Show profile image
+    if (user.image) {
+      document.getElementById("profileImg").src = user.image;
+    } else {
+      document.getElementById("profileImg").src = "https://via.placeholder.com/150/0b1526/00aaff?text=" + (user.name ? user.name[0].toUpperCase() : "U");
+    }
+  };
+
+  // 4. Enable Image Upload (Change Profile Pic)
+  document.getElementById("imageUpload").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        document.getElementById("profileImg").src = reader.result;
+        let user = JSON.parse(localStorage.getItem("currentUser"));
+        user.image = reader.result;
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        updateUserInArray(user);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // 5. Enable Edit Profile
+  document.getElementById("saveProfileBtn").addEventListener("click", function() {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    let updatedUser = {
+      ...user,
+      name: document.getElementById("name").value.trim(),
+      username: document.getElementById("username").value.trim(),
+      phone: document.getElementById("phone").value.trim()
+    };
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+    updateUserInArray(updatedUser);
+    alert("Profile details updated successfully!");
+  });
+
+  // Helper to keep main users array strictly in sync
+  function updateUserInArray(updatedUser) {
+    let users = JSON.parse(localStorage.getItem("cf_users")) || [];
+    // Map to find the user by their email (which is unique) and preserve their secure password
+    users = users.map(u => u.email === updatedUser.email ? { ...u, ...updatedUser, password: u.password } : u);
+    localStorage.setItem("cf_users", JSON.stringify(users));
   }
-  
-  // Sync dropdown with active language cookie on load
-  window.addEventListener('DOMContentLoaded', function() {
-    var match = document.cookie.match(/googtrans=\/en\/([a-zA-Z-]+)/);
-    if (match && match[1]) {
-      var langSelect = document.querySelector('.lang-selector select');
-      if (langSelect) langSelect.value = match[1];
+
+  // 6. Enable Change Password
+  document.getElementById("changePwdBtn").addEventListener("click", function() {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    let oldPwd = document.getElementById("oldPassword").value;
+    let newPwd = document.getElementById("newPassword").value;
+
+    if (!oldPwd || !newPwd) { alert("Please fill in both password fields."); return; }
+
+    let users = JSON.parse(localStorage.getItem("cf_users")) || [];
+    let userIndex = users.findIndex(u => u.email === user.email);
+
+    if (userIndex !== -1) {
+      // Check old password matches
+      if (users[userIndex].password === oldPwd) {
+        users[userIndex].password = newPwd;
+        localStorage.setItem("cf_users", JSON.stringify(users));
+        alert("Password updated successfully!");
+        document.getElementById("oldPassword").value = "";
+        document.getElementById("newPassword").value = "";
+      } else {
+        alert("Error: Old password does not match.");
+      }
+    }
+  });
+
+  // 7. Add Logout Button
+  document.getElementById("logoutBtn").addEventListener("click", function() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+  });
+
+  // 8. Delete Account Button
+  document.getElementById("deleteAccountBtn").addEventListener("click", function() {
+    if (confirm("⚠️ WARNING: Are you sure you want to completely delete your account and all saved data? This cannot be undone!")) {
+      let user = JSON.parse(localStorage.getItem("currentUser"));
+      
+      if (user) {
+        // Remove user from the main cf_users database array
+        let users = JSON.parse(localStorage.getItem("cf_users")) || [];
+        users = users.filter(u => u.email !== user.email);
+        localStorage.setItem("cf_users", JSON.stringify(users));
+      }
+      
+      // Clear current session and application data
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("savedStartups");
+      localStorage.removeItem("savedSimulations");
+      localStorage.removeItem("appAnalytics");
+      localStorage.removeItem("careerTestState");
+      
+      // Clear all roadmap progress checks
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith("progress_")) localStorage.removeItem(key);
+      });
+
+      alert("Account and all associated data deleted successfully.");
+      window.location.href = "signup.html";
     }
   });
 </script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-</head>
-<body>
-<div class="page-transition"></div>
-<canvas id="canvas"></canvas>
-<header>
-  <h1>CareerForge AI</h1>
-  <p>Smart Career Mentor Platform — 1000+ Domains</p>
-  
-  <div id="google_translate_element" style="opacity:0; position:absolute; z-index:-1; pointer-events:none;"></div>
-  
-  <!-- Profile Button Container -->
-  <div id="profile-btn-container" class="profile-btn-wrap"></div>
-  
-  <div class="lang-selector notranslate">
-    <i class="fa-solid fa-language"></i>
-    <select onchange="translateLanguage(this.value)">
-      <option value="en">English</option>
-      <option value="af">Afrikaans</option>
-      <option value="sq">Albanian</option>
-      <option value="am">Amharic</option>
-      <option value="ar">Arabic</option>
-      <option value="hy">Armenian</option>
-      <option value="az">Azerbaijani</option>
-      <option value="eu">Basque</option>
-      <option value="be">Belarusian</option>
-      <option value="bn">Bengali</option>
-      <option value="bs">Bosnian</option>
-      <option value="bg">Bulgarian</option>
-      <option value="my">Burmese</option>
-      <option value="ca">Catalan</option>
-      <option value="ceb">Cebuano</option>
-      <option value="ny">Chichewa</option>
-      <option value="zh-CN">Chinese</option>
-      <option value="co">Corsican</option>
-      <option value="hr">Croatian</option>
-      <option value="cs">Czech</option>
-      <option value="da">Danish</option>
-      <option value="nl">Dutch</option>
-      <option value="eo">Esperanto</option>
-      <option value="et">Estonian</option>
-      <option value="tl">Filipino</option>
-      <option value="fi">Finnish</option>
-      <option value="fr">French</option>
-      <option value="fy">Frisian</option>
-      <option value="gl">Galician</option>
-      <option value="ka">Georgian</option>
-      <option value="de">German</option>
-      <option value="el">Greek</option>
-      <option value="gu">Gujarati</option>
-      <option value="ht">Haitian Creole</option>
-      <option value="ha">Hausa</option>
-      <option value="haw">Hawaiian</option>
-      <option value="he">Hebrew</option>
-      <option value="hi">Hindi</option>
-      <option value="hmn">Hmong</option>
-      <option value="hu">Hungarian</option>
-      <option value="is">Icelandic</option>
-      <option value="ig">Igbo</option>
-      <option value="id">Indonesian</option>
-      <option value="ga">Irish</option>
-      <option value="it">Italian</option>
-      <option value="ja">Japanese</option>
-      <option value="jv">Javanese</option>
-      <option value="kn">Kannada</option>
-      <option value="kk">Kazakh</option>
-      <option value="km">Khmer</option>
-      <option value="rw">Kinyarwanda</option>
-      <option value="ko">Korean</option>
-      <option value="ku">Kurdish</option>
-      <option value="ky">Kyrgyz</option>
-      <option value="lo">Lao</option>
-      <option value="la">Latin</option>
-      <option value="lv">Latvian</option>
-      <option value="lt">Lithuanian</option>
-      <option value="lb">Luxembourgish</option>
-      <option value="mk">Macedonian</option>
-      <option value="mg">Malagasy</option>
-      <option value="ms">Malay</option>
-      <option value="ml">Malayalam</option>
-      <option value="mt">Maltese</option>
-      <option value="mi">Maori</option>
-      <option value="mr">Marathi</option>
-      <option value="mn">Mongolian</option>
-      <option value="ne">Nepali</option>
-      <option value="no">Norwegian</option>
-      <option value="or">Odia</option>
-      <option value="ps">Pashto</option>
-      <option value="fa">Persian</option>
-      <option value="pl">Polish</option>
-      <option value="pa">Punjabi</option>
-      <option value="ro">Romanian</option>
-      <option value="ru">Russian</option>
-      <option value="sm">Samoan</option>
-      <option value="gd">Scots Gaelic</option>
-      <option value="sr">Serbian</option>
-      <option value="st">Sesotho</option>
-      <option value="sn">Shona</option>
-      <option value="sd">Sindhi</option>
-      <option value="si">Sinhala</option>
-      <option value="sk">Slovak</option>
-      <option value="sl">Slovenian</option>
-      <option value="so">Somali</option>
-      <option value="es">Spanish</option>
-      <option value="su">Sundanese</option>
-      <option value="sw">Swahili</option>
-      <option value="sv">Swedish</option>
-      <option value="tg">Tajik</option>
-      <option value="ta">Tamil</option>
-      <option value="tt">Tatar</option>
-      <option value="te">Telugu</option>
-      <option value="th">Thai</option>
-      <option value="ti">Tigrinya</option>
-      <option value="tr">Turkish</option>
-      <option value="tk">Turkmen</option>
-      <option value="uk">Ukrainian</option>
-      <option value="ur">Urdu</option>
-      <option value="ug">Uyghur</option>
-      <option value="uz">Uzbek</option>
-      <option value="vi">Vietnamese</option>
-      <option value="cy">Welsh</option>
-      <option value="xh">Xhosa</option>
-      <option value="yi">Yiddish</option>
-      <option value="yo">Yoruba</option>
-      <option value="zu">Zulu</option>
-    </select>
-  </div>
-</header>
-<nav>
-  <button id="btn-roadmap" onclick="showSection('roadmap')">Career Roadmap</button>
-  <button id="btn-test"    onclick="showSection('test')">Career Test</button>
-  <button id="btn-jobs"    onclick="showSection('jobs')">Job Demand</button>
-  <button id="btn-mentor"  onclick="showSection('mentor')">AI Mentor</button>
-  <button id="btn-resume"  onclick="showSection('resume')">Resume Builder</button>
-  <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
-  <button id="btn-startup" onclick="showSection('startup')">🚀 Startup Ideas</button>
-  <button id="btn-simulator" onclick="showSection('simulator')">🧠 AI Life Simulator</button>
-  <button id="btn-analytics" onclick="showSection('analytics')"><i class="fa-solid fa-chart-pie"></i> Pro Analytics</button>
-  <button id="btn-team"    onclick="showSection('team')">TEAM BOYZ</button>
-  <button id="btn-about" onclick="showSection('about')">About Me</button>
-</nav>
-
-<section id="roadmap">
-  <div class="stitle">Career Roadmap</div>
-  <div class="card">
-    <input type="text" id="domain" list="domainList" placeholder="Search from 1000+ domains (e.g. Web Developer, AI, Cloud)..." style="width: 100%; margin-bottom: 15px;">
-    <datalist id="domainList"></datalist>
-    <select id="year" onchange="generateRoadmap()">
-      <option value="0">All Years</option>
-      <option value="1">1st Year</option>
-      <option value="2">2nd Year</option>
-      <option value="3">3rd Year</option>
-      <option value="4">4th Year</option>
-    </select>
-    <button class="btn btn-blue" onclick="generateRoadmap()"><i class="fa-solid fa-magnifying-glass"></i> Generate Roadmap</button>
-    <button class="btn btn-outline" onclick="downloadRoadmap('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
-    <button class="btn btn-outline" onclick="downloadRoadmap('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
-    <div id="time-indicator" class="time-indicator"></div>
-  </div>
-  <div id="roadmapOutput"></div>
-</section>
-
-<section id="test">
-  <div class="stitle">Career Aptitude Assessment</div>
-  <div id="questionBox">
-    <div class="anim-slide">
-    <div style="font-size: 48px; color: var(--blue); margin-bottom: 10px;"><i class="fa-solid fa-clipboard-user"></i></div>
-    <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text);">Professional Career Profiler</h2>
-    <p style="color:var(--muted);font-size:16px; margin-bottom: 30px; max-width: 500px;">Evaluate your interests, work style, and technical inclinations. This assessment uses a weighted scoring algorithm to match you with your optimal tech domains.</p>
-    <button class="btn btn-blue" onclick="startTest()"><i class="fa-solid fa-play"></i> Begin Assessment</button>
-    </div>
-  </div>
-</section>
-
-<section id="jobs">
-  <div class="stitle">Tech Job Market</div>
-  <div class="card">
-    <h3 style="color:#c8dff5; margin-bottom:10px; text-align:center;">Worldwide Software Job Demand (Live) <span class="ai-dot" style="display:inline-block; margin-left:5px;"></span></h3>
-    <div class="chart-wrap"><canvas id="jobChart"></canvas></div>
-    <h3 style="color:#c8dff5; margin-top:30px; margin-bottom:10px; text-align:center;">Worldwide Hardware Job Demand (Live) <span class="ai-dot" style="display:inline-block; margin-left:5px;"></span></h3>
-    <div class="chart-wrap"><canvas id="hardwareChart"></canvas></div>
-  </div>
-</section>
-
-<section id="mentor">
-  <div class="stitle"><i class="fa-solid fa-robot"></i> &nbsp;AI Career Mentor</div>
-
-  <!-- Chat Window -->
-  <div class="ai-chat-wrap">
-    <!-- Header Bar -->
-    <div class="ai-chat-header">
-      <div class="ai-avatar-wrap">
-        <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
-        <div>
-          <div class="ai-name">CareerForge AI</div>
-          <div class="ai-status"><span class="ai-dot"></span> Online — Powered by Gemini AI</div>
-        </div>
-      </div>
-      <button class="ai-clear-btn" onclick="clearChat()" title="Clear chat"><i class="fa-solid fa-trash"></i></button>
-    </div>
-
-    <!-- Messages -->
-    <div id="chatbox" class="ai-chatbox"></div>
-
-    <!-- Suggestions -->
-    <div id="chat-suggestions" class="ai-suggestions"></div>
-
-    <!-- Input Bar -->
-    <div class="ai-input-bar">
-      <textarea id="mentorInput" class="ai-textarea" rows="1" placeholder="Ask me anything about your career…"
-        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();mentor();}"
-        oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
-      <button class="ai-send-btn" onclick="mentor()" title="Send">
-        <i class="fa-solid fa-paper-plane"></i>
-      </button>
-    </div>
-  </div>
-</section>
-
-<section id="resume">
-  <div class="stitle">Resume Builder</div>
-  <div class="card">
-    <div class="resume-grid">
-      <input id="name"     placeholder="Full Name">
-      <input id="city"     placeholder="City, State">
-      <input id="phone"    placeholder="Phone Number">
-      <input id="email"    placeholder="Email Address">
-      <input id="github"   placeholder="GitHub Link">
-      <input id="linkedin" placeholder="LinkedIn Link">
-      <textarea id="summary" placeholder="Professional Profile Summary" class="span2" style="height:60px;"></textarea>
-      <input id="college"  placeholder="University Name">
-      <input id="degree"   placeholder="Degree & Major (e.g. B.Tech CS)">
-      <input id="gradYear" placeholder="Graduation Year">
-      <input id="cgpa"     placeholder="CGPA / Percentage">
-      <input id="skills"   placeholder="Tech Skills (e.g., Python: 90, HTML: 85, React: 70)" class="span2">
-      <input id="projTitle" placeholder="Project Title">
-      <input id="projTech" placeholder="Technologies Used">
-      <textarea id="projDesc" placeholder="Project Description (Bullet points)" class="span2" style="height:60px;"></textarea>
-      <textarea id="certs"    placeholder="Certifications (Organization - Year)" class="span2" style="height:50px;"></textarea>
-      <textarea id="achieve"  placeholder="Achievements / Internships" class="span2" style="height:50px;"></textarea>
-    </div>
-    <div class="resume-btns">
-      <button class="btn btn-blue"    onclick="generateResume()">Generate Resume</button>
-      <button class="btn btn-outline" onclick="downloadResume('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
-      <button class="btn btn-outline" onclick="downloadResume('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
-    </div>
-  </div>
-  <pre id="resumeOutput"></pre>
-</section>
-
-<section id="startup">
-  <div class="stitle">🚀 AI Startup Idea Generator</div>
-  
-  <div class="card" id="startupFormCard">
-    <p style="color:var(--muted); font-size:14px; margin-bottom: 20px;">Enter your preferences below to generate a tailored startup or side-hustle idea using AI.</p>
-    <div class="resume-grid">
-      <select id="suInterest">
-        <option value="" disabled selected>Select Primary Interest</option>
-        <option value="AI & Machine Learning">AI & Machine Learning</option>
-        <option value="E-commerce & Retail">E-commerce & Retail</option>
-        <option value="EdTech & Education">EdTech & Education</option>
-        <option value="Health & Wellness">Health & Wellness</option>
-        <option value="SaaS & Software">SaaS & Software</option>
-        <option value="Sustainability & Green Tech">Sustainability & Green Tech</option>
-        <option value="FinTech & Crypto">FinTech & Crypto</option>
-        <option value="Cybersecurity">Cybersecurity</option>
-        <option value="Web3 & Blockchain">Web3 & Blockchain</option>
-        <option value="AR/VR & Metaverse">AR/VR & Metaverse</option>
-        <option value="Robotics & Hardware">Robotics & Hardware</option>
-        <option value="Media & Content">Media & Content</option>
-        <option value="Real Estate & PropTech">Real Estate & PropTech</option>
-        <option value="Food & Beverage">Food & Beverage</option>
-        <option value="Logistics & Supply Chain">Logistics & Supply Chain</option>
-        <option value="Gaming & Esports">Gaming & Esports</option>
-        <option value="Travel & Hospitality">Travel & Hospitality</option>
-        <option value="HR & Recruitment Tech">HR & Recruitment Tech</option>
-        <option value="DeepTech">DeepTech & Quantum Computing</option>
-      </select>
-      <select id="suBudget">
-        <option value="" disabled selected>Select Budget</option>
-        <option value="Zero Budget (₹0)">Zero Budget (₹0)</option>
-        <option value="Micro (₹1,000 - ₹5,000)">Micro (₹1,000 - ₹5,000)</option>
-        <option value="Low (₹5,000 - ₹50,000)">Low (₹5,000 - ₹50,000)</option>
-        <option value="Medium (₹50,000 - ₹5,00,000)">Medium (₹50,000 - ₹5,00,000)</option>
-        <option value="High (₹5,00,000 - ₹20,00,000)">High (₹5,00,000 - ₹20,00,000)</option>
-        <option value="Enterprise (₹20,00,000+)">Enterprise (₹20,00,000+)</option>
-      </select>
-      <select id="suGoal" onchange="trackActivity('Path Selected', 'Selected Goal: ' + this.value)">
-        <option value="" disabled selected>Select Goal</option>
-        <option value="Venture-backed Startup">Venture-backed Startup</option>
-        <option value="Side Hustle">Side Hustle</option>
-        <option value="Passive Income">Passive Income</option>
-        <option value="Freelance Agency">Freelance Agency</option>
-        <option value="Bootstrapped SaaS">Bootstrapped SaaS</option>
-        <option value="Non-Profit / Social Impact">Non-Profit / Social Impact</option>
-        <option value="Micro-SaaS">Micro-SaaS</option>
-        <option value="Lifestyle Business">Lifestyle Business</option>
-        <option value="Open Source Project">Open Source Project</option>
-        <option value="D2C Brand">D2C Brand</option>
-        <option value="B2B Enterprise Software">B2B Enterprise Software</option>
-        <option value="Productized Service">Productized Service</option>
-      </select>
-      <select id="suTime">
-        <option value="" disabled selected>Time Availability</option>
-        <option value="1-5 hours/week">1-5 hours/week</option>
-        <option value="Weekend Project (5-10 hours/week)">Weekend Project (5-10 hours/week)</option>
-        <option value="10-20 hours/week">10-20 hours/week</option>
-        <option value="Half-time (20-30 hours/week)">Half-time (20-30 hours/week)</option>
-        <option value="Full-time (40+ hours/week)">Full-time (40+ hours/week)</option>
-        <option value="All-In (60+ hours/week)">All-In (60+ hours/week)</option>
-        <option value="Flexible / Variable">Flexible / Variable</option>
-      </select>
-      <input id="suSkills" placeholder="List your skills (e.g., Python, Marketing, Design)..." class="span2" onchange="trackActivity('Skills Updated', 'Skills set to: ' + this.value)">
-    </div>
-    <button class="btn btn-green" onclick="generateStartup()" style="margin-top: 15px; width: 100%;"><i class="fa-solid fa-lightbulb"></i> Generate Idea</button>
-  </div>
-
-  <!-- Loading & Output -->
-  <div id="startupLoading" class="startup-spinner" style="display:none;"></div>
-  <div id="startupOutput"></div>
-
-  <!-- Saved Ideas -->
-  <div class="stitle" style="margin-top: 48px;">💾 My Saved Ideas</div>
-  <div id="savedStartupsGrid" class="saved-startup-grid"></div>
-
-</section>
-
-<section id="simulator">
-  <div class="stitle">🧠 AI Life Simulator & Decision Engine</div>
-  
-  <div class="card" id="simFormCard">
-    <p style="color:var(--muted); font-size:14px; margin-bottom: 20px;">Let AI analyze your profile and recommend the absolute best path for you: Business, Corporate Job, or Higher Studies.</p>
-    <div class="resume-grid">
-      <select id="simStatus">
-        <option value="" disabled selected>Current Status</option>
-        <option value="Student">Student</option>
-        <option value="Beginner">Beginner / Fresher</option>
-        <option value="Intermediate">Intermediate Professional</option>
-      </select>
-      <select id="simFinance">
-        <option value="" disabled selected>Financial Condition</option>
-        <option value="Low">Low / Tight</option>
-        <option value="Medium">Medium / Stable</option>
-        <option value="High">High / Strong Backing</option>
-      </select>
-      <select id="simRisk">
-        <option value="" disabled selected>Risk Tolerance</option>
-        <option value="Low">Low (Safe & Steady)</option>
-        <option value="Medium">Medium (Balanced)</option>
-        <option value="High">High (High Risk, High Reward)</option>
-      </select>
-      <select id="simTime">
-        <option value="" disabled selected>Time Commitment</option>
-        <option value="Part-time (< 20 hrs/week)">Part-time (< 20 hrs/week)</option>
-        <option value="Full-time (40 hrs/week)">Full-time (40 hrs/week)</option>
-        <option value="All-in (60+ hrs/week)">All-in (60+ hrs/week)</option>
-      </select>
-      <input id="simMarks" placeholder="Academic Performance (e.g., 8.5 CGPA, Average)">
-      <input id="simGoal" placeholder="Ultimate Career Goal (e.g., CEO, Lead Engineer, Professor)" onchange="trackActivity('Path Selected', 'Set Ultimate Goal: ' + this.value)">
-      <input id="simSkills" placeholder="Top Skills (e.g., Python, Marketing)" class="span2" onchange="trackActivity('Skills Updated', 'Skills set to: ' + this.value)">
-      <input id="simInterests" placeholder="Interests & Passions (e.g., AI, Space, Finance)" class="span2">
-    </div>
-    <button class="btn btn-blue" onclick="generateAdvancedSimulation()" style="margin-top: 15px; width: 100%;"><i class="fa-solid fa-brain"></i> Analyze & Simulate My Future</button>
-  </div>
-
-  <!-- Loading & Output -->
-  <div id="simLoading" class="startup-spinner" style="display:none; border-top-color: var(--purple);"></div>
-  <div id="simOutputMain"></div>
-
-  <!-- Saved Simulations -->
-  <div class="stitle" style="margin-top: 48px;">📂 My Saved Simulations</div>
-  <div id="savedSimsGrid" class="saved-startup-grid"></div>
-
-</section>
-
-<section id="analytics">
-  <div class="stitle"><i class="fa-solid fa-satellite-dish" style="color:var(--red); animation: pulse-dot 2s infinite;"></i> &nbsp;Live Activity Analytics Dashboard</div>
-  <div class="analytics-dashboard">
-    <!-- KPI Cards (Live Metrics) -->
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-title">⏱ Time Spent</div>
-        <div class="kpi-value" id="kpi-time">0m</div>
-        <div class="kpi-trend">Current Session</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">🧠 Total Simulations</div>
-        <div class="kpi-value" id="kpi-sims">0</div>
-        <div class="kpi-trend">Ran by User</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">✅ Tasks Completed</div>
-        <div class="kpi-value" id="kpi-tasks">0</div>
-        <div class="kpi-trend">Roadmap Progress</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-title">📍 Current Path</div>
-        <div class="kpi-value" id="kpi-path" style="font-size: 16px;">--</div>
-        <div class="kpi-trend">Latest Decision</div>
-      </div>
-    </div>
-
-    <!-- Live Snapshot & Feed -->
-    <div class="analytics-row">
-      <div class="chart-box">
-        <div class="chart-header"><i class="fa-solid fa-bolt" style="color:var(--yellow);"></i> Last Result Snapshot</div>
-        <div id="live-snapshot-content" style="min-height: 120px;">
-          <div style="color:var(--muted); font-size:14px; padding: 20px;">No data available. Run the AI Simulator to generate a live snapshot.</div>
-        </div>
-      </div>
-      <div class="activity-box">
-        <div class="chart-header"><i class="fa-solid fa-satellite-dish" style="color:var(--red);"></i> Live User Activity Feed</div>
-        <div id="activity-log" class="activity-log" style="max-height: 250px;"></div>
-      </div>
-    </div>
-
-    <!-- Charts Row -->
-    <div class="analytics-row">
-      <div class="chart-box col-span-2">
-        <div class="chart-header">Projected Growth Trend (Income / Yr)</div>
-        <div class="chart-wrap" style="height: 300px;"><canvas id="growthChart"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-header">Path Inclination</div>
-        <div class="chart-wrap" style="height: 300px;"><canvas id="pathPieChart"></canvas></div>
-      </div>
-    </div>
-
-    <!-- Bottom Row -->
-    <div class="analytics-row">
-      <div class="chart-box">
-        <div class="chart-header">Skill Distribution</div>
-        <div class="chart-wrap" style="height: 250px;"><canvas id="skillRadarChart"></canvas></div>
-      </div>
-      <div class="insights-box">
-        <div class="chart-header"><i class="fa-solid fa-lightbulb" style="color:var(--yellow);"></i> Intelligent Insights Engine</div>
-        <div id="ai-insights-list" class="insights-list"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="interview">
-  <div class="stitle">Customer Support</div>
-  <div class="card">
-    <p style="font-size:16px; margin-bottom: 15px;">For any help or questions regarding CareerForge AI, please feel free to reach out:</p>
-    <ul style="list-style-type: none; padding-left: 0; font-size: 16px; line-height: 1.8;">
-      <li><strong>Phone:</strong> <a href="tel:7904987242">7904987242</a></li>
-      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohanakannan098?utm_source=share_via&amp;utm_content=profile&amp;utm_medium=member_android" target="_blank" rel="noopener noreferrer">Mohanakannan's Profile</a></li>
-      <li><strong>Portfolio:</strong> <a href="https://mohanakannan098.github.io/My-Portfolio-/" target="_blank" rel="noopener noreferrer">My Portfolio</a></li>
-    </ul>
-  </div>
-</section>
-
-<section id="team">
-  <div class="stitle">AI ELECTRO BOYZZ 💪</div>
-  <div class="team-grid">
-    <!-- Author Profile -->
-    <div class="team-card">
-      <img src="m1.jpeg" alt="MOHANAKANNAN S" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
-      <h3 class="team-name">MOHANAKANNAN S</h3>
-      <div class="team-role">Author / Leader / Developer</div>
-      <p class="team-desc">Passionate tech enthusiast building innovative real-world solutions.</p>
-      <div class="team-socials">
-        <a href="https://www.linkedin.com/in/mohanakannan098?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://github.com/MOHANAKANNAN098" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-      </div>
-    </div>
-    <!-- Member One -->
-    <div class="team-card">
-      <img src="m0.jpeg" alt="SANTHOSH V" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
-      <h3 class="team-name">SANTHOSH V</h3>
-      <div class="team-role">Adviser</div>
-      <p class="team-desc">Expert in software development and crafting beautiful user experiences.</p>
-      <div class="team-socials">
-        <a href="https://www.linkedin.com/in/santhosh-v-48a2a33a1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://github.com/santhoshmx7-creator" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-      </div>
-    </div>
-    <!-- Member Two -->
-    <div class="team-card">
-      <img src="m2.jpeg" alt="GOKUL S" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
-      <h3 class="team-name">GOKUL S</h3>
-      <div class="team-role">Designer</div>
-      <p class="team-desc">Creative mind behind the stunning UI/UX and visual assets.</p>
-      <div class="team-socials">
-        <a href="https://www.linkedin.com/in/gokul-selvam-19288739a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://github.com/gokulselvam04" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-      </div>
-    </div>
-    <!-- Member Three -->
-    <div class="team-card">
-      <img src="m3.jpeg" alt="SRISAIRAM S" class="team-img" onerror="this.src='https://via.placeholder.com/150'">
-      <h3 class="team-name">SRISAIRAM S</h3>
-      <div class="team-role">Coordinator</div>
-      <p class="team-desc">Data science aficionado integrating intelligent models into platforms.</p>
-      <div class="team-socials">
-        <a href="https://www.linkedin.com/in/srisairam-s-8b778339b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://github.com/srisairam2007s-stack" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="stitle">About Me</div>
-  <div class="card">
-    <div style="display: flex; align-items: flex-start; gap: 25px; flex-wrap: wrap;">
-      <img src="m1.jpeg" alt="Mohanakannan" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #333; margin-top: 5px;">
-      <div style="flex: 1; min-width: 300px;">
-        <p style="font-size:16px; line-height:1.6; margin-bottom:10px; margin-top:0;">Hello! I’m <strong>Mohanakannan</strong>, an enthusiastic Electrical and Electronics Engineering (EEE) student at <strong>Karpagam</strong> Institute of Technology, Coimbatore. I am passionate about technology, innovation, and building real-world solutions that combine electronics hardware and modern software systems.</p>
-        <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">My journey in technology is driven by curiosity and creativity. I enjoy exploring new ideas, experimenting with emerging technologies, and transforming concepts into practical projects. I believe that the true power of engineering lies in the ability to solve real-world problems through intelligent and efficient technological solutions.</p>
-      </div>
-    </div>
-    <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">I have experience working with Python programming, HTML, CSS, JavaScript, and electronics-based systems, and I continuously improve my knowledge by building projects and learning new tools. I am particularly interested in developing systems that integrate hardware, software, and intelligent technologies to create innovative applications.</p>
-    <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">Beyond technical skills, I strongly believe in continuous learning, problem-solving, and innovation. My goal is to become a highly skilled technology professional, contribute to impactful engineering projects, and build solutions that create meaningful value for society.</p>
-    <p style="font-size:16px; line-height:1.6; margin-bottom:10px;">In the future, I also aspire to start my own technology-driven business, where I can develop innovative products and systems that bring practical solutions to real-world challenges.</p>
-    <h3 style="margin-top:20px;">My Mission</h3>
-    <p style="font-size:16px; line-height:1.6;">To design and develop innovative technology solutions that combine electronics and intelligent software systems to solve real-world problems and create a positive impact on society.</p>
-    <h3 style="margin-top:20px;">Contact</h3>
-    <ul style="list-style:none; padding-left:0; font-size:16px; line-height:1.8;">
-      <li>📞 <strong>Phone:</strong> <a href="tel:7904987242">7904987242</a></li>
-      <li>💼 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohanakannan098" target="_blank">linkedin.com/in/mohanakannan098</a></li>
-      <li>💻 <strong>GitHub:</strong> <a href="https://github.com/mohansampath098-ai" target="_blank">github.com/mohansampath098-ai</a></li>
-      <li>🌐 <strong>Portfolio:</strong> <a href="https://mohanakannan098.github.io/My-Portfolio-/" target="_blank">My Portfolio</a></li>
-    </ul>
-  </div>
-</section>
-<script src="app.js"></script>
 </body>
 </html>
