@@ -9,7 +9,12 @@ function showSection(id){
 
   // Close mobile nav menu on selection
   const navLinks = document.querySelector('.nav-links');
-  if (navLinks) navLinks.classList.remove('open');
+  const overlay = document.getElementById('overlay');
+  if (navLinks && navLinks.classList.contains('open')) {
+    navLinks.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = "auto";
+  }
 }
 
 // ===== ANALYTICS ACTIVITY TRACKER =====
@@ -1104,7 +1109,42 @@ const predefinedQA = {
   "what is cyber security": "**Cyber Security** is the practice of protecting computers, networks, and data from cyber attacks and hackers.",
   "can electrical engineering students get it jobs": "Yes, **electrical engineering students** can enter IT jobs by learning programming, software development, and other technical skills.",
   "what is full stack development": "**Full Stack Development** means developing both the front-end and back-end parts of a web application.",
-  "how can students get a high paying job in it": "Students can get a high paying job in IT by **learning advanced skills**, **building strong projects**, and **practicing coding regularly**."
+  "how can students get a high paying job in it": "Students can get a high paying job in IT by **learning advanced skills**, **building strong projects**, and **practicing coding regularly**.",
+  "hi": "Hello",
+  "hello": "Hi there",
+  "how are you": "I am fine",
+  "what is your name": "I am a simple chatbot",
+  "who created you": "I was created using C language",
+  "what is c": "C is a programming language",
+  "what is programming": "Programming is giving instructions to computer",
+  "what is computer": "Computer is an electronic machine",
+  "good morning": "Good morning",
+  "good afternoon": "Good afternoon",
+  "good evening": "Good evening",
+  "good night": "Good night",
+  "what can you do": "I can chat with you",
+  "are you human": "No I am a program",
+  "do you sleep": "No I do not sleep",
+  "do you eat": "No I do not eat",
+  "tell me a joke": "Why C programmers love coffee",
+  "haha": "I am glad you are happy",
+  "thank you": "You are welcome",
+  "thanks": "Welcome",
+  "sorry": "No problem",
+  "help": "Just type simple sentences",
+  "what is your age": "I do not have age",
+  "where do you live": "I live inside this program",
+  "are you real": "I am virtual",
+  "do you like me": "Yes I like chatting",
+  "what is 1+1": "2",
+  "what is 2+2": "4",
+  "what is india": "India is a country",
+  "what is college": "College is a place to study",
+  "what is student": "Student is a learner",
+  "what is teacher": "Teacher teaches students",
+  "do you know me": "I know what you type",
+  "can you learn": "No I am very simple",
+  "bye": "Goodbye"
 };
 
 const chatSuggestions = [
@@ -1185,43 +1225,26 @@ async function mentor(customQuery = null) {
   // Check if it's a predefined question first
   if (predefinedQA[cleanQuery]) {
     answer = predefinedQA[cleanQuery];
-    // Small delay to make it feel natural
-    await new Promise(r => setTimeout(r, 800));
   } else {
-    try {
-      // 🛑 PASTE YOUR GEMINI API KEY BELOW 🛑
-      // Replace 'YOUR_GEMINI_API_KEY' with the actual key you generated!
-      const API_KEY = "YOUR_GEMINI_API_KEY"; 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: "You are a professional, friendly, and world-class career mentor. Chat with the user like a real human. Be empathetic, insightful, and help them solve specific career problems. Use a conversational tone, keep explanations clear, and provide actionable advice." }] },
-          contents: chatHistory
-        })
-      });
-
-      const data = await response.json();
-      answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response right now.";
-    } catch (error) {
-      answer = "Connection error. Please check your API key.";
-      console.error("AI Mentor Error:", error);
-    }
+    answer = "I am a manual chatbot right now. Please ask me one of the predefined questions!";
   }
 
-    // Add AI response to history
-    chatHistory.push({ role: "model", parts: [{ text: answer }] });
+  // Small delay to make it feel natural
+  await new Promise(r => setTimeout(r, 800));
 
-    // 3. Replace loading text with actual AI answer
-    const formattedAnswer = answer
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Handle bold
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')         // Handle italics
-      .replace(/\n/g, '<br>');                       // Handle newlines
+  // Add AI response to history
+  chatHistory.push({ role: "model", parts: [{ text: answer }] });
+
+  // 3. Replace loading text with actual AI answer
+  const formattedAnswer = answer
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Handle bold
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')             // Handle italics
+    .replace(/\n/g, '<br>');                           // Handle newlines
       
-    document.getElementById(loadingId).querySelector(".bubble").innerHTML = `
-      ${formattedAnswer}
-      <div style="font-size:10px; color:#888; text-align:left; margin-top:4px;">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-    `;
+  document.getElementById(loadingId).querySelector(".bubble").innerHTML = `
+    ${formattedAnswer}
+    <div style="font-size:10px; color:#888; text-align:left; margin-top:4px;">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+  `;
   chatbox.scrollTop = chatbox.scrollHeight;
 }
 
@@ -1720,16 +1743,29 @@ window.onload=function(){
   // Hamburger Menu Logic
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const navLinks = document.querySelector('.nav-links');
+  const overlay = document.getElementById('overlay');
+  const closeMenuBtn = document.getElementById('close-menu-btn');
+
+  function openMenu() {
+    if (navLinks) navLinks.classList.add('open');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = "hidden"; // Prevent overlapping content scroll
+  }
+
+  function closeMenu() {
+    if (navLinks) navLinks.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = "auto";
+  }
+
   if (hamburgerBtn && navLinks) {
     hamburgerBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      navLinks.classList.toggle('open');
+      if (navLinks.classList.contains('open')) closeMenu();
+      else openMenu();
     });
-    document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !hamburgerBtn.contains(e.target)) {
-        navLinks.classList.remove('open');
-      }
-    });
+    if (overlay) overlay.addEventListener('click', closeMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
   }
 }
 
