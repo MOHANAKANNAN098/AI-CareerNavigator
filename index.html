@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>CareerForge AI</title>
-<link rel="manifest" href="manifest.json"> 
-<meta name="theme-color" content="#0a0f2c">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -181,25 +178,6 @@ header>
   <button id="btn-about" onclick="showSection('about')">About Me</button>
   <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
 </nav>
-
-<section id="home">
-  <!-- This will be the main container for mobile content -->
-  <div id="homeContent"></div>
-</section>
-
-<section id="features">
-  <div class="stitle">Features</div>
-  <div class="nav-links">
-    <button onclick="showSection('roadmap')"><i class="fa-solid fa-map-location-dot"></i> Career Roadmap</button>
-    <button onclick="showSection('test')"><i class="fa-solid fa-clipboard-user"></i> Career Test</button>
-    <button onclick="showSection('mentor')"><i class="fa-solid fa-robot"></i> AI Mentor</button>
-    <button onclick="showSection('resume')"><i class="fa-solid fa-file-lines"></i> Resume Builder</button>
-    <button onclick="showSection('simulator')"><i class="fa-solid fa-brain"></i> AI Simulator</button>
-    <button onclick="showSection('analytics')"><i class="fa-solid fa-chart-pie"></i> Pro Analytics</button>
-    <button onclick="showSection('startup')"><i class="fa-solid fa-rocket"></i> Startup Ideas</button>
-    <button onclick="showSection('interview')"><i class="fa-solid fa-headset"></i> Customer Support</button>
-  </div>
-</section>
 
 <section id="roadmap">
   <div class="stitle">Career Roadmap</div>
@@ -587,15 +565,6 @@ header>
     </ul>
   </div>
 </section>
-
-<!-- Mobile Bottom Navigation -->
-<div class="mobile-bottom-nav">
-  <button class="active" onclick="showSection('home', this)"><i class="fa-solid fa-house"></i><span>Home</span></button>
-  <button onclick="showSection('features', this)"><i class="fa-solid fa-layer-group"></i><span>Features</span></button>
-  <button onclick="showSection('about', this)"><i class="fa-solid fa-circle-info"></i><span>About</span></button>
-  <button onclick="showSection('interview', this)"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
-  <button onclick="showSection('profile', this)"><i class="fa-solid fa-user"></i><span>Profile</span></button>
-</div>
 
 <script src="app.js"></script>
 </body>

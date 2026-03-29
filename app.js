@@ -1,67 +1,18 @@
-function showSection(id, btnElement = null){
-  const isMobile = window.innerWidth <= 768;
-
-  // Ensure a default feature is set for the mobile Home tab
-  window.currentMobileFeature = window.currentMobileFeature || 'roadmap';
-
-  if (isMobile) {
-    // Mobile App-like Behavior
-    document.querySelectorAll("section").forEach(s => s.style.display = "none");
-    
-    if (id === 'profile') {
-      window.location.href = 'profile.html';
-      return;
-    }
-
-    if (id === 'home') {
-      // User tapped "Home" -> show the active feature
-      const activeFeature = document.getElementById(window.currentMobileFeature);
-      if (activeFeature) activeFeature.style.display = 'block';
-      
-      document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
-      document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
-    } 
-    else if (id === 'features' || id === 'about') {
-      // Standard main tabs
-      const target = document.getElementById(id);
-      if (target) target.style.display = 'block';
-      
-      if (btnElement) {
-        document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
-        btnElement.classList.add("active");
-      }
-    } 
-    else if (id === 'interview' && btnElement && btnElement.closest('.mobile-bottom-nav')) {
-      // "Contact" tapped from bottom nav
-      document.getElementById('interview').style.display = 'block';
-      document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
-      btnElement.classList.add("active");
-    } else {
-      // A feature tool was selected! Load it and switch to Home tab
-      window.currentMobileFeature = id;
-      const featureTarget = document.getElementById(id);
-      if (featureTarget) featureTarget.style.display = 'block';
-      
-      document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
-      document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
-    }
-
+function showSection(id){
+  // Desktop Behavior
+  document.querySelectorAll("section").forEach(s=>s.style.display="none");
+  if (id === 'home' || id === 'features') {
+      const defaultDesktop = document.getElementById('roadmap');
+      if (defaultDesktop) defaultDesktop.style.display="block";
+      document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+      const rBtn = document.getElementById("btn-roadmap");
+      if (rBtn) rBtn.classList.add("active");
   } else {
-    // Desktop Behavior
-    document.querySelectorAll("section").forEach(s=>s.style.display="none");
-    if (id === 'home' || id === 'features') {
-        const defaultDesktop = document.getElementById('roadmap');
-        if (defaultDesktop) defaultDesktop.style.display="block";
-        document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-        const rBtn = document.getElementById("btn-roadmap");
-        if (rBtn) rBtn.classList.add("active");
-    } else {
-        const targetSection = document.getElementById(id);
-        if (targetSection) targetSection.style.display="block";
-        document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-        const desktopBtn = document.getElementById("btn-"+id);
-        if(desktopBtn) desktopBtn.classList.add("active");
-    }
+      const targetSection = document.getElementById(id);
+      if (targetSection) targetSection.style.display="block";
+      document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+      const desktopBtn = document.getElementById("btn-"+id);
+      if(desktopBtn) desktopBtn.classList.add("active");
   }
 
   // Common logic for both
@@ -1740,8 +1691,8 @@ function initParticles() {
     }
   }
 
-  // Create particles - Optimize count for mobile devices
-  const particleCount = window.innerWidth <= 768 ? 25 : 60;
+  // Create particles
+  const particleCount = 60;
   for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
   function animate() {
@@ -1771,8 +1722,8 @@ function initParticles() {
 }
 
 window.onload=function(){
-  const initialSection = window.innerWidth <= 768 ? "home" : "roadmap";
-  showSection(initialSection, document.querySelector('.mobile-bottom-nav button:nth-child(1)'));
+  const initialSection = "roadmap";
+  showSection(initialSection);
 
   let savedState = localStorage.getItem('careerTestState');
   if(savedState){
@@ -1803,25 +1754,205 @@ window.onload=function(){
 }
 
 // ==========================================
-// 📱 PWA & MOBILE APP MODE LOGIC
+// 🚀 STARTUP IDEA GENERATOR LOGIC
 // ==========================================
-function detectMobileAppMode() {
-  if (window.innerWidth <= 768) {
-    document.body.classList.add('mobile-app-mode');
-  } else {
-    document.body.classList.remove('mobile-app-mode');
-  }
-}
-window.addEventListener('resize', detectMobileAppMode);
-window.addEventListener('load', detectMobileAppMode);
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(reg => console.log('PWA Service Worker registered:', reg.scope))
-      .catch(err => console.error('PWA Service Worker registration failed:', err));
-  });
+let currentGeneratedIdea = null;
+
+function generateIdeaLocally(input, ideasDataset) {
+  console.log("User Input:", input);
+  const { interest, budget } = input;
+  let localIdeas = ideasDataset;
+
+  let budgetTerm = budget.split(" ")[0];
+  if (budgetTerm === "Zero" || budgetTerm === "Micro") {
+    budgetTerm = "Low";
+  }
+  const interestTerm = interest.split(" ")[0];
+
+  // Tier 1: Strict match on budget AND interest
+  let filtered = localIdeas.filter(i => 
+    i.budget.toLowerCase().includes(budgetTerm.toLowerCase()) && 
+    i.category.toLowerCase().includes(interestTerm.toLowerCase())
+  );
+
+  // Tier 2: Match on interest only, if strict match fails
+  if (filtered.length === 0) {
+    filtered = localIdeas.filter(i => i.category.toLowerCase().includes(interestTerm.toLowerCase()));
+  }
+
+  // Tier 3: No filters matched, use all ideas as a final fallback
+  if (filtered.length === 0) {
+    console.log("No exact match found. Here is a recommended startup idea for you.");
+    filtered = localIdeas;
+  }
+  
+  const randomIdea = filtered[Math.floor(Math.random() * filtered.length)];
+  
+  const idea = {
+    name: randomIdea.name,
+    tagline: `A ${randomIdea.type} in ${randomIdea.category}`,
+    description: randomIdea.description,
+    problem: randomIdea.problem || "Existing solutions are too expensive or inefficient.",
+    solution: randomIdea.solution || "An optimized, automated, and accessible alternative.",
+    targetAudience: randomIdea.targetAudience || "Small businesses and independent creators.",
+    revenueModel: randomIdea.revenueModel || "Subscription / Pay-per-use",
+    difficulty: randomIdea.difficulty || "Medium",
+    growth: randomIdea.growth || "High Scalability",
+    steps: randomIdea.steps || ["Market Research", "Build MVP", "Launch Beta", "Gather Feedback"]
+  };
+
+  console.log("Generated Idea:", idea);
+  return idea;
 }
+
+async function generateStartup() {
+  const interest = document.getElementById("suInterest").value || "General Tech";
+  const budget = document.getElementById("suBudget").value || "Low";
+  const goal = document.getElementById("suGoal").value || "Startup";
+  const time = document.getElementById("suTime").value || "Part-time";
+  const skills = document.getElementById("suSkills").value || "General IT skills";
+
+  document.getElementById("startupOutput").innerHTML = "";
+  document.getElementById("startupLoading").style.display = "block";
+
+  const userInput = { interest, budget, goal, time, skills };
+
+  let ideasDataset = [];
+  try {
+    const response = await fetch("startupIdeas.json");
+    if (response.ok) {
+      ideasDataset = await response.json();
+    } else {
+      throw new Error("Failed to load startup ideas.");
+    }
+  } catch (err) {
+      console.error("Fetch failed:", err);
+      document.getElementById("startupLoading").style.display = "none";
+      document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red); background:rgba(255,0,0,0.1); padding:15px; border-radius:8px;">Error loading startup ideas. Please ensure you are running the project on a local web server (e.g., Live Server) to access the JSON file.</p>`;
+      return; // Stop execution to prevent errors
+  }
+
+  setTimeout(() => {
+    try {
+      const ideaData = generateIdeaLocally(userInput, ideasDataset);
+      currentGeneratedIdea = ideaData;
+      document.getElementById("startupLoading").style.display = "none";
+      trackActivity('Generated Startup', `Idea for ${interest}`);
+      renderStartupIdea(ideaData);
+    } catch (error) {
+      console.error("Error generating idea:", error);
+      document.getElementById("startupLoading").style.display = "none";
+        document.getElementById("startupOutput").innerHTML = `<p style="color:var(--red); background:rgba(255,0,0,0.1); padding:15px; border-radius:8px;">An unexpected error occurred. Please ensure all inputs are selected.</p>`;
+    }
+  }, 600); // 600ms artificial delay to simulate calculation time
+}
+
+function renderStartupIdea(idea) {
+  const outputDiv = document.getElementById("startupOutput");
+  
+  let stepsHtml = idea.steps.map(s => `<li>${s}</li>`).join("");
+
+  outputDiv.innerHTML = `
+    <div class="startup-result-card">
+      <div class="startup-header">
+        <div class="startup-name">${idea.name}</div>
+        <div class="startup-tagline">"${idea.tagline}"</div>
+      </div>
+      
+      <div class="startup-tags">
+        <span class="s-tag diff"><i class="fa-solid fa-gauge-high"></i> Difficulty: ${idea.difficulty}</span>
+        <span class="s-tag growth"><i class="fa-solid fa-arrow-trend-up"></i> Growth: ${idea.growth}</span>
+        <span class="s-tag rev"><i class="fa-solid fa-sack-dollar"></i> Model: ${idea.revenueModel}</span>
+      </div>
+
+      <div class="startup-detail-box">
+        <div class="startup-detail-title">Description</div>
+        <div class="startup-detail-content">${idea.description}</div>
+      </div>
+
+      <div class="resume-grid" style="margin-bottom:0;">
+        <div class="startup-detail-box" style="border-left-color: var(--red);">
+          <div class="startup-detail-title" style="color: var(--red);">The Problem</div>
+          <div class="startup-detail-content">${idea.problem}</div>
+        </div>
+        <div class="startup-detail-box" style="border-left-color: var(--green);">
+          <div class="startup-detail-title" style="color: var(--green);">The Solution</div>
+          <div class="startup-detail-content">${idea.solution}</div>
+        </div>
+      </div>
+
+      <div class="startup-detail-box" style="border-left-color: var(--purple);">
+        <div class="startup-detail-title" style="color: var(--purple);">Target Audience</div>
+        <div class="startup-detail-content">${idea.targetAudience}</div>
+      </div>
+
+      <div class="resume-btns" style="margin-top: 25px;">
+        <button class="btn btn-outline" onclick="generateStartup()"><i class="fa-solid fa-rotate-right"></i> Regenerate</button>
+        <button class="btn btn-green" onclick="saveCurrentIdea()"><i class="fa-solid fa-floppy-disk"></i> Save Idea</button>
+        <button class="btn btn-blue" onclick="downloadStartupIdea('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+        <button class="btn btn-blue" onclick="downloadStartupIdea('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
+        <button class="btn btn-outline" onclick="document.getElementById('execSteps').classList.toggle('expanded')" style="border-color: var(--text-secondary) !important; color: var(--text);"><i class="fa-solid fa-list-check"></i> Execution Steps</button>
+      </div>
+
+      <div id="execSteps" class="startup-steps">
+        <div class="startup-detail-title" style="color: var(--cyan); margin-bottom:10px;">First Steps to Execute:</div>
+        <ul>${stepsHtml}</ul>
+      </div>
+    </div>
+  `;
+}
+
+function saveCurrentIdea() {
+  if (!currentGeneratedIdea) return;
+  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
+  saved.push(currentGeneratedIdea);
+  localStorage.setItem("savedStartups", JSON.stringify(saved));
+  alert("Idea saved successfully!");
+  renderSavedStartups();
+}
+
+function downloadStartupIdea(type = 'pdf') {
+  if (!currentGeneratedIdea) return;
+  const idea = currentGeneratedIdea;
+  // Utilizing existing download logic
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p', 'pt', 'a4');
+  doc.setFontSize(22);
+  doc.text(idea.name.toUpperCase(), 40, 40);
+  doc.setFontSize(12);
+  const lines = doc.splitTextToSize(idea.description, 500);
+  doc.text(lines, 40, 70);
+  doc.save(`Startup_Idea_${idea.name.replace(/\s+/g, '_')}.pdf`);
+}
+
+function deleteSavedIdea(index) {
+  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
+  saved.splice(index, 1);
+  localStorage.setItem("savedStartups", JSON.stringify(saved));
+  renderSavedStartups();
+}
+
+function renderSavedStartups() {
+  const grid = document.getElementById("savedStartupsGrid");
+  if(!grid) return;
+  let saved = JSON.parse(localStorage.getItem("savedStartups") || "[]");
+  
+  if (saved.length === 0) {
+    grid.innerHTML = `<p style="color:var(--muted); font-size: 14px;">No ideas saved yet.</p>`;
+    return;
+  }
+
+  grid.innerHTML = saved.map((idea, idx) => `
+    <div class="saved-card">
+      <button class="delete-saved-btn" onclick="deleteSavedIdea(${idx})" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+      <div class="saved-card-name">${idea.name}</div>
+      <div class="saved-card-tag">${idea.tagline}</div>
+      <div style="font-size: 12px; color: var(--text-secondary);">${idea.description.substring(0, 80)}...</div>
+    </div>
+  `).join("");
+}
+
 
 // ==========================================
 // 🧠 AI LIFE SIMULATOR (DECISION ENGINE)
@@ -1847,12 +1978,18 @@ function generateAdvancedSimulation() {
 
   // Adding a slight delay to simulate "AI thinking" for better user experience
   setTimeout(() => {
-    const simData = analyzeUser(currentSimParams);
-    trackActivity('Simulation Run', `Generated path: ${simData.selectedPath}`);
-    document.getElementById("simLoading").style.display = "none";
-    
-    currentSimulationData = simData;
-    renderSimulationData(simData);
+    try {
+      const simData = analyzeUser(currentSimParams);
+      trackActivity('Simulation Run', `Generated path: ${simData.selectedPath}`);
+      document.getElementById("simLoading").style.display = "none";
+      
+      currentSimulationData = simData;
+      renderSimulationData(simData);
+    } catch(error) {
+      console.error("Simulation Engine Error:", error);
+      document.getElementById("simLoading").style.display = "none";
+      document.getElementById("simOutputMain").innerHTML = `<p style="color:var(--red); background:rgba(255,0,0,0.1); padding:15px; border-radius:8px;">An error occurred while generating your simulation. Please ensure all inputs are selected properly.</p>`;
+    }
   }, 800);
 }
 
