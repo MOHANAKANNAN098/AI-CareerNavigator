@@ -20,6 +20,7 @@
   .btn-danger:hover { background: var(--red); color: #fff; box-shadow: 0 0 15px rgba(255, 51, 102, 0.4); }
   .back-btn { position: absolute; top: 25px; left: 25px; color: var(--cyan); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 8px; z-index: 10; transition: var(--transition); }
   .back-btn:hover { color: var(--blue); transform: translateX(-3px); }
+  @keyframes spin { 100%{transform:rotate(360deg);} }
 </style>
 </head>
 <body>
@@ -28,6 +29,11 @@
 
 <div class="profile-wrapper">
   <div class="auth-card profile-card">
+    <!-- Loading Spinner Overlay -->
+    <div id="profileLoading" style="position: absolute; inset: 0; background: rgba(11,21,38,0.95); z-index: 100; display: flex; align-items: center; justify-content: center; border-radius: 22px; transition: opacity 0.3s ease;">
+      <div style="width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--cyan); border-radius: 50%; animation: spin 0.6s linear infinite;"></div>
+    </div>
+
     <div class="profile-header">
       <div class="profile-avatar-container">
         <img id="profileImg" src="https://via.placeholder.com/150/0b1526/00aaff?text=U" alt="Profile" class="profile-avatar">
@@ -58,33 +64,6 @@
     </div>
     
     <button id="saveProfileBtn" class="auth-btn"><i class="fa-solid fa-floppy-disk"></i> &nbsp;Save Profile Details</button>
-
-    <div class="section-divider"></div>
-
-    <div class="stitle" style="font-size: 14px; margin-bottom: 20px; padding-bottom: 8px;">Language Preference</div>
-    <div class="lang-selector notranslate" style="position: static; margin-bottom: 10px; justify-content: center; max-width: 300px; margin-left: auto; margin-right: auto;">
-      <i class="fa-solid fa-language"></i>
-      <select onchange="translateLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="af">Afrikaans</option>
-        <option value="sq">Albanian</option>
-        <option value="am">Amharic</option>
-        <option value="ar">Arabic</option>
-        <option value="hy">Armenian</option>
-        <option value="az">Azerbaijani</option>
-        <option value="eu">Basque</option>
-        <option value="be">Belarusian</option>
-        <option value="bn">Bengali</option>
-        <option value="hi">Hindi</option>
-        <option value="ja">Japanese</option>
-        <option value="kn">Kannada</option>
-        <option value="ko">Korean</option>
-        <option value="ms">Malay</option>
-        <option value="ml">Malayalam</option>
-        <option value="ta">Tamil</option>
-        <option value="te">Telugu</option>
-      </select>
-    </div>
 
     <div class="section-divider"></div>
 
@@ -160,9 +139,8 @@
   googleScript.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
   document.head.appendChild(googleScript);
 
-  // 8. Auto Load Profile Data
-  window.onload = function() {
-    // 2. Load current user data
+  // Load Profile Data Immediately
+  function loadUserProfile() {
     let user = JSON.parse(localStorage.getItem("currentUser"));
     
     // If no user -> redirect to login
@@ -182,7 +160,17 @@
     } else {
       document.getElementById("profileImg").src = "https://via.placeholder.com/150/0b1526/00aaff?text=" + (user.name ? user.name[0].toUpperCase() : "U");
     }
-  };
+    
+    // Remove loading spinner instantly
+    const loader = document.getElementById("profileLoading");
+    if(loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 300);
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', loadUserProfile);
+  loadUserProfile(); // Execute immediately since script is at the bottom
 
   // 4. Enable Image Upload (Change Profile Pic)
   document.getElementById("imageUpload").addEventListener("change", function(e) {

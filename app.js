@@ -20,6 +20,7 @@ function showSection(id){
   if(id==="mentor" && chatHistory.length === 0) initChatSuggestions();
   if(id==="analytics") updateAnalyticsDashboard();
   if(id==="degree-finder") initDegreeFinder();
+  if(id==="higher-studies") initHigherStudies();
 }
 
 // Wrapper to load the original roadmap section content into home
@@ -1489,169 +1490,105 @@ function downloadResume(type = 'pdf'){
     doc.save("resume.pdf");
 }
 
-let chartInstance = null;
-let hardwareChartInstance = null;
+let jobMarketChartInstance = null;
+let startupChartInstance = null;
+let higherStudiesChartInstance = null;
 let liveChartInterval = null;
 
 function renderChart(){
-  if(!chartInstance) {
-    const ctx=document.getElementById("jobChart").getContext("2d");
-    chartInstance = new Chart(ctx,{
-      type:'bar',
-      data:{
-        labels:["AI Engineer", "Data Scientist", "Full Stack", "Cloud (AWS)", "Cyber Security", "DevOps Eng", "Backend Dev", "Frontend Dev", "Android Dev", "Game Dev"],
-        datasets:[{
-          label:'Demand %',
-          data:[98.5, 95.2, 92.0, 89.5, 88.0, 86.5, 84.0, 80.0, 75.5, 65.0],
-          backgroundColor:[
-            '#00aaff', 
-            'rgb(143, 255, 30)', 
-            '#4682b4', 
-            '#20b2aa', 
-            'rgb(72, 209, 86)', 
-            '#00ced1', 
-            '#5f9ea0', 
-            '#87ceeb', 
-            'rgb(237, 189, 100)',
-            'rgb(255, 0, 187)'
-          ]
-        }]
-      },
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        onClick: (evt, elements) => {
-          if (elements.length > 0) {
-            const index = elements[0].index;
-            let label = chartInstance.data.labels[index];
-            const softMap = {
-              "AI Engineer": "Artificial Intelligence Engineer",
-              "Full Stack": "Full Stack Developer",
-              "Cloud (AWS)": "Cloud Architect (AWS)",
-              "Cyber Security": "Cyber Security Analyst",
-              "DevOps Eng": "DevOps Engineer",
-              "Backend Dev": "Backend Developer",
-              "Frontend Dev": "Frontend Developer",
-              "Android Dev": "Mobile App Developer (Android)",
-              "Game Dev": "Game Developer"
-            };
-            if(softMap[label]) label = softMap[label];
-            if(roadmaps[label]){
-              showSection('roadmap');
-              document.getElementById("domain").value = label;
-              generateRoadmap();
-            }
-          }
-        },
-        scales:{
-          y:{
-            beginAtZero:true,
-            max:100,
-            ticks:{color:'#c8dff5'},
-            grid:{color:'rgba(0,170,255,0.1)'}
-          },
-          x:{
-            ticks:{color:'#c8dff5',font:{size:10}},
-            grid:{display:false}
-          }
-        },
-        plugins:{
-          legend:{labels:{color:'#c8dff5'}},
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return `Demand: ${context.parsed.y.toFixed(1)}%`;
-              }
-            }
-          }
+  const commonOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: {
+      duration: 1200,
+      easing: 'easeOutQuart'
+    },
+    scales: {
+      y: { beginAtZero: true, max: 100, ticks: { color: '#c8dff5' }, grid: { color: 'rgba(0,170,255,0.1)' } },
+      x: { ticks: { color: '#c8dff5', font: { size: 11 } }, grid: { display: false } }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(context) { return `Demand: ${context.parsed.y.toFixed(1)}%`; }
         }
       }
+    }
+  };
+
+  if(!jobMarketChartInstance) {
+    const ctx1 = document.getElementById("jobMarketChart").getContext("2d");
+    jobMarketChartInstance = new Chart(ctx1,{
+      type:'bar',
+      data:{
+        labels:[
+          "Software Dev", "Data Scientist", "AI/ML Engineer", "Cybersecurity", "Cloud Engineer", "Full Stack Dev",
+          "Embedded Sys", "Hardware Design", "Robotics Eng", "VLSI Engineer", "Network Eng", "IoT Engineer"
+        ],
+        datasets:[{
+          data:[88.5, 94.0, 98.5, 91.0, 89.5, 87.0, 82.5, 78.0, 85.5, 81.0, 79.5, 84.0],
+          backgroundColor: [
+            '#00e5ff', '#00e5ff', '#00e5ff', '#00e5ff', '#00e5ff', '#00e5ff',
+            '#ff3366', '#ff3366', '#ff3366', '#ff3366', '#ff3366', '#ff3366'
+          ],
+          borderRadius: 6
+        }]
+      },
+      options: commonOptions
     });
   }
 
-  if(!hardwareChartInstance) {
-    const ctx2=document.getElementById("hardwareChart").getContext("2d");
-    hardwareChartInstance = new Chart(ctx2,{
+  if(!startupChartInstance) {
+    const ctx2 = document.getElementById("startupTrendsChart").getContext("2d");
+    startupChartInstance = new Chart(ctx2,{
       type:'bar',
       data:{
-        labels:["VLSI Design", "Robotics Eng", "Embedded Sys", "IoT Developer", "EV Powertrain", "Automation Eng"],
+        labels:["Technology Startups", "AI Startups", "E-commerce", "Digital Marketing", "Small Businesses"],
         datasets:[{
-          label:'Demand %',
-          data:[94.0, 91.5, 88.0, 85.5, 82.0, 78.5],
-          backgroundColor:[
-            '#ff4081',
-            '#ff80ab',
-            'hsl(80, 83%, 66%)',
-            '#ba68c8',
-            'rgb(30, 233, 186)',
-            'rgb(27, 81, 216)'
-          ]
+          data:[88.0, 96.5, 78.5, 82.0, 74.0],
+          backgroundColor: ['#00aaff', '#bf5af2', '#ff9500', '#00ffb3', '#ffd600'],
+          borderRadius: 6
         }]
       },
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        onClick: (evt, elements) => {
-          if (elements.length > 0) {
-            const index = elements[0].index;
-            let label = hardwareChartInstance.data.labels[index];
-            const map = {
-              "VLSI Design": "VLSI Design Engineer",
-              "Robotics Eng": "Robotics Engineer",
-              "Embedded Sys": "Embedded Systems Developer",
-              "EV Powertrain": "EV Powertrain Engineer",
-              "Automation Eng": "Automation Engineer"
-            };
-            if(map[label]) label = map[label];
-            if(roadmaps[label]){
-              showSection('roadmap');
-              document.getElementById("domain").value = label;
-              generateRoadmap();
-            }
-          }
-        },
-        scales:{
-          y:{
-            beginAtZero:true, max:100, ticks:{color:'#c8dff5'}, grid:{color:'rgba(255,64,129,0.1)'}
-          },
-          x:{
-            ticks:{color:'#c8dff5',font:{size:10}}, grid:{display:false}
-          }
-        },
-        plugins:{
-          legend:{labels:{color:'#c8dff5'}},
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return `Demand: ${context.parsed.y.toFixed(1)}%`;
-              }
-            }
-          }
-        }
-      }
+      options: commonOptions
+    });
+  }
+
+  if(!higherStudiesChartInstance) {
+    const ctx3 = document.getElementById("higherStudiesChart").getContext("2d");
+    higherStudiesChartInstance = new Chart(ctx3,{
+      type:'bar',
+      data:{
+        labels:["MBA", "Data Science", "Artificial Intelligence", "Cybersecurity", "Biotechnology"],
+        datasets:[{
+          data:[82.0, 94.5, 98.0, 89.5, 76.0],
+          backgroundColor: ['#ff9500', '#00ffb3', '#00aaff', '#ff3366', '#bf5af2'],
+          borderRadius: 6
+        }]
+      },
+      options: commonOptions
     });
   }
 
   // Simulate live dynamic fluctuation
   if (!liveChartInterval) {
     liveChartInterval = setInterval(() => {
-      if (chartInstance) {
-        chartInstance.data.datasets[0].data.forEach((val, i) => {
-          let change = (Math.random() - 0.5) * 1.5; // Fluctuate by +/- 0.75%
-          let newVal = val + change;
-          chartInstance.data.datasets[0].data[i] = Math.max(50, Math.min(100, newVal));
-        });
-        chartInstance.update('none'); // 'none' ensures it updates smoothly without jarring animations
-      }
-      if (hardwareChartInstance) {
-        hardwareChartInstance.data.datasets[0].data.forEach((val, i) => {
-          let change = (Math.random() - 0.5) * 1.5; // Fluctuate by +/- 0.75%
-          let newVal = val + change;
-          hardwareChartInstance.data.datasets[0].data[i] = Math.max(50, Math.min(100, newVal));
-        });
-        hardwareChartInstance.update('none');
-      }
-    }, 1500); // Tick every 1.5 seconds
+      const updateData = (chart) => {
+        if (chart) {
+          chart.data.datasets[0].data.forEach((val, i) => {
+            let change = (Math.random() - 0.5) * 4; // Fluctuate by +/- 2.0%
+            let newVal = val + change;
+            chart.data.datasets[0].data[i] = Math.max(50, Math.min(100, newVal));
+          });
+          chart.update(); // Update naturally for smooth animation
+        }
+      };
+      
+      updateData(jobMarketChartInstance);
+      updateData(startupChartInstance);
+      updateData(higherStudiesChartInstance);
+    }, 2000); // Tick every 2 seconds for visibility
   }
 }
 
@@ -1725,6 +1662,7 @@ function initParticles() {
 window.onload=function(){
   const initialSection = "roadmap";
   showSection(initialSection);
+  initHigherStudies(); // Initialize new feature
   initDegreeFinder(); // Initialize on load
 
   let savedState = localStorage.getItem('careerTestState');
@@ -2008,6 +1946,295 @@ function showDegreeFinderResult() {
     `;
   }, 1000);
 }
+
+// ==========================================
+// 🌍 HIGHER STUDIES ADVISOR LOGIC
+// ==========================================
+
+const higherStudiesData = {
+  fields: {
+    "Computer Science & AI": {
+      description: "Focuses on creating intelligent systems, developing software, and managing data. It's a fast-growing area with high demand for skilled professionals worldwide.",
+      degrees: ["Master of Science (MS) in CS/AI", "PhD in Computer Science", "Master of Data Science"],
+      careers: ["AI/ML Engineer", "Software Architect", "Data Scientist", "Research Scientist"],
+      tags: ["interest_cs", "learning_practical", "learning_research"]
+    },
+    "Engineering": {
+      description: "Involves designing, building, and maintaining machines, structures, and systems. A core field with specializations in robotics, renewable energy, and smart infrastructure.",
+      degrees: ["Master of Engineering (MEng)", "MS in Mechanical/Electrical Eng.", "PhD in Engineering"],
+      careers: ["Robotics Engineer", "Renewable Energy Consultant", "Lead Project Engineer"],
+      tags: ["interest_eng", "learning_practical"]
+    },
+    "Business & Management": {
+      description: "Prepares you for leadership roles, focusing on strategy, finance, marketing, and operations. An MBA is a globally recognized degree for career acceleration.",
+      degrees: ["Master of Business Administration (MBA)", "Master in Management (MIM)", "MS in Finance/Marketing"],
+      careers: ["Management Consultant", "Investment Banker", "Product Manager", "Marketing Director"],
+      tags: ["interest_biz", "learning_theoretical", "goal_corporate"]
+    },
+    "Medicine & Healthcare": {
+      description: "An advanced field for those dedicated to health sciences, clinical research, and patient care. Requires significant commitment and leads to high-impact careers.",
+      degrees: ["Doctor of Medicine (MD) specialization", "Master of Public Health (MPH)", "PhD in Biomedical Sciences"],
+      careers: ["Specialist Doctor", "Hospital Administrator", "Medical Researcher", "Public Health Officer"],
+      tags: ["interest_med", "learning_research", "goal_service"]
+    },
+    "Arts & Design": {
+      description: "For creative individuals, this field allows specialization in areas like digital media, user experience (UX), animation, and fine arts.",
+      degrees: ["Master of Fine Arts (MFA)", "Master of Design (MDes)", "MA in Interaction Design"],
+      careers: ["Lead UI/UX Designer", "Creative Director", "Animator for Film/Games", "University Art Professor"],
+      tags: ["interest_arts", "learning_practical"]
+    }
+  },
+  countries: {
+    "USA": {
+      description: "Offers top-ranked universities, cutting-edge research, and vast networking opportunities, especially in tech and business. It is a high-cost option but with many scholarship opportunities.",
+      universities: ["MIT", "Stanford University", "Harvard University", "Carnegie Mellon University"],
+      scholarships: ["Fulbright-Nehru Fellowships", "Knight-Hennessy Scholars", "University-specific financial aid"],
+      tags: ["budget_high", "language_english", "region_na", "interest_cs", "interest_biz", "learning_research"]
+    },
+    "UK": {
+      description: "Home to historic universities with strong reputations. Master's programs are often shorter (1 year), offering a faster route to a career. Cost is moderate to high.",
+      universities: ["University of Oxford", "University of Cambridge", "Imperial College London"],
+      scholarships: ["Chevening Scholarships", "Commonwealth Scholarships"],
+      tags: ["budget_medium", "budget_high", "language_english", "region_eu", "interest_biz", "interest_med"]
+    },
+    "Canada": {
+      description: "Known for its high quality of life, welcoming immigration policies for students, and strong universities in engineering and computer science. More affordable than the USA.",
+      universities: ["University of Toronto", "University of British Columbia", "McGill University"],
+      scholarships: ["Vanier Canada Graduate Scholarships", "University-specific awards"],
+      tags: ["budget_medium", "language_english", "region_na", "interest_cs", "interest_eng"]
+    },
+    "Germany": {
+      description: "A top destination for engineering and research with zero or very low tuition fees in public universities, making it highly affordable. Many programs are taught in English.",
+      universities: ["Technical University of Munich", "Heidelberg University", "RWTH Aachen University"],
+      scholarships: ["DAAD Scholarships", "Deutschlandstipendium"],
+      tags: ["budget_low", "language_english_ok", "region_eu", "interest_eng", "learning_research"]
+    },
+    "Australia": {
+      description: "Offers a great lifestyle and strong universities, particularly in business, IT, and environmental sciences. Post-study work visa opportunities are a major draw.",
+      universities: ["Australian National University", "University of Melbourne", "University of Sydney"],
+      scholarships: ["Australia Awards Scholarships", "Destination Australia Program"],
+      tags: ["budget_medium", "budget_high", "language_english", "region_apac", "interest_biz"]
+    }
+  }
+};
+
+const higherStudiesQuestions = [
+  { question: "Which academic field are you most passionate about?", answers: [ { text: "Computer Science, AI, and Software", scores: { interest_cs: 3 } }, { text: "Engineering (Mechanical, Electrical, etc.)", scores: { interest_eng: 3 } }, { text: "Business, Finance, and Management", scores: { interest_biz: 3 } }, { text: "Medicine and Life Sciences", scores: { interest_med: 3 } }, { text: "Arts, Design, and Humanities", scores: { interest_arts: 3 } } ] },
+  { question: "What is your preferred learning style?", answers: [ { text: "Practical, hands-on projects and labs", scores: { learning_practical: 2 } }, { text: "Theoretical, reading, and understanding concepts", scores: { learning_theoretical: 2 } }, { text: "Research-oriented, experiments and discovery", scores: { learning_research: 2 } } ] },
+  { question: "What is your primary career goal after your higher studies?", answers: [ { text: "A high-paying corporate job", scores: { goal_corporate: 2 } }, { text: "A career in academic research or as a professor", scores: { goal_research: 2, learning_research: 1 } }, { text: "To start my own business/startup", scores: { goal_startup: 2, interest_biz: 1 } }, { text: "A service-oriented role (e.g., healthcare, non-profit)", scores: { goal_service: 2 } } ] },
+  { question: "What is your approximate budget for one year of tuition and living expenses?", answers: [ { text: "Below $20,000 (₹16 Lakhs)", scores: { budget_low: 3 } }, { text: "Between $20,000 - $40,000 (₹16-32 Lakhs)", scores: { budget_medium: 3 } }, { text: "Above $40,000 (₹32 Lakhs+)", scores: { budget_high: 3 } } ] },
+  { question: "Which region of the world are you most interested in studying in?", answers: [ { text: "North America (USA, Canada)", scores: { region_na: 2 } }, { text: "Europe (UK, Germany, etc.)", scores: { region_eu: 2 } }, { text: "Asia-Pacific (Australia, Singapore, Japan)", scores: { region_apac: 2 } }, { text: "I prefer to study in my home country.", scores: { region_home: 2 } } ] },
+  { question: "What is your proficiency in English for academic purposes?", answers: [ { text: "Fluent / Native", scores: { language_english: 2 } }, { text: "Good, but I'd prefer a country with English support", scores: { language_english_ok: 2 } }, { text: "I am willing to learn a new language like German or Japanese", scores: { language_other: 1 } } ] },
+  { question: "What type of degree are you aiming for?", answers: [ { text: "A Master's degree (e.g., MS, MBA)", scores: { degree_masters: 2 } }, { text: "A Doctorate (PhD)", scores: { degree_phd: 2, learning_research: 1 } }, { text: "Not sure, open to diplomas or certifications", scores: { degree_other: 2 } } ] },
+  { question: "How important is the university's ranking to you?", answers: [ { text: "Very important, I only want to target top-tier universities.", scores: { rank_high: 2, budget_high: 1 } }, { text: "Somewhat important, but I also value affordability.", scores: { rank_medium: 2 } }, { text: "Not important, I care more about the specific program and cost.", scores: { rank_low: 2, budget_low: 1 } } ] },
+  { question: "How do you plan to fund your education?", answers: [ { text: "Primarily through scholarships and grants", scores: { funding_scholarship: 2 } }, { text: "Primarily self-funded or with a family loan", scores: { funding_self: 2 } }, { text: "A mix of both scholarships and self-funding", scores: { funding_mix: 2 } } ] },
+  { question: "Which of these sounds like a more appealing project to you?", answers: [ { text: "Building a complex AI model to predict stock prices", scores: { interest_cs: 1, interest_biz: 1, learning_practical: 1 } }, { text: "Designing a more efficient electric motor for vehicles", scores: { interest_eng: 1, learning_practical: 1 } }, { text: "Developing a marketing strategy for a global brand", scores: { interest_biz: 1, learning_theoretical: 1 } }, { text: "Discovering a new protein for a medical treatment", scores: { interest_med: 1, learning_research: 1 } } ] }
+];
+
+let higherStudiesState = { currentQuestion: 0, scores: {} };
+let currentHigherStudiesResult = null; // Store results for downloading
+
+function initHigherStudies() {
+  const box = document.getElementById("higherStudiesBox");
+  if (!box) return;
+  box.innerHTML = `
+    <div class="anim-slide">
+      <div style="font-size: 48px; color: var(--blue); margin-bottom: 10px;"><i class="fa-solid fa-plane-departure"></i></div>
+      <h2 style="font-size: 24px; margin-bottom: 15px; color: var(--text);">Global Higher Studies Advisor</h2>
+      <p style="color:var(--muted);font-size:16px; margin-bottom: 30px; max-width: 500px; margin: 0 auto 30px;">Answer ${higherStudiesQuestions.length} questions to find the best country and degree for your higher education.</p>
+      <button class="btn btn-blue" onclick="startHigherStudiesTest()"><i class="fa-solid fa-play"></i> Start Advisor</button>
+    </div>
+  `;
+}
+
+function startHigherStudiesTest() {
+  higherStudiesState = { currentQuestion: 0, scores: {} };
+  renderHigherStudiesQuestion();
+}
+
+function renderHigherStudiesQuestion() {
+  const box = document.getElementById("higherStudiesBox");
+  const qIndex = higherStudiesState.currentQuestion;
+
+  if (qIndex >= higherStudiesQuestions.length) {
+    showHigherStudiesResult();
+    return;
+  }
+
+  const qData = higherStudiesQuestions[qIndex];
+  const progress = Math.round(((qIndex) / higherStudiesQuestions.length) * 100);
+
+  let answersHTML = qData.answers.map((answer, index) =>
+    `<button class="likert-btn" onclick="selectHigherStudiesAnswer(${index})">${answer.text}</button>`
+  ).join('');
+
+  box.innerHTML = `
+    <div class="anim-slide" style="text-align: left; width: 100%;">
+      <div class="test-header">
+        <div class="q-meta"><i class="fa-solid fa-list-check"></i> QUESTION ${qIndex + 1} OF ${higherStudiesQuestions.length}</div>
+      </div>
+      <div class="progress-wrap" style="margin-bottom: 25px;"><div class="progress-bar" style="width:${progress}%"></div></div>
+      <h2 class="q-text" style="font-size: 20px; margin-bottom: 30px; font-weight: 500; line-height: 1.5; color: var(--text);">${qData.question}</h2>
+      <div class="likert-scale">${answersHTML}</div>
+    </div>
+  `;
+}
+
+function selectHigherStudiesAnswer(answerIndex) {
+  const qIndex = higherStudiesState.currentQuestion;
+  const answer = higherStudiesQuestions[qIndex].answers[answerIndex];
+  for (const tag in answer.scores) {
+    higherStudiesState.scores[tag] = (higherStudiesState.scores[tag] || 0) + answer.scores[tag];
+  }
+  higherStudiesState.currentQuestion++;
+  renderHigherStudiesQuestion();
+}
+
+function showHigherStudiesResult() {
+  const box = document.getElementById("higherStudiesBox");
+  box.innerHTML = `<div class="startup-spinner" style="border-top-color: var(--blue);"></div><p>Analyzing your profile to find the best global opportunities...</p>`;
+
+  setTimeout(() => {
+    const scores = higherStudiesState.scores;
+    
+    // 1. Determine top field
+    const interestScores = Object.keys(scores).filter(k => k.startsWith('interest_')).sort((a, b) => scores[b] - scores[a]);
+    const topInterestTag = interestScores[0] || 'interest_cs';
+    const topField = Object.keys(higherStudiesData.fields).find(f => higherStudiesData.fields[f].tags.includes(topInterestTag)) || "Computer Science & AI";
+    const fieldData = higherStudiesData.fields[topField];
+
+    // 2. Determine recommended countries
+    let countryScores = {};
+    Object.keys(higherStudiesData.countries).forEach(c => {
+      countryScores[c] = 0;
+      higherStudiesData.countries[c].tags.forEach(tag => {
+        if (scores[tag]) countryScores[c] += scores[tag];
+      });
+    });
+    const recommendedCountries = Object.keys(countryScores).sort((a, b) => countryScores[b] - countryScores[a]).slice(0, 3);
+
+    currentHigherStudiesResult = {
+      topField: topField,
+      fieldData: fieldData,
+      recommendedCountries: recommendedCountries.map(c => ({ name: c, data: higherStudiesData.countries[c] }))
+    };
+
+    // 3. Generate HTML
+    let html = `
+      <div class="anim-slide" style="text-align: left;">
+        <div class="q-meta" style="text-align: center; margin-bottom: 15px;"><i class="fa-solid fa-award"></i> YOUR HIGHER STUDIES RECOMMENDATION</div>
+        <h2 style="font-size: 28px; color: var(--cyan); margin-bottom: 10px; font-family: 'Orbitron', monospace; text-align: center;">${topField}</h2>
+        
+        <div class="decision-reason-box" style="margin-top: 25px;">
+          <strong style="color:var(--green); font-size:12px; display:block; margin-bottom:4px;">Why this field fits you:</strong>
+          <div style="font-size:14px; color:var(--text); line-height: 1.6;">${fieldData.description}</div>
+        </div>
+
+        <div class="sim-section-title" style="font-size: 14px; margin-top: 25px;"><i class="fa-solid fa-graduation-cap"></i> Recommended Degrees</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">${fieldData.degrees.map(c => `<span class="tool-chip">${c}</span>`).join('')}</div>
+
+        <div class="sim-section-title" style="font-size: 14px; margin-top: 25px;"><i class="fa-solid fa-globe"></i> Top Recommended Countries</div>
+    `;
+
+    recommendedCountries.forEach(countryName => {
+      const countryData = higherStudiesData.countries[countryName];
+      html += `
+        <div class="timeline-content" style="margin-bottom:15px;">
+          <div class="timeline-year" style="font-size:16px;">${countryName}</div>
+          <p style="font-size:13px; color:var(--text-secondary); margin-bottom:15px;">${countryData.description}</p>
+          <div class="sim-data-grid">
+            <div class="sim-data-box"><div class="sim-data-title">Example Universities</div><div class="sim-data-value">${countryData.universities.join(", ")}</div></div>
+            <div class="sim-data-box"><div class="sim-data-title">Scholarship Info</div><div class="sim-data-value">${countryData.scholarships.join(", ")}</div></div>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
+        <div class="sim-section-title" style="font-size: 14px; margin-top: 25px;"><i class="fa-solid fa-briefcase"></i> Potential Career Paths</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">${fieldData.careers.map(c => `<span class="tool-chip">${c}</span>`).join('')}</div>
+
+        <div class="sim-section-title" style="font-size: 14px; margin-top: 35px;"><i class="fa-solid fa-link"></i> Apply for Higher Studies</div>
+        <div class="sim-data-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+    `;
+
+    const applicationLinks = [
+      { name: "IELTS Exam", desc: "Book your official English language proficiency test required globally.", url: "https://www.ielts.org/for-test-takers/book-a-test", btn: "Book Test" },
+      { name: "TOEFL Exam", desc: "Alternative English proficiency exam widely accepted in North America.", url: "https://www.ets.org/toefl/test-takers/ibt/register.html", btn: "Register Now" },
+      { name: "GRE Exam", desc: "Graduate Record Examination, required for many Master's and PhD programs.", url: "https://www.ets.org/gre/test-takers/general-test/register.html", btn: "Register Now" },
+      { name: "Common App (US)", desc: "The official centralized application portal for universities in the United States.", url: "https://www.commonapp.org/", btn: "Apply to US" },
+      { name: "UCAS Portal (UK)", desc: "The official centralized admissions service for all UK universities.", url: "https://www.ucas.com/", btn: "Apply to UK" },
+      { name: "Global Scholarships", desc: "Search and apply for thousands of international scholarships and financial aid.", url: "https://www.internationalscholarships.com/", btn: "Find Funds" }
+    ];
+
+    applicationLinks.forEach(link => {
+      html += `
+          <div class="sim-data-box" style="display:flex; flex-direction:column; justify-content:space-between; gap:12px; border-left-color: var(--cyan);">
+            <div>
+              <div style="color:var(--cyan); font-size:13px; font-weight:600; font-family:'Orbitron', monospace; letter-spacing:1px; margin-bottom:6px;">${link.name}</div>
+              <div style="font-size:12px; color:var(--text-secondary); line-height: 1.5;">${link.desc}</div>
+            </div>
+            <a href="${link.url}" target="_blank" class="btn btn-outline" style="display:block; text-align:center; padding: 8px 12px; font-size: 10px; width: 100%; border-color: rgba(0, 229, 255, 0.3) !important; color: var(--cyan); text-decoration: none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> ${link.btn}</a>
+          </div>
+      `;
+    });
+
+    html += `
+        </div>
+
+        <div class="resume-btns" style="margin-top: 40px; justify-content: center;">
+          <button class="btn btn-outline" onclick="initHigherStudies()"><i class="fa-solid fa-rotate-right"></i> Retake Advisor</button>
+          <button class="btn btn-blue" onclick="downloadHigherStudies('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+          <button class="btn btn-blue" onclick="downloadHigherStudies('word')"><i class="fa-solid fa-file-word"></i> Download Word</button>
+        </div>
+      </div>
+    `;
+    box.innerHTML = html;
+
+  }, 1000);
+}
+
+function downloadHigherStudies(type) {
+  if (!currentHigherStudiesResult) return;
+  const res = currentHigherStudiesResult;
+
+  // Prepare text content
+  let text = `Higher Studies Recommendation: ${res.topField}\n\n`;
+  text += `Why this field fits you:\n${res.fieldData.description}\n\n`;
+  text += `Recommended Degrees:\n${res.fieldData.degrees.join(", ")}\n\n`;
+  text += `Potential Career Paths:\n${res.fieldData.careers.join(", ")}\n\n`;
+  text += `Top Recommended Countries:\n`;
+  res.recommendedCountries.forEach(c => {
+    text += `- ${c.name}:\n  ${c.data.description}\n  Example Universities: ${c.data.universities.join(", ")}\n  Scholarships: ${c.data.scholarships.join(", ")}\n\n`;
+  });
+
+  if (type === 'word') {
+    let content = `<html><head><meta charset='utf-8'><title>Higher Studies Advisor</title></head><body style="font-family: Arial, sans-serif; line-height: 1.6;">`;
+    content += `<h1 style="color: #0055aa; text-align: center;">Higher Studies Recommendation: ${res.topField}</h1><hr/>`;
+    content += `<h3 style="color: #0055aa;">Why this field fits you:</h3><p>${res.fieldData.description}</p>`;
+    content += `<h3 style="color: #0055aa;">Recommended Degrees:</h3><ul>${res.fieldData.degrees.map(d=>`<li>${d}</li>`).join('')}</ul>`;
+    content += `<h3 style="color: #0055aa;">Potential Career Paths:</h3><ul>${res.fieldData.careers.map(c=>`<li>${c}</li>`).join('')}</ul>`;
+    content += `<h3 style="color: #0055aa;">Top Recommended Countries:</h3>`;
+    res.recommendedCountries.forEach(c => {
+      content += `<h4>${c.name}</h4><p>${c.data.description}</p>`;
+      content += `<ul><li><strong>Example Universities:</strong> ${c.data.universities.join(", ")}</li>`;
+      content += `<li><strong>Scholarships:</strong> ${c.data.scholarships.join(", ")}</li></ul>`;
+    });
+    content += `</body></html>`;
+    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `Higher_Studies_${res.topField.replace(/\s+/g, '_')}.doc`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  } else {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const lines = doc.splitTextToSize(text, 500);
+    doc.setFontSize(16); doc.text(`Higher Studies: ${res.topField}`, 40, 40);
+    doc.setFontSize(10); doc.text(lines, 40, 70);
+    doc.save(`Higher_Studies_${res.topField.replace(/\s+/g, '_')}.pdf`);
+  }
+}
+
 // ==========================================
 // 🚀 STARTUP IDEA GENERATOR LOGIC
 // ==========================================
