@@ -1,0 +1,21 @@
+{
+  "name": "CareerForge AI",
+  "short_name": "CareerForge",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#020810",
+  "theme_color": "#0a0f2c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192/0b1526/00aaff?text=C",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512/0b1526/00aaff?text=C",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

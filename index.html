@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>CareerForge AI - 1000+ Domains</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0f2c">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -575,6 +577,15 @@
     </ul>
   </div>
 </section>
+
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-bottom-nav">
+  <button onclick="showSection('roadmap')"><i class="fa-solid fa-house"></i><span>Home</span></button>
+  <button onclick="showSection('simulator')"><i class="fa-solid fa-layer-group"></i><span>Features</span></button>
+  <button onclick="showSection('about')"><i class="fa-solid fa-user"></i><span>About</span></button>
+  <button onclick="showSection('interview')"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
+</div>
+
 <script src="app.js"></script>
 </body>
 </html>

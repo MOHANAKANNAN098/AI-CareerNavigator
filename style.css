@@ -1421,6 +1421,11 @@ select:focus, input:focus, textarea:focus {
   .hamburger-btn { left: 10px; }
 }
 
+/* ===== MOBILE BOTTOM NAVIGATION (Hidden on Desktop) ===== */
+.mobile-bottom-nav {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .nav-links {
     width: 100%;
@@ -1458,6 +1463,45 @@ select:focus, input:focus, textarea:focus {
     background: #0a0f2c;
     z-index: 1;
   }
+  
+  /* App-like UI Features */
+  body {
+    padding-bottom: 80px; /* Space for bottom nav */
+  }
+  .btn {
+    padding: 14px 24px; /* Larger touch targets */
+    border-radius: 12px;
+  }
+  .card, .roadmap-card, .team-card, .auth-card {
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Bottom Navigation Styles */
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(11, 21, 38, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    z-index: 10000;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mobile-bottom-nav button {
+    background: transparent; border: none; color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; font-family: 'Inter', sans-serif; font-size: 10px; width: 100%; height: 100%;
+    cursor: pointer; transition: color 0.3s ease;
+  }
+  .mobile-bottom-nav button i { font-size: 20px; margin-bottom: 2px; }
+  .mobile-bottom-nav button:hover, .mobile-bottom-nav button:active { color: var(--cyan); }
 }
 
 /* ===== PRO ANALYTICS DASHBOARD ===== */
