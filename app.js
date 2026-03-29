@@ -1766,6 +1766,11 @@ window.onload=function(){
     });
     if (overlay) overlay.addEventListener('click', closeMenu);
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    
+    // Prevent touch event blocking inside the mobile menu
+    navLinks.addEventListener('touchmove', function(e) {
+      e.stopPropagation(); // allow scroll inside menu
+    }, { passive: true });
   }
 }
 
