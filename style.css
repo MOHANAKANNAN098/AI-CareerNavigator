@@ -104,7 +104,9 @@ body::after {
 }
 @media (hover: none) and (pointer: coarse) {
   body { cursor: auto; }
-  #canvas { display: none; }
+  #canvas { 
+    opacity: 0.6; /* Keep visible but slightly dimmer to reduce visual noise */
+  }
 }
 
 /* ===== SCROLLBAR ===== */
@@ -1348,7 +1350,23 @@ select:focus, input:focus, textarea:focus {
 }
 
 @media (max-width: 768px) {
-  section { padding: 0 16px 60px; margin: 28px auto; }
+  /* Smooth app-like horizontal page transition */
+  section { 
+    padding: 0 16px 60px; 
+    margin: 16px auto; 
+    min-height: calc(100vh - 160px);
+    animation: mobileAppSlideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards !important; 
+  }
+  @keyframes mobileAppSlideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  /* Prevent iOS zoom & increase touch targets */
+  select, input, textarea, .btn, .likert-btn {
+    font-size: 16px !important; /* 16px strictly prevents iOS from zooming in */
+    min-height: 48px; /* Minimum recommended touch target size */
+  }
   .resume-grid { grid-template-columns: 1fr; }
   .span2 { grid-column: span 1; }
   .card { padding: 18px; }
@@ -1358,11 +1376,10 @@ select:focus, input:focus, textarea:focus {
     right: 10px;
     padding: 6px 10px;
   }
-  select, input, textarea, #roadmap .card button {
+  #roadmap .card button {
     width: 100%;
     margin-right: 0;
     margin-bottom: 10px;
-    display: block;
     box-sizing: border-box;
   }
   .test-header { flex-direction: column; align-items: flex-start; gap: 8px; }

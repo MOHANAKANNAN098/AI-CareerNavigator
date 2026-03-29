@@ -1693,8 +1693,9 @@ function initParticles() {
     }
   }
 
-  // Create particles
-  for (let i = 0; i < 60; i++) particles.push(new Particle());
+  // Create particles - Optimize count for mobile devices
+  const particleCount = window.innerWidth <= 768 ? 25 : 60;
+  for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
