@@ -1293,10 +1293,10 @@ select:focus, input:focus, textarea:focus {
     width: 100%; /* FORCE FULL SCREEN FIT */
     height: 100vh;
     background: #0a0f2c;
-    padding: 10px 5px;
-    overflow: hidden !important; /* REMOVE SCROLL */
+    padding: 20px 5px 100px; /* Add bottom padding so last items are reachable */
+    overflow-y: auto !important; /* CRITICAL: ENABLE SCROLL */
     overflow-x: hidden;
-    justify-content: space-evenly; /* Distribute items to fill height */
+    -webkit-overflow-scrolling: touch; /* Smooth touch scroll for iOS */
     gap: 0;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 9999;
@@ -1319,11 +1319,11 @@ select:focus, input:focus, textarea:focus {
   .nav-links button {
     width: 100%;
     text-align: left;
-    padding: 8px 24px;
+    padding: 15px 24px; /* Restored padding for better touch targets */
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 13px;
+    font-size: 15px; /* Restored font size for readability */
     color: #ffffff; /* Readable text */
     letter-spacing: 1px;
     margin: 2px 0;
