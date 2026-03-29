@@ -1443,6 +1443,7 @@ select:focus, input:focus, textarea:focus {
 
 /* Hide desktop nav on mobile */
 @media (max-width: 768px) {
+  .hamburger-btn { display: none !important; }
   nav { display: none !important; }
   .lang-selector { display: none !important; }
 }
@@ -1462,29 +1463,37 @@ select:focus, input:focus, textarea:focus {
   .nav-links button {
     display: block;
     width: 100%;
-    padding: 18px 24px;
+    padding: 16px 20px;
     font-size: 16px;
     color: #ffffff;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
+    background: linear-gradient(145deg, rgba(15, 30, 53, 0.8), rgba(8, 16, 30, 0.9));
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     text-align: left;
     transition: var(--transition);
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 18px;
     font-weight: 500;
   }
   .nav-links button i {
     color: var(--cyan);
-    font-size: 18px;
-    width: 20px;
+    font-size: 20px;
+    background: rgba(0, 229, 255, 0.1);
+    padding: 12px;
+    border-radius: 14px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0,229,255,0.05);
     text-align: center;
   }
   .nav-links button:hover {
-    background: var(--surface2);
-    border-color: var(--cyan);
-    transform: translateX(5px);
+    transform: scale(0.98);
+    background: rgba(0, 229, 255, 0.15);
   }
   section#home, section#features {
     display: block; /* Show home section on mobile */

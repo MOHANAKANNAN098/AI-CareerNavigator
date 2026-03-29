@@ -1,52 +1,67 @@
 function showSection(id, btnElement = null){
   const isMobile = window.innerWidth <= 768;
 
+  // Ensure a default feature is set for the mobile Home tab
+  window.currentMobileFeature = window.currentMobileFeature || 'roadmap';
+
   if (isMobile) {
     // Mobile App-like Behavior
     document.querySelectorAll("section").forEach(s => s.style.display = "none");
     
-    const homeContent = document.getElementById('homeContent');
-    let targetSection = document.getElementById(id);
-
-    // The original 'roadmap' section is now the default home content
-    if (id === 'home' && homeContent.innerHTML.trim() === '') {
-        targetSection = document.getElementById('roadmap');
+    if (id === 'profile') {
+      window.location.href = 'profile.html';
+      return;
     }
 
-    if (id === 'home' || id === 'features' || id === 'about' || id === 'interview' || id === 'profile') {
-      // These are main tabs, show them directly
-      if(id === 'profile') {
-        window.location.href = 'profile.html'; // Redirect for profile
-        return;
-      }
-      if(id === 'features'){
-        document.getElementById('features').style.display = 'block';
-      } else {
-        document.getElementById('home').style.display = 'block';
-        if (targetSection) homeContent.innerHTML = targetSection.innerHTML;
-      }
-    } else {
-      // This is a feature selected from the features menu
-      document.getElementById('home').style.display = 'block';
-      if (targetSection) homeContent.innerHTML = targetSection.innerHTML;
-      // After loading the feature, set the 'Home' tab to active
+    if (id === 'home') {
+      // User tapped "Home" -> show the active feature
+      const activeFeature = document.getElementById(window.currentMobileFeature);
+      if (activeFeature) activeFeature.style.display = 'block';
+      
       document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
       document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
-    }
-
-    // Sync active state for mobile bottom nav
-    if (btnElement) {
+    } 
+    else if (id === 'features' || id === 'about') {
+      // Standard main tabs
+      const target = document.getElementById(id);
+      if (target) target.style.display = 'block';
+      
+      if (btnElement) {
+        document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
+        btnElement.classList.add("active");
+      }
+    } 
+    else if (id === 'interview' && btnElement && btnElement.closest('.mobile-bottom-nav')) {
+      // "Contact" tapped from bottom nav
+      document.getElementById('interview').style.display = 'block';
       document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
       btnElement.classList.add("active");
+    } else {
+      // A feature tool was selected! Load it and switch to Home tab
+      window.currentMobileFeature = id;
+      const featureTarget = document.getElementById(id);
+      if (featureTarget) featureTarget.style.display = 'block';
+      
+      document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
+      document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
     }
 
   } else {
     // Desktop Behavior
     document.querySelectorAll("section").forEach(s=>s.style.display="none");
-    document.getElementById(id).style.display="block";
-    document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-    const desktopBtn = document.getElementById("btn-"+id);
-    if(desktopBtn) desktopBtn.classList.add("active");
+    if (id === 'home' || id === 'features') {
+        const defaultDesktop = document.getElementById('roadmap');
+        if (defaultDesktop) defaultDesktop.style.display="block";
+        document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+        const rBtn = document.getElementById("btn-roadmap");
+        if (rBtn) rBtn.classList.add("active");
+    } else {
+        const targetSection = document.getElementById(id);
+        if (targetSection) targetSection.style.display="block";
+        document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+        const desktopBtn = document.getElementById("btn-"+id);
+        if(desktopBtn) desktopBtn.classList.add("active");
+    }
   }
 
   // Common logic for both
