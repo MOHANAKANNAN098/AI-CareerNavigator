@@ -38,6 +38,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.6;
+  touch-action: manipulation;
 }
 
 /* Animated background grid */
@@ -1294,7 +1295,10 @@ select:focus, input:focus, textarea:focus {
     height: 100vh;
     background: #0a0f2c; /* Solid dark background */
     padding-top: 15px;
+    padding-bottom: 80px; /* Ensure last item is reachable */
     overflow-y: auto; /* Enable Scroll */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll for mobile */
     gap: 0;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 9999;
@@ -1315,6 +1319,15 @@ select:focus, input:focus, textarea:focus {
   }
   .close-menu-btn::before { display: none !important; }
   .close-menu-btn:hover { color: var(--red) !important; }
+  
+  /* Mobile Menu Scrollbar Styling */
+  .nav-links::-webkit-scrollbar {
+    width: 4px;
+  }
+  .nav-links::-webkit-scrollbar-thumb {
+    background: var(--cyan);
+  }
+
   .nav-links button {
     width: 100%;
     text-align: left;
