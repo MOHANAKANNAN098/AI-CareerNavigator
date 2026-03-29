@@ -1787,6 +1787,27 @@ window.onload=function(){
   }
 }
 
+// ==========================================
+// 📱 PWA & MOBILE APP MODE LOGIC
+// ==========================================
+function detectMobileAppMode() {
+  if (window.innerWidth <= 768) {
+    document.body.classList.add('mobile-app-mode');
+  } else {
+    document.body.classList.remove('mobile-app-mode');
+  }
+}
+window.addEventListener('resize', detectMobileAppMode);
+window.addEventListener('load', detectMobileAppMode);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/AI-CareerNavigator/service-worker.js', { scope: '/AI-CareerNavigator/' })
+      .then(reg => console.log('PWA Service Worker registered:', reg.scope))
+      .catch(err => console.error('PWA Service Worker registration failed:', err));
+  });
+}
+
 // 📱 Mobile Features Menu Wrapper
 window.openMobileFeatures = function() {
   document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
