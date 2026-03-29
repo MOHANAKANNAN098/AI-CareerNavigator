@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+<!-- Authentication Script -->
+<script src="script.js"></script>
 <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({
@@ -46,6 +48,10 @@
   <p>Smart Career Mentor Platform — 1000+ Domains</p>
   
   <div id="google_translate_element" style="opacity:0; position:absolute; z-index:-1; pointer-events:none;"></div>
+  
+  <!-- Profile Button Container -->
+  <div id="profile-btn-container" class="profile-btn-wrap"></div>
+  
   <div class="lang-selector notranslate">
     <i class="fa-solid fa-language"></i>
     <select onchange="translateLanguage(this.value)">
@@ -169,6 +175,7 @@
   <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
   <button id="btn-startup" onclick="showSection('startup')">🚀 Startup Ideas</button>
   <button id="btn-simulator" onclick="showSection('simulator')">🧠 AI Life Simulator</button>
+  <button id="btn-analytics" onclick="showSection('analytics')"><i class="fa-solid fa-chart-pie"></i> Pro Analytics</button>
   <button id="btn-team"    onclick="showSection('team')">TEAM BOYZ</button>
   <button id="btn-about" onclick="showSection('about')">About Me</button>
 </nav>
@@ -226,7 +233,7 @@
         <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
         <div>
           <div class="ai-name">CareerForge AI</div>
-          <div class="ai-status"><span class="ai-dot"></span> Online — Powered by Mistral AI</div>
+          <div class="ai-status"><span class="ai-dot"></span> Online — Powered by Gemini AI</div>
         </div>
       </div>
       <button class="ai-clear-btn" onclick="clearChat()" title="Clear chat"><i class="fa-solid fa-trash"></i></button>
@@ -318,7 +325,7 @@
         <option value="High (₹5,00,000 - ₹20,00,000)">High (₹5,00,000 - ₹20,00,000)</option>
         <option value="Enterprise (₹20,00,000+)">Enterprise (₹20,00,000+)</option>
       </select>
-      <select id="suGoal">
+      <select id="suGoal" onchange="trackActivity('Path Selected', 'Selected Goal: ' + this.value)">
         <option value="" disabled selected>Select Goal</option>
         <option value="Venture-backed Startup">Venture-backed Startup</option>
         <option value="Side Hustle">Side Hustle</option>
@@ -343,7 +350,7 @@
         <option value="All-In (60+ hours/week)">All-In (60+ hours/week)</option>
         <option value="Flexible / Variable">Flexible / Variable</option>
       </select>
-      <input id="suSkills" placeholder="List your skills (e.g., Python, Marketing, Design)..." class="span2">
+      <input id="suSkills" placeholder="List your skills (e.g., Python, Marketing, Design)..." class="span2" onchange="trackActivity('Skills Updated', 'Skills set to: ' + this.value)">
     </div>
     <button class="btn btn-green" onclick="generateStartup()" style="margin-top: 15px; width: 100%;"><i class="fa-solid fa-lightbulb"></i> Generate Idea</button>
   </div>
@@ -389,8 +396,8 @@
         <option value="All-in (60+ hrs/week)">All-in (60+ hrs/week)</option>
       </select>
       <input id="simMarks" placeholder="Academic Performance (e.g., 8.5 CGPA, Average)">
-      <input id="simGoal" placeholder="Ultimate Career Goal (e.g., CEO, Lead Engineer, Professor)">
-      <input id="simSkills" placeholder="Top Skills (e.g., Python, Marketing)" class="span2">
+      <input id="simGoal" placeholder="Ultimate Career Goal (e.g., CEO, Lead Engineer, Professor)" onchange="trackActivity('Path Selected', 'Set Ultimate Goal: ' + this.value)">
+      <input id="simSkills" placeholder="Top Skills (e.g., Python, Marketing)" class="span2" onchange="trackActivity('Skills Updated', 'Skills set to: ' + this.value)">
       <input id="simInterests" placeholder="Interests & Passions (e.g., AI, Space, Finance)" class="span2">
     </div>
     <button class="btn btn-blue" onclick="generateAdvancedSimulation()" style="margin-top: 15px; width: 100%;"><i class="fa-solid fa-brain"></i> Analyze & Simulate My Future</button>
@@ -404,6 +411,73 @@
   <div class="stitle" style="margin-top: 48px;">📂 My Saved Simulations</div>
   <div id="savedSimsGrid" class="saved-startup-grid"></div>
 
+</section>
+
+<section id="analytics">
+  <div class="stitle"><i class="fa-solid fa-satellite-dish" style="color:var(--red); animation: pulse-dot 2s infinite;"></i> &nbsp;Live Activity Analytics Dashboard</div>
+  <div class="analytics-dashboard">
+    <!-- KPI Cards (Live Metrics) -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">⏱ Time Spent</div>
+        <div class="kpi-value" id="kpi-time">0m</div>
+        <div class="kpi-trend">Current Session</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">🧠 Total Simulations</div>
+        <div class="kpi-value" id="kpi-sims">0</div>
+        <div class="kpi-trend">Ran by User</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">✅ Tasks Completed</div>
+        <div class="kpi-value" id="kpi-tasks">0</div>
+        <div class="kpi-trend">Roadmap Progress</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">📍 Current Path</div>
+        <div class="kpi-value" id="kpi-path" style="font-size: 16px;">--</div>
+        <div class="kpi-trend">Latest Decision</div>
+      </div>
+    </div>
+
+    <!-- Live Snapshot & Feed -->
+    <div class="analytics-row">
+      <div class="chart-box">
+        <div class="chart-header"><i class="fa-solid fa-bolt" style="color:var(--yellow);"></i> Last Result Snapshot</div>
+        <div id="live-snapshot-content" style="min-height: 120px;">
+          <div style="color:var(--muted); font-size:14px; padding: 20px;">No data available. Run the AI Simulator to generate a live snapshot.</div>
+        </div>
+      </div>
+      <div class="activity-box">
+        <div class="chart-header"><i class="fa-solid fa-satellite-dish" style="color:var(--red);"></i> Live User Activity Feed</div>
+        <div id="activity-log" class="activity-log" style="max-height: 250px;"></div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="analytics-row">
+      <div class="chart-box col-span-2">
+        <div class="chart-header">Projected Growth Trend (Income / Yr)</div>
+        <div class="chart-wrap" style="height: 300px;"><canvas id="growthChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-header">Path Inclination</div>
+        <div class="chart-wrap" style="height: 300px;"><canvas id="pathPieChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="analytics-row">
+      <div class="chart-box">
+        <div class="chart-header">Skill Distribution</div>
+        <div class="chart-wrap" style="height: 250px;"><canvas id="skillRadarChart"></canvas></div>
+      </div>
+      <div class="insights-box">
+        <div class="chart-header"><i class="fa-solid fa-lightbulb" style="color:var(--yellow);"></i> Intelligent Insights Engine</div>
+        <div id="ai-insights-list" class="insights-list"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="interview">
