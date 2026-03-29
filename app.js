@@ -1,4 +1,4 @@
-function showSection(id){
+function showSection(id, btnElement = null){
   document.querySelectorAll("section").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
   document.querySelectorAll(".nav-links button").forEach(b=>b.classList.remove("active"));
@@ -14,6 +14,17 @@ function showSection(id){
     navLinks.classList.remove('open');
     if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = "auto";
+  }
+
+  // Sync active state for mobile bottom nav
+  if (btnElement && btnElement.closest && btnElement.closest('.mobile-bottom-nav')) {
+    document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
+    btnElement.classList.add("active");
+  } else {
+    document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
+    if (id === 'roadmap') document.querySelector('.mobile-bottom-nav button:nth-child(1)').classList.add('active');
+    if (id === 'about') document.querySelector('.mobile-bottom-nav button:nth-child(3)').classList.add('active');
+    if (id === 'interview') document.querySelector('.mobile-bottom-nav button:nth-child(4)').classList.add('active');
   }
 }
 
@@ -1757,6 +1768,7 @@ window.onload=function(){
     if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = "auto";
   }
+  window.closeMobileFeatures = closeMenu;
 
   if (hamburgerBtn && navLinks) {
     hamburgerBtn.addEventListener('click', (e) => {
@@ -1772,6 +1784,18 @@ window.onload=function(){
       e.stopPropagation();   // allow menu scroll
     }, { passive: true });
   }
+}
+
+// 📱 Mobile Features Menu Wrapper
+window.openMobileFeatures = function() {
+  document.querySelectorAll(".mobile-bottom-nav button").forEach(b => b.classList.remove("active"));
+  document.querySelector('.mobile-bottom-nav button:nth-child(2)').classList.add('active');
+  
+  const navLinks = document.querySelector('.nav-links');
+  const overlay = document.getElementById('overlay');
+  if (navLinks) navLinks.classList.add('open');
+  if (overlay) overlay.classList.add('active');
+  document.body.style.overflow = "hidden";
 }
 
 // ==========================================

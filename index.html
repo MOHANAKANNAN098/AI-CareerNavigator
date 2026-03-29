@@ -173,10 +173,8 @@
   <button id="hamburger-btn" class="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
   <div class="nav-links">
     <div class="mobile-menu-header">
-      <h2>Menu</h2>
-      <button id="close-menu-btn" class="close-menu-btn" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+      <h2>Features <button class="close-menu-btn" aria-label="Close menu" onclick="closeMobileFeatures()" style="padding:0 !important; margin-left:auto; font-size:24px !important;"><i class="fa-solid fa-xmark"></i></button></h2>
     </div>
-    <button id="close-menu-btn" class="close-menu-btn" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
     <button id="btn-roadmap" onclick="showSection('roadmap')">Career Roadmap</button>
     <button id="btn-test"    onclick="showSection('test')">Career Test</button>
     <button id="btn-jobs"    onclick="showSection('jobs')">Job Demand</button>
@@ -580,10 +578,11 @@
 
 <!-- Mobile Bottom Navigation -->
 <div class="mobile-bottom-nav">
-  <button onclick="showSection('roadmap')"><i class="fa-solid fa-house"></i><span>Home</span></button>
-  <button onclick="showSection('simulator')"><i class="fa-solid fa-layer-group"></i><span>Features</span></button>
-  <button onclick="showSection('about')"><i class="fa-solid fa-user"></i><span>About</span></button>
-  <button onclick="showSection('interview')"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
+  <button class="active" onclick="showSection('roadmap', this)"><i class="fa-solid fa-house"></i><span>Home</span></button>
+  <button onclick="openMobileFeatures()"><i class="fa-solid fa-layer-group"></i><span>Features</span></button>
+  <button onclick="showSection('about', this)"><i class="fa-solid fa-circle-info"></i><span>About</span></button>
+  <button onclick="showSection('interview', this)"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
+  <button onclick="location.href='profile.html'"><i class="fa-solid fa-user"></i><span>Profile</span></button>
 </div>
 
 <script src="app.js"></script>
