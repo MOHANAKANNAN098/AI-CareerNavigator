@@ -1290,19 +1290,16 @@ select:focus, input:focus, textarea:focus {
     position: fixed;
     top: 0;
     left: -100%; /* Start off-screen */
-    width: 80%;
-    max-width: 340px;
+    width: 100%; /* FORCE FULL SCREEN FIT */
     height: 100vh;
     background: #0a0f2c;
-    padding: 0;
-    overflow-y: hidden !important; /* Disable scroll */
+    padding: 10px 5px;
+    overflow: hidden !important; /* REMOVE SCROLL */
     overflow-x: hidden;
     justify-content: space-evenly; /* Distribute items to fill height */
     gap: 0;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 9999;
-    box-shadow: 10px 0 30px rgba(0,0,0,0.8);
-    border-right: 1px solid var(--glass-border);
   }
   .nav-links.open {
     left: 0;
@@ -1310,33 +1307,26 @@ select:focus, input:focus, textarea:focus {
   .close-menu-btn {
     display: block;
     text-align: right !important;
-    padding: 1.5vh 24px !important; /* Reduced padding */
-    font-size: 24px !important;
+    padding: 8px 24px !important;
+    font-size: 22px !important;
     color: #ffffff !important;
     border-bottom: none !important;
     background: transparent !important;
   }
   .close-menu-btn::before { display: none !important; }
   .close-menu-btn:hover { color: var(--red) !important; }
-  
-  /* Mobile Menu Scrollbar Styling */
-  .nav-links::-webkit-scrollbar {
-    width: 4px;
-  }
-  .nav-links::-webkit-scrollbar-thumb {
-    background: var(--cyan);
-  }
 
   .nav-links button {
     width: 100%;
     text-align: left;
-    padding: 1.5vh 24px; /* Dynamically adjust padding based on screen height */
+    padding: 8px 24px;
     border-radius: 0;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Readable border */
-    font-size: 14px; /* Reduced font size */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 13px;
     color: #ffffff; /* Readable text */
     letter-spacing: 1px;
+    margin: 2px 0;
   }
   .nav-links button:hover, .nav-links button.active {
     background: rgba(0, 229, 255, 0.1);
