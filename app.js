@@ -20,6 +20,7 @@ function showSection(id){
   if(id==="mentor" && chatHistory.length === 0) initChatSuggestions();
   if(id==="analytics") updateAnalyticsDashboard();
   if(id==="degree-finder") initDegreeFinder();
+  if(id==="college-finder") initCollegeFinder();
   if(id==="higher-studies") initHigherStudies();
 }
 

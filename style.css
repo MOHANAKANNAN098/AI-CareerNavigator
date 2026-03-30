@@ -2134,3 +2134,57 @@ select:focus, input:focus, textarea:focus {
   border-color: rgba(255,51,102,0.35);
   color: var(--red);
 }
+
+/* ===== CHOOSE COLLEGE SYSTEM ===== */
+.degree-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.degree-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.degree-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+.pathway-selector {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.college-results-container {
+  margin-top: 30px;
+}
+
+.college-result-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--green);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.college-result-card h4 { font-size: 16px; color: var(--text); margin-bottom: 5px; }
+.college-result-card p { font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5; }

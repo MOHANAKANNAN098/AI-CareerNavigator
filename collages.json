@@ -1,0 +1,1684 @@
+{
+  "colleges": [
+    {
+      "id": 1,
+      "name": "Aalim Muhammed Salegh College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 175,
+      "cutoff_range": "150 - 175"
+    },
+    {
+      "id": 2,
+      "name": "Aarupadai Veedu Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 150,
+      "cutoff_range": "100 - 150"
+    },
+    {
+      "id": 3,
+      "name": "AAA College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 4,
+      "name": "A.K.T. Memorial College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 5,
+      "name": "A.R. College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 6,
+      "name": "A.R. Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 7,
+      "name": "A.R.J. College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 135,
+      "cutoff_range": "90 - 135"
+    },
+    {
+      "id": 8,
+      "name": "A.V.C. College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 160,
+      "cutoff_range": "120 - 160"
+    },
+    {
+      "id": 9,
+      "name": "A.V.S. Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 10,
+      "name": "Adhi College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 11,
+      "name": "Adhiparasakthi Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 155,
+      "cutoff_range": "110 - 155"
+    },
+    {
+      "id": 12,
+      "name": "Adhiyamaan College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 170,
+      "cutoff_range": "130 - 170"
+    },
+    {
+      "id": 13,
+      "name": "Agni College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 14,
+      "name": "Aksheyaa College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 15,
+      "name": "Alagappa Chettiar Government College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 170,
+      "cutoff_max": 195,
+      "cutoff_range": "170 - 195"
+    },
+    {
+      "id": 16,
+      "name": "Alpha College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 17,
+      "name": "Amrita School of Engineering - Coimbatore",
+      "category": "Engineering",
+      "cutoff_min": 170,
+      "cutoff_max": 195,
+      "cutoff_range": "170 - 195"
+    },
+    {
+      "id": 18,
+      "name": "Amrita School of Engineering - Chennai",
+      "category": "Engineering",
+      "cutoff_min": 175,
+      "cutoff_max": 196,
+      "cutoff_range": "175 - 196"
+    },
+    {
+      "id": 19,
+      "name": "Anand Institute of Higher Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 20,
+      "name": "Anjalai Ammal Mahalingam Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 21,
+      "name": "Annai Teresa College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 22,
+      "name": "Anna University - College of Engineering Guindy",
+      "category": "Engineering",
+      "cutoff_min": 190,
+      "cutoff_max": 200,
+      "cutoff_range": "190 - 200"
+    },
+    {
+      "id": 23,
+      "name": "Anna University Regional Campus Coimbatore",
+      "category": "Engineering",
+      "cutoff_min": 180,
+      "cutoff_max": 197,
+      "cutoff_range": "180 - 197"
+    },
+    {
+      "id": 24,
+      "name": "Anna University Regional Campus Madurai",
+      "category": "Engineering",
+      "cutoff_min": 178,
+      "cutoff_max": 196,
+      "cutoff_range": "178 - 196"
+    },
+    {
+      "id": 25,
+      "name": "Anna University Regional Campus Tirunelveli",
+      "category": "Engineering",
+      "cutoff_min": 175,
+      "cutoff_max": 195,
+      "cutoff_range": "175 - 195"
+    },
+    {
+      "id": 26,
+      "name": "Arasu Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 155,
+      "cutoff_range": "110 - 155"
+    },
+    {
+      "id": 27,
+      "name": "Arignar Anna Institute of Science and Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 28,
+      "name": "Arjun College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 135,
+      "cutoff_range": "90 - 135"
+    },
+    {
+      "id": 29,
+      "name": "Arulmigu Kalasalingam College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 160,
+      "cutoff_range": "120 - 160"
+    },
+    {
+      "id": 30,
+      "name": "Arulmigu Meenakshi Amman College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 31,
+      "name": "Arunai Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 160,
+      "cutoff_range": "120 - 160"
+    },
+    {
+      "id": 32,
+      "name": "Asan Memorial College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 33,
+      "name": "Bannari Amman Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 160,
+      "cutoff_max": 188,
+      "cutoff_range": "160 - 188"
+    },
+    {
+      "id": 34,
+      "name": "Bharath Institute of Higher Education and Research",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 35,
+      "name": "Bharath Niketan Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 36,
+      "name": "Bharathidasan Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 37,
+      "name": "Bharathiyar Institute of Engineering for Women",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 38,
+      "name": "Builders Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 39,
+      "name": "C Abdul Hakeem College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 160,
+      "cutoff_range": "120 - 160"
+    },
+    {
+      "id": 40,
+      "name": "Care College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 41,
+      "name": "Chennai Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 42,
+      "name": "Chettinad College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 160,
+      "cutoff_range": "120 - 160"
+    },
+    {
+      "id": 43,
+      "name": "Christ the King Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 44,
+      "name": "Coimbatore Institute of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 172,
+      "cutoff_range": "140 - 172"
+    },
+    {
+      "id": 45,
+      "name": "Coimbatore Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 46,
+      "name": "Dhanalakshmi College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 47,
+      "name": "Dhanalakshmi Srinivasan Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 48,
+      "name": "Dr Mahalingam College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 49,
+      "name": "Easwari Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 50,
+      "name": "Excel Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 51,
+      "name": "Francis Xavier Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 52,
+      "name": "Gojan School of Business and Technology",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 53,
+      "name": "Government College of Engineering Bargur",
+      "category": "Engineering",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 54,
+      "name": "Government College of Engineering Salem",
+      "category": "Engineering",
+      "cutoff_min": 175,
+      "cutoff_max": 195,
+      "cutoff_range": "175 - 195"
+    },
+    {
+      "id": 55,
+      "name": "Government College of Engineering Tirunelveli",
+      "category": "Engineering",
+      "cutoff_min": 175,
+      "cutoff_max": 195,
+      "cutoff_range": "175 - 195"
+    },
+    {
+      "id": 56,
+      "name": "Government College of Engineering Srirangam",
+      "category": "Engineering",
+      "cutoff_min": 170,
+      "cutoff_max": 193,
+      "cutoff_range": "170 - 193"
+    },
+    {
+      "id": 57,
+      "name": "Government College of Technology Coimbatore",
+      "category": "Engineering",
+      "cutoff_min": 180,
+      "cutoff_max": 197,
+      "cutoff_range": "180 - 197"
+    },
+    {
+      "id": 58,
+      "name": "Hindustan Institute of Technology and Science",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 59,
+      "name": "Info Institute of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 60,
+      "name": "Jeppiaar Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 61,
+      "name": "Jerusalem College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 62,
+      "name": "Karpagam College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 63,
+      "name": "Karpagam Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 64,
+      "name": "Kings Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 65,
+      "name": "Kongu Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 170,
+      "cutoff_max": 193,
+      "cutoff_range": "170 - 193"
+    },
+    {
+      "id": 66,
+      "name": "KPR Institute of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 67,
+      "name": "Kumaraguru College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 168,
+      "cutoff_max": 192,
+      "cutoff_range": "168 - 192"
+    },
+    {
+      "id": 68,
+      "name": "Loyola ICAM College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 69,
+      "name": "Madha Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 70,
+      "name": "Madras Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 185,
+      "cutoff_max": 198,
+      "cutoff_range": "185 - 198"
+    },
+    {
+      "id": 71,
+      "name": "Mailam Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 72,
+      "name": "Meenakshi Sundararajan Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 73,
+      "name": "Mepco Schlenk Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 170,
+      "cutoff_max": 193,
+      "cutoff_range": "170 - 193"
+    },
+    {
+      "id": 74,
+      "name": "National Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 170,
+      "cutoff_max": 193,
+      "cutoff_range": "170 - 193"
+    },
+    {
+      "id": 75,
+      "name": "Nellai College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 76,
+      "name": "Panimalar Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 77,
+      "name": "PSG College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 183,
+      "cutoff_max": 198,
+      "cutoff_range": "183 - 198"
+    },
+    {
+      "id": 78,
+      "name": "PSNA College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 79,
+      "name": "Rajalakshmi Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 80,
+      "name": "Rajalakshmi Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 81,
+      "name": "Ramco Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 145,
+      "cutoff_max": 172,
+      "cutoff_range": "145 - 172"
+    },
+    {
+      "id": 82,
+      "name": "RMK Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 83,
+      "name": "RMD Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 84,
+      "name": "Saranathan College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 85,
+      "name": "Saveetha Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 145,
+      "cutoff_max": 172,
+      "cutoff_range": "145 - 172"
+    },
+    {
+      "id": 86,
+      "name": "Shanmuganathan Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 87,
+      "name": "SKP Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 88,
+      "name": "Sona College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 160,
+      "cutoff_max": 187,
+      "cutoff_range": "160 - 187"
+    },
+    {
+      "id": 89,
+      "name": "Sri Eshwar College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 160,
+      "cutoff_max": 187,
+      "cutoff_range": "160 - 187"
+    },
+    {
+      "id": 90,
+      "name": "Sri Krishna College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 162,
+      "cutoff_max": 188,
+      "cutoff_range": "162 - 188"
+    },
+    {
+      "id": 91,
+      "name": "Sri Ramakrishna Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 92,
+      "name": "Sri Sai Ram Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 93,
+      "name": "Sri Sai Ram Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 94,
+      "name": "Sri Sivasubramaniya Nadar College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 175,
+      "cutoff_max": 196,
+      "cutoff_range": "175 - 196"
+    },
+    {
+      "id": 95,
+      "name": "Sri Venkateswara College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 175,
+      "cutoff_max": 196,
+      "cutoff_range": "175 - 196"
+    },
+    {
+      "id": 96,
+      "name": "St Joseph's College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 160,
+      "cutoff_max": 187,
+      "cutoff_range": "160 - 187"
+    },
+    {
+      "id": 97,
+      "name": "Thanthai Periyar Government Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 98,
+      "name": "Thiagarajar College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 175,
+      "cutoff_max": 196,
+      "cutoff_range": "175 - 196"
+    },
+    {
+      "id": 99,
+      "name": "Velalar College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 145,
+      "cutoff_max": 172,
+      "cutoff_range": "145 - 172"
+    },
+    {
+      "id": 100,
+      "name": "Velammal Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 101,
+      "name": "Velammal Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 145,
+      "cutoff_max": 172,
+      "cutoff_range": "145 - 172"
+    },
+    {
+      "id": 102,
+      "name": "Vel Tech High Tech Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 103,
+      "name": "Vel Tech Multi Tech Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 104,
+      "name": "Vel Tech Rangarajan Dr Sagunthala R&D Institute",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 105,
+      "name": "Vellore Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 180,
+      "cutoff_max": 197,
+      "cutoff_range": "180 - 197"
+    },
+    {
+      "id": 106,
+      "name": "VSB Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 107,
+      "name": "Adhi Parasakthi College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 108,
+      "name": "Annai Mathammal Sheela Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 109,
+      "name": "Annai Mira College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 110,
+      "name": "Ariyalur Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 111,
+      "name": "AVS College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 112,
+      "name": "Balamani Arunachalam Educational and Charitable Trust College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 90,
+      "cutoff_max": 130,
+      "cutoff_range": "90 - 130"
+    },
+    {
+      "id": 113,
+      "name": "Bharath College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 114,
+      "name": "DMI College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 115,
+      "name": "Er Perumal Manimekalai College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 116,
+      "name": "Ganadipathy Tulsi's Jain Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 117,
+      "name": "Hosur Institute of Technology and Science",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 118,
+      "name": "Imayam College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 119,
+      "name": "Jaya Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 120,
+      "name": "Jaya Sakthi Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 121,
+      "name": "Kalasalingam Academy of Research and Education",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 122,
+      "name": "Kalasalingam College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 123,
+      "name": "Kamaraj College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 124,
+      "name": "Knowledge Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 125,
+      "name": "KSR College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 126,
+      "name": "KSR Institute for Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 127,
+      "name": "Mahendra Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 128,
+      "name": "Mahendra Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 129,
+      "name": "MAM College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 130,
+      "name": "MAM School of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 131,
+      "name": "Mount Zion College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 132,
+      "name": "Narasu's Sarathy Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 133,
+      "name": "Nandha Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 134,
+      "name": "Nandha College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 135,
+      "name": "Oxford Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 136,
+      "name": "Paavai Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 137,
+      "name": "Paavai College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 138,
+      "name": "Pallavan College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 139,
+      "name": "Parisutham Institute of Technology and Science",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 140,
+      "name": "PERI Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 141,
+      "name": "Periyar Maniammai Institute of Science and Technology",
+      "category": "Engineering",
+      "cutoff_min": 140,
+      "cutoff_max": 170,
+      "cutoff_range": "140 - 170"
+    },
+    {
+      "id": 142,
+      "name": "Prathyusha Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 135,
+      "cutoff_max": 168,
+      "cutoff_range": "135 - 168"
+    },
+    {
+      "id": 143,
+      "name": "Prince Shri Venkateshwara Padmavathy Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 144,
+      "name": "RVS College of Engineering and Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 145,
+      "name": "RVS Technical Campus",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 146,
+      "name": "SACS MAVMM Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 147,
+      "name": "Sathyabama Institute of Science and Technology",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 148,
+      "name": "Sethu Institute of Technology",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 149,
+      "name": "Shivani Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 110,
+      "cutoff_max": 150,
+      "cutoff_range": "110 - 150"
+    },
+    {
+      "id": 150,
+      "name": "SNS College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 145,
+      "cutoff_max": 172,
+      "cutoff_range": "145 - 172"
+    },
+    {
+      "id": 151,
+      "name": "SNS College of Technology",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 152,
+      "name": "SRM Institute of Science and Technology",
+      "category": "Engineering",
+      "cutoff_min": 170,
+      "cutoff_max": 193,
+      "cutoff_range": "170 - 193"
+    },
+    {
+      "id": 153,
+      "name": "St Peter's Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 154,
+      "name": "Tagore Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 155,
+      "name": "Tamil Nadu College of Engineering",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 156,
+      "name": "Thangavelu Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 120,
+      "cutoff_max": 158,
+      "cutoff_range": "120 - 158"
+    },
+    {
+      "id": 157,
+      "name": "The Kavery Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 100,
+      "cutoff_max": 145,
+      "cutoff_range": "100 - 145"
+    },
+    {
+      "id": 158,
+      "name": "University College of Engineering Ariyalur",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 159,
+      "name": "University College of Engineering Nagercoil",
+      "category": "Engineering",
+      "cutoff_min": 160,
+      "cutoff_max": 187,
+      "cutoff_range": "160 - 187"
+    },
+    {
+      "id": 160,
+      "name": "University College of Engineering Panruti",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 161,
+      "name": "University College of Engineering Ramanathapuram",
+      "category": "Engineering",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 162,
+      "name": "University College of Engineering Thirukkuvalai",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 163,
+      "name": "University College of Engineering Villupuram",
+      "category": "Engineering",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 164,
+      "name": "Vel Tech Dr Rangarajan Dr Sakunthala Engineering College",
+      "category": "Engineering",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 165,
+      "name": "Vivekanandha College of Engineering for Women",
+      "category": "Engineering",
+      "cutoff_min": 130,
+      "cutoff_max": 165,
+      "cutoff_range": "130 - 165"
+    },
+    {
+      "id": 166,
+      "name": "Loyola College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 185,
+      "cutoff_max": 198,
+      "cutoff_range": "185 - 198"
+    },
+    {
+      "id": 167,
+      "name": "Madras Christian College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 183,
+      "cutoff_max": 197,
+      "cutoff_range": "183 - 197"
+    },
+    {
+      "id": 168,
+      "name": "Presidency College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 182,
+      "cutoff_max": 197,
+      "cutoff_range": "182 - 197"
+    },
+    {
+      "id": 169,
+      "name": "Stella Maris College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 180,
+      "cutoff_max": 196,
+      "cutoff_range": "180 - 196"
+    },
+    {
+      "id": 170,
+      "name": "Ethiraj College for Women Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 178,
+      "cutoff_max": 195,
+      "cutoff_range": "178 - 195"
+    },
+    {
+      "id": 171,
+      "name": "Women's Christian College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 175,
+      "cutoff_max": 194,
+      "cutoff_range": "175 - 194"
+    },
+    {
+      "id": 172,
+      "name": "DG Vaishnav College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 170,
+      "cutoff_max": 192,
+      "cutoff_range": "170 - 192"
+    },
+    {
+      "id": 173,
+      "name": "Guru Nanak College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 168,
+      "cutoff_max": 190,
+      "cutoff_range": "168 - 190"
+    },
+    {
+      "id": 174,
+      "name": "MOP Vaishnav College for Women Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 172,
+      "cutoff_max": 193,
+      "cutoff_range": "172 - 193"
+    },
+    {
+      "id": 175,
+      "name": "Pachaiyappa's College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 170,
+      "cutoff_max": 192,
+      "cutoff_range": "170 - 192"
+    },
+    {
+      "id": 176,
+      "name": "The New College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 177,
+      "name": "Justice Basheer Ahmed Sayeed College for Women Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 160,
+      "cutoff_max": 188,
+      "cutoff_range": "160 - 188"
+    },
+    {
+      "id": 178,
+      "name": "Dr Ambedkar Government Arts College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 179,
+      "name": "Government Arts College Nandanam",
+      "category": "Arts and Science",
+      "cutoff_min": 168,
+      "cutoff_max": 191,
+      "cutoff_range": "168 - 191"
+    },
+    {
+      "id": 180,
+      "name": "Quaid-E-Millath Government College for Women Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 181,
+      "name": "Queen Mary's College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 175,
+      "cutoff_max": 195,
+      "cutoff_range": "175 - 195"
+    },
+    {
+      "id": 182,
+      "name": "Sir Theagaraya College Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 162,
+      "cutoff_max": 188,
+      "cutoff_range": "162 - 188"
+    },
+    {
+      "id": 183,
+      "name": "Meenakshi College for Women Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 160,
+      "cutoff_max": 187,
+      "cutoff_range": "160 - 187"
+    },
+    {
+      "id": 184,
+      "name": "SDNB Vaishnav College for Women Chennai",
+      "category": "Arts and Science",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 185,
+      "name": "Tamil Nadu Agricultural University Coimbatore",
+      "category": "Agriculture",
+      "cutoff_min": 175,
+      "cutoff_max": 195,
+      "cutoff_range": "175 - 195"
+    },
+    {
+      "id": 186,
+      "name": "Agricultural College and Research Institute Coimbatore",
+      "category": "Agriculture",
+      "cutoff_min": 170,
+      "cutoff_max": 192,
+      "cutoff_range": "170 - 192"
+    },
+    {
+      "id": 187,
+      "name": "Agricultural College and Research Institute Madurai",
+      "category": "Agriculture",
+      "cutoff_min": 168,
+      "cutoff_max": 191,
+      "cutoff_range": "168 - 191"
+    },
+    {
+      "id": 188,
+      "name": "Agricultural College and Research Institute Killikulam",
+      "category": "Agriculture",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 189,
+      "name": "Agricultural College and Research Institute Kudumiyanmalai",
+      "category": "Agriculture",
+      "cutoff_min": 162,
+      "cutoff_max": 188,
+      "cutoff_range": "162 - 188"
+    },
+    {
+      "id": 190,
+      "name": "Agricultural College and Research Institute Vazhavachanur",
+      "category": "Agriculture",
+      "cutoff_min": 160,
+      "cutoff_max": 187,
+      "cutoff_range": "160 - 187"
+    },
+    {
+      "id": 191,
+      "name": "Agricultural College and Research Institute Eachangkottai",
+      "category": "Agriculture",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 192,
+      "name": "Agricultural College and Research Institute Thiruvannamalai",
+      "category": "Agriculture",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 193,
+      "name": "Anbil Dharmalingam Agricultural College and Research Institute Tiruchirappalli",
+      "category": "Agriculture",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 194,
+      "name": "Madras Veterinary College Chennai",
+      "category": "Veterinary",
+      "cutoff_min": 178,
+      "cutoff_max": 196,
+      "cutoff_range": "178 - 196"
+    },
+    {
+      "id": 195,
+      "name": "Veterinary College and Research Institute Namakkal",
+      "category": "Veterinary",
+      "cutoff_min": 170,
+      "cutoff_max": 192,
+      "cutoff_range": "170 - 192"
+    },
+    {
+      "id": 196,
+      "name": "Veterinary College and Research Institute Orathanadu Thanjavur",
+      "category": "Veterinary",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 197,
+      "name": "Veterinary College and Research Institute Tirunelveli",
+      "category": "Veterinary",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 198,
+      "name": "Veterinary College and Research Institute Salem",
+      "category": "Veterinary",
+      "cutoff_min": 168,
+      "cutoff_max": 191,
+      "cutoff_range": "168 - 191"
+    },
+    {
+      "id": 199,
+      "name": "Veterinary College and Research Institute Udumalpet Tiruppur",
+      "category": "Veterinary",
+      "cutoff_min": 162,
+      "cutoff_max": 188,
+      "cutoff_range": "162 - 188"
+    },
+    {
+      "id": 200,
+      "name": "Veterinary College and Research Institute Theni",
+      "category": "Veterinary",
+      "cutoff_min": 160,
+      "cutoff_max": 187,
+      "cutoff_range": "160 - 187"
+    },
+    {
+      "id": 201,
+      "name": "Central Polytechnic College Chennai",
+      "category": "Polytechnic",
+      "cutoff_min": 165,
+      "cutoff_max": 190,
+      "cutoff_range": "165 - 190"
+    },
+    {
+      "id": 202,
+      "name": "Government Polytechnic College Chennai",
+      "category": "Polytechnic",
+      "cutoff_min": 158,
+      "cutoff_max": 185,
+      "cutoff_range": "158 - 185"
+    },
+    {
+      "id": 203,
+      "name": "Government Polytechnic College Coimbatore",
+      "category": "Polytechnic",
+      "cutoff_min": 155,
+      "cutoff_max": 182,
+      "cutoff_range": "155 - 182"
+    },
+    {
+      "id": 204,
+      "name": "Government Polytechnic College Salem",
+      "category": "Polytechnic",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 205,
+      "name": "Government Polytechnic College Madurai",
+      "category": "Polytechnic",
+      "cutoff_min": 152,
+      "cutoff_max": 180,
+      "cutoff_range": "152 - 180"
+    },
+    {
+      "id": 206,
+      "name": "Government Polytechnic College Tiruchirappalli",
+      "category": "Polytechnic",
+      "cutoff_min": 150,
+      "cutoff_max": 178,
+      "cutoff_range": "150 - 178"
+    },
+    {
+      "id": 207,
+      "name": "Government Polytechnic College Erode",
+      "category": "Polytechnic",
+      "cutoff_min": 148,
+      "cutoff_max": 175,
+      "cutoff_range": "148 - 175"
+    },
+    {
+      "id": 208,
+      "name": "Government Polytechnic College Dharmapuri",
+      "category": "Polytechnic",
+      "cutoff_min": 140,
+      "cutoff_max": 168,
+      "cutoff_range": "140 - 168"
+    },
+    {
+      "id": 209,
+      "name": "Government Polytechnic College Krishnagiri",
+      "category": "Polytechnic",
+      "cutoff_min": 140,
+      "cutoff_max": 168,
+      "cutoff_range": "140 - 168"
+    },
+    {
+      "id": 210,
+      "name": "Government Polytechnic College Vellore",
+      "category": "Polytechnic",
+      "cutoff_min": 145,
+      "cutoff_max": 172,
+      "cutoff_range": "145 - 172"
+    }
+  ]
+}
