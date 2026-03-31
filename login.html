@@ -185,12 +185,12 @@
   </form>
 
   <div class="auth-divider">New to CareerForge?</div>
-  <div class="auth-footer"><a href="signup.html"><i class="fa-solid fa-user-plus"></i> &nbsp;Create Account</a></div>
+  <div class="auth-footer"><a href="./signup.html"><i class="fa-solid fa-user-plus"></i> &nbsp;Create Account</a></div>
 </div>
 
 <script>
   // Already logged in → skip
-  if (localStorage.getItem("currentUser")) location.href = "index.html";
+  if (localStorage.getItem("currentUser")) location.href = "./index.html";
 
   function togglePw() {
     const inp = document.getElementById("li_pw");
@@ -247,7 +247,7 @@
 
       btn.classList.remove("loading");
       showAlert("success", `Welcome back, ${user.name}! Redirecting…`);
-      setTimeout(() => location.href = "index.html", 1200);
+      setTimeout(() => location.href = "./index.html", 1200);
     }, 800);
   }
 </script>

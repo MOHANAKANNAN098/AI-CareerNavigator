@@ -279,12 +279,12 @@
   </form>
 
   <div class="auth-divider">Already have an account?</div>
-  <div class="auth-footer"><a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Sign In</a></div>
+  <div class="auth-footer"><a href="./login.html"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Sign In</a></div>
 </div>
 
 <script>
   // Redirect if already logged in
-  if (localStorage.getItem("currentUser")) location.href = "index.html";
+  if (localStorage.getItem("currentUser")) location.href = "./index.html";
 
   let avatarBase64 = "";
 
@@ -376,7 +376,7 @@
       localStorage.setItem("cf_users", JSON.stringify(users));
       btn.classList.remove("loading");
       showAlert("success", "Account created! Redirecting to login…");
-      setTimeout(() => location.href = "login.html", 1400);
+      setTimeout(() => location.href = "./login.html", 1400);
     }, 900);
   }
 </script>

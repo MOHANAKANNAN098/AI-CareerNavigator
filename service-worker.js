@@ -1,7 +1,7 @@
 const CACHE_NAME = 'careerforge-v1';
 // Add all important files to be cached
 const urlsToCache = [
-  '/',
+  './',
   './index.html',
   './style.css',
   './app.js',
