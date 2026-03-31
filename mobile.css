@@ -1,0 +1,225 @@
+/* styles/mobile.css */
+
+/* This file is only active on mobile screens due to media queries. */
+/* It transforms the desktop site into an app-like experience. */
+
+@media (max-width: 768px) {
+    /* --- 1. GENERAL MOBILE LAYOUT & SAFE AREAS --- */
+    body {
+        /* Add padding to prevent content from being hidden by the fixed bottom nav */
+        padding-top: 56px; /* Space for fixed header */
+        padding-bottom: 80px; /* Space for fixed footer */
+        background: var(--bg); /* Ensure background is consistent */
+    }
+
+    /* Show mobile-only elements */
+    #mobile-header,
+    #mobile-nav {
+        display: flex;
+    }
+    #mobile-slide-menu, #menu-overlay {
+        display: block;
+    }
+
+    /* Hide original desktop header and nav */
+    header:not(#mobile-header),
+    header + nav {
+        display: none;
+    }
+
+    /* --- 2. MOBILE HEADER --- */
+    #mobile-header {
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        height: 56px;
+        background: rgba(10, 15, 44, 0.85); /* Match new --bg */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        position: fixed; /* Changed to fixed */
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .mobile-header-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .hamburger-btn {
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 22px;
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    /* --- 3. MOBILE BOTTOM NAVIGATION BAR (INSTAGRAM STYLE) --- */
+    #mobile-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 65px;
+        background: rgba(10, 15, 44, 0.85); /* Match new --bg */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--glass-border);
+        z-index: 1000;
+        box-shadow: 0 -5px 30px rgba(0,0,0,0.3);
+        padding-bottom: env(safe-area-inset-bottom); /* For iPhone notches */
+    }
+
+    .mobile-nav-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        background: none;
+        border: none;
+        color: var(--muted);
+        font-size: 10px;
+        font-family: 'Inter', sans-serif;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .mobile-nav-btn i {
+        font-size: 20px;
+    }
+
+    .mobile-nav-btn.active {
+        color: var(--blue); /* Use primary blue for active state */
+    }
+
+    /* --- 4. MOBILE CARD-BASED LAYOUT --- */
+    main {
+        padding: 0; /* Remove desktop padding */
+    }
+
+    section {
+        max-width: 100%;
+        margin: 0;
+        padding: 24px 16px 40px 16px;
+        border-radius: 0; /* Full width cards */
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        /* Use a border to create a "stacked cards" effect */
+        border-bottom: 8px solid #000;
+    }
+    
+    /* Center content and remove large desktop spacing */
+    #roadmap, #test, #degree-finder, #higher-studies, #jobs, #resume, #mentor, #analytics, #interview, #about, #team, #startup, #simulator {
+        margin: 0;
+        padding: 24px 16px;
+    }
+
+    .stitle {
+        margin-bottom: 24px;
+        padding-bottom: 10px;
+        font-size: 18px;
+    }
+
+    /* --- 5. TOUCH-FRIENDLY INTERFACE --- */
+    .btn, .likert-btn {
+        min-height: 48px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 15px; /* Larger button text */
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    body {
+        font-size: 15px; /* Increase base font size */
+    }
+
+    /* --- 6. SLIDE-OUT MENU --- */
+    #menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        z-index: 1999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+    #menu-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #mobile-slide-menu {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start off-screen */
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background: #0a0f2c; /* Match --bg */
+        z-index: 2000;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+        display: flex;
+        flex-direction: column;
+    }
+
+    #mobile-slide-menu.open {
+        right: 0;
+    }
+
+    .slide-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border-bottom: 1px solid var(--glass-border);
+        flex-shrink: 0;
+    }
+
+    .slide-menu-header h3 {
+        font-family: 'Orbitron', monospace;
+        color: var(--blue);
+    }
+
+    #close-slide-menu-btn {
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    .slide-menu-links {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        overflow-y: auto;
+    }
+
+    .slide-menu-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 16px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .slide-menu-links a:hover {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--blue);
+    }
+}

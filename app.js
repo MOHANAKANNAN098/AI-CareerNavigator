@@ -1,21 +1,61 @@
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(registration => {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      })
+      .catch(err => {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  });
+}
+
 function showSection(id){
-  // Desktop Behavior
-  document.querySelectorAll("section").forEach(s=>s.style.display="none");
-  if (id === 'home' || id === 'features') {
-      const defaultDesktop = document.getElementById('roadmap');
-      if (defaultDesktop) defaultDesktop.style.display="block";
-      document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-      const rBtn = document.getElementById("btn-roadmap");
-      if (rBtn) rBtn.classList.add("active");
+  const isMobile = window.innerWidth <= 768;
+
+  // Determine the actual section to show based on device and input id
+  let targetId = id;
+  if (isMobile) {
+    if (id === 'home') targetId = 'roadmap'; // On mobile, 'home' is an alias for 'roadmap'
   } else {
-      const targetSection = document.getElementById(id);
-      if (targetSection) targetSection.style.display="block";
-      document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-      const desktopBtn = document.getElementById("btn-"+id);
-      if(desktopBtn) desktopBtn.classList.add("active");
+    if (id === 'home' || id === 'features') targetId = 'roadmap'; // On desktop, 'home' and 'features' are aliases for 'roadmap'
   }
 
-  // Common logic for both
+  // Hide all main sections
+  document.querySelectorAll("main > section, section").forEach(s => s.style.display = "none");
+
+  // Show the target section
+  const targetSection = document.getElementById(targetId);
+  if (targetSection) {
+    targetSection.style.display = "block";
+  } else {
+    // Fallback to roadmap if target doesn't exist (e.g., on first load or for 'profile' if not present)
+    const roadmapSection = document.getElementById('roadmap');
+    if(roadmapSection) roadmapSection.style.display = "block";
+    targetId = 'roadmap'; // update id for active state logic
+  }
+
+  // Update active navigation states
+  if (isMobile) {
+    document.querySelectorAll(".mobile-nav-btn").forEach(b => b.classList.remove("active"));
+    const mobileBtn = document.querySelector(`.mobile-nav-btn[data-section-id='${targetId}']`);
+    if (mobileBtn) mobileBtn.classList.add("active");
+
+    // Close slide-out menu if it's open after selection
+    const slideMenu = document.getElementById('mobile-slide-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
+    if (slideMenu) slideMenu.classList.remove('open');
+    if (menuOverlay) menuOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+
+  } else {
+    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+    const desktopBtn = document.getElementById("btn-" + targetId);
+    if (desktopBtn) desktopBtn.classList.add("active");
+  }
+
+  // Run feature-specific initializations based on the original requested id
   if(id==="jobs") renderChart();
   if(id==="mentor" && chatHistory.length === 0) initChatSuggestions();
   if(id==="analytics") updateAnalyticsDashboard();
@@ -1593,78 +1633,14 @@ function renderChart(){
   }
 }
 
-// ===== PARTICLE BACKGROUND ANIMATION =====
-function initParticles() {
-  const canvas = document.getElementById("canvas");
-  if(!canvas) return;
-  const ctx = canvas.getContext("2d");
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-  let particles = [];
-
-  window.addEventListener("resize", () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.7; // Speed X
-      this.vy = (Math.random() - 0.5) * 0.7; // Speed Y
-      this.size = Math.random() * 2 + 1;
-    }
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      // Bounce off edges
-      if (this.x < 0 || this.x > width) this.vx *= -1;
-      if (this.y < 0 || this.y > height) this.vy *= -1;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(0, 229, 255, 0.4)";
-      ctx.fill();
-    }
-  }
-
-  // Create particles
-  const particleCount = 60;
-  for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw();
-      
-      // Draw lines between close particles
-      for (let j = i; j < particles.length; j++) {
-        let dx = particles[i].x - particles[j].x;
-        let dy = particles[i].y - particles[j].y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 130) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(0, 170, 255, ${1 - dist/130})`;
-          ctx.lineWidth = 0.5;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
+// ===== PARTICLE BACKGROUND ANIMATION (DISABLED FOR REDESIGN) =====
+// The particle animation has been disabled to favor a cleaner, more professional UI.
 
 window.onload=function(){
   const initialSection = "roadmap";
   showSection(initialSection);
-  initHigherStudies(); // Initialize new feature
-  initDegreeFinder(); // Initialize on load
+  // initHigherStudies(); // Now called inside showSection
+  // initDegreeFinder(); // Now called inside showSection
 
   let savedState = localStorage.getItem('careerTestState');
   if(savedState){
@@ -1677,7 +1653,7 @@ window.onload=function(){
       showQuestion();
     }
   }
-  initParticles();
+  // initParticles(); // Disabled for redesign
   renderSavedStartups(); // Load saved startups on boot
   renderSavedSimulations(); // Load saved simulations
   

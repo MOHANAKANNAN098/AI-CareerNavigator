@@ -8,7 +8,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0f2c">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles/mobile.css">
 <!-- Authentication Script -->
 <script src="script.js"></script>
 <script type="text/javascript">
@@ -42,7 +46,14 @@
 </head>
 <body>
 <div class="page-transition"></div>
-<canvas id="canvas"></canvas>
+<!-- MOBILE HEADER -->
+<header id="mobile-header">
+    <div class="mobile-header-title">CareerForge</div>
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+</header>
+<!-- <canvas id="canvas"></canvas> --> <!-- Particle background disabled for a cleaner, more professional UI -->
 <header>
   <h1>CareerForge AI</h1>
   <p>Smart Career Mentor Platform — 1000+ Ideas</p>
@@ -181,6 +192,7 @@
   <button id="btn-analytics" onclick="showSection('analytics')"><i class="fa-solid fa-chart-pie"></i> Activity Analytics</button>
   <button id="btn-interview" onclick="showSection('interview')">Customer Support</button>
   <button id="btn-about" onclick="showSection('about')">About Author</button>
+  <button id="btn-install-pwa" style="display: none;"><i class="fa-solid fa-download"></i> Install App</button>
   <button id="btn-team"    onclick="showSection('team')">TEAM BOYZ</button>
 </nav>
 
@@ -596,6 +608,37 @@
   </div>
 </section>
 
+<!-- MOBILE BOTTOM NAVIGATION -->
+<nav id="mobile-nav">
+    <button class="mobile-nav-btn active" data-section-id="roadmap" onclick="showSection('home')">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </button>
+    <button class="mobile-nav-btn" data-section-id="features" onclick="showSection('features')">
+        <i class="fa-solid fa-star"></i>
+        <span>Features</span>
+    </button>
+    <button class="mobile-nav-btn" data-section-id="college-finder" onclick="window.location.href='choose-college.html'">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Colleges</span>
+    </button>
+    <button class="mobile-nav-btn" data-section-id="profile" onclick="showSection('profile')">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </button>
+</nav>
+
+<!-- MOBILE SLIDE-OUT MENU -->
+<div id="menu-overlay"></div>
+<div id="mobile-slide-menu">
+    <div class="slide-menu-header">
+        <h3>All Features</h3>
+        <button id="close-slide-menu-btn" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="slide-menu-links"></div>
+</div>
+
 <script src="app.js"></script>
+<script src="scripts/mobile-ui.js"></script>
 </body>
 </html>

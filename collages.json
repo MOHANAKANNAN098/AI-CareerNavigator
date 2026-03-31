@@ -1324,25 +1324,25 @@
       "id": 166,
       "name": "Loyola College Chennai",
       "category": "Arts and Science",
-      "cutoff_min": 185,
-      "cutoff_max": 198,
-      "cutoff_range": "185 - 198"
+      "cutoff_min": 165,
+      "cutoff_max": 185,
+      "cutoff_range": "165 - 185"
     },
     {
       "id": 167,
       "name": "Madras Christian College Chennai",
       "category": "Arts and Science",
-      "cutoff_min": 183,
-      "cutoff_max": 197,
-      "cutoff_range": "183 - 197"
+      "cutoff_min": 163,
+      "cutoff_max": 183,
+      "cutoff_range": "163 - 183"
     },
     {
       "id": 168,
       "name": "Presidency College Chennai",
       "category": "Arts and Science",
-      "cutoff_min": 182,
-      "cutoff_max": 197,
-      "cutoff_range": "182 - 197"
+      "cutoff_min": 175,
+      "cutoff_max": 200,
+      "cutoff_range": "175 - 200"
     },
     {
       "id": 169,
@@ -1428,9 +1428,9 @@
       "id": 179,
       "name": "Government Arts College Nandanam",
       "category": "Arts and Science",
-      "cutoff_min": 168,
-      "cutoff_max": 191,
-      "cutoff_range": "168 - 191"
+      "cutoff_min": 158,
+      "cutoff_max": 181,
+      "cutoff_range": "158 - 181"
     },
     {
       "id": 180,
@@ -1548,49 +1548,49 @@
       "id": 194,
       "name": "Madras Veterinary College Chennai",
       "category": "Veterinary",
-      "cutoff_min": 178,
-      "cutoff_max": 196,
-      "cutoff_range": "178 - 196"
+      "cutoff_min": 190,
+      "cutoff_max": 200,
+      "cutoff_range": "190 - 200"
     },
     {
       "id": 195,
       "name": "Veterinary College and Research Institute Namakkal",
       "category": "Veterinary",
-      "cutoff_min": 170,
-      "cutoff_max": 192,
-      "cutoff_range": "170 - 192"
+      "cutoff_min": 186,
+      "cutoff_max": 196,
+      "cutoff_range": "186 - 196"
     },
     {
       "id": 196,
       "name": "Veterinary College and Research Institute Orathanadu Thanjavur",
       "category": "Veterinary",
-      "cutoff_min": 165,
-      "cutoff_max": 190,
-      "cutoff_range": "165 - 190"
+      "cutoff_min": 183,
+      "cutoff_max": 193,
+      "cutoff_range": "183 - 193"
     },
     {
       "id": 197,
       "name": "Veterinary College and Research Institute Tirunelveli",
       "category": "Veterinary",
-      "cutoff_min": 165,
-      "cutoff_max": 190,
-      "cutoff_range": "165 - 190"
+      "cutoff_min": 179,
+      "cutoff_max": 189,
+      "cutoff_range": "179 - 189"
     },
     {
       "id": 198,
       "name": "Veterinary College and Research Institute Salem",
       "category": "Veterinary",
-      "cutoff_min": 168,
+      "cutoff_min": 181,
       "cutoff_max": 191,
-      "cutoff_range": "168 - 191"
+      "cutoff_range": "181 - 191"
     },
     {
       "id": 199,
       "name": "Veterinary College and Research Institute Udumalpet Tiruppur",
       "category": "Veterinary",
-      "cutoff_min": 162,
-      "cutoff_max": 188,
-      "cutoff_range": "162 - 188"
+      "cutoff_min": 177,
+      "cutoff_max": 187,
+      "cutoff_range": "177 - 187"
     },
     {
       "id": 200,
@@ -1679,6 +1679,222 @@
       "cutoff_min": 145,
       "cutoff_max": 172,
       "cutoff_range": "145 - 172"
+    },
+    {
+      "id": 211,
+      "name": "Vanavarayar Institute of Agriculture, Pollachi",
+      "category": "Agriculture",
+      "cutoff_min": 168,
+      "cutoff_max": 178,
+      "cutoff_range": "168 - 178"
+    },
+    {
+      "id": 212,
+      "name": "PGP College of Agricultural Sciences, Namakal",
+      "category": "Agriculture",
+      "cutoff_min": 165,
+      "cutoff_max": 176,
+      "cutoff_range": "165 - 176"
+    },
+    {
+      "id": 213,
+      "name": "Adhiparasakthi Agricultural College, Vellore",
+      "category": "Agriculture",
+      "cutoff_min": 163,
+      "cutoff_max": 174,
+      "cutoff_range": "163 - 174"
+    },
+    {
+      "id": 214,
+      "name": "Imayam Institute of Agriculture, Trichy",
+      "category": "Agriculture",
+      "cutoff_min": 160,
+      "cutoff_max": 172,
+      "cutoff_range": "160 - 172"
+    },
+    {
+      "id": 215,
+      "name": "Thanthai Roever Institute of Agriculture, Perambalur",
+      "category": "Agriculture",
+      "cutoff_min": 158,
+      "cutoff_max": 170,
+      "cutoff_range": "158 - 170"
+    },
+    {
+      "id": 216,
+      "name": "RVS Agricultural College, Thanjavur",
+      "category": "Agriculture",
+      "cutoff_min": 156,
+      "cutoff_max": 168,
+      "cutoff_range": "156 - 168"
+    },
+    {
+      "id": 217,
+      "name": "Sree Sowdambika College of Agriculture, Virudhunagar",
+      "category": "Agriculture",
+      "cutoff_min": 154,
+      "cutoff_max": 166,
+      "cutoff_range": "154 - 166"
+    },
+    {
+      "id": 218,
+      "name": "KSK College of Agriculture, Thanjavur",
+      "category": "Agriculture",
+      "cutoff_min": 152,
+      "cutoff_max": 164,
+      "cutoff_range": "152 - 164"
+    },
+    {
+      "id": 219,
+      "name": "Jai Shriram College of Agriculture, Tiruppur",
+      "category": "Agriculture",
+      "cutoff_min": 150,
+      "cutoff_max": 163,
+      "cutoff_range": "150 - 163"
+    },
+    {
+      "id": 220,
+      "name": "Vivekananda College of Agriculture, Tiruchengode",
+      "category": "Agriculture",
+      "cutoff_min": 148,
+      "cutoff_max": 162,
+      "cutoff_range": "148 - 162"
+    },
+    {
+      "id": 221,
+      "name": "Veterinary College & RI, Thalaivasal (Salem)",
+      "category": "Veterinary",
+      "cutoff_min": 175,
+      "cutoff_max": 185,
+      "cutoff_range": "175 - 185"
+    },
+    {
+      "id": 222,
+      "name": "Government Arts College, Coimbatore",
+      "category": "Arts and Science",
+      "cutoff_min": 170,
+      "cutoff_max": 192,
+      "cutoff_range": "170 - 192"
+    },
+    {
+      "id": 223,
+      "name": "Government Arts College, Salem",
+      "category": "Arts and Science",
+      "cutoff_min": 167,
+      "cutoff_max": 189,
+      "cutoff_range": "167 - 189"
+    },
+    {
+      "id": 224,
+      "name": "Government Arts College, Trichy",
+      "category": "Arts and Science",
+      "cutoff_min": 165,
+      "cutoff_max": 187,
+      "cutoff_range": "165 - 187"
+    },
+    {
+      "id": 225,
+      "name": "Government Arts College, Madurai",
+      "category": "Arts and Science",
+      "cutoff_min": 163,
+      "cutoff_max": 185,
+      "cutoff_range": "163 - 185"
+    },
+    {
+      "id": 226,
+      "name": "Government Arts College, Kumbakonam",
+      "category": "Arts and Science",
+      "cutoff_min": 160,
+      "cutoff_max": 183,
+      "cutoff_range": "160 - 183"
+    },
+    {
+      "id": 227,
+      "name": "Government Arts College, Dharmapuri",
+      "category": "Arts and Science",
+      "cutoff_min": 155,
+      "cutoff_max": 178,
+      "cutoff_range": "155 - 178"
+    },
+    {
+      "id": 228,
+      "name": "Government Arts College, Udhagamandalam",
+      "category": "Arts and Science",
+      "cutoff_min": 153,
+      "cutoff_max": 176,
+      "cutoff_range": "153 - 176"
+    },
+    {
+      "id": 229,
+      "name": "Government Arts College, Villupuram",
+      "category": "Arts and Science",
+      "cutoff_min": 150,
+      "cutoff_max": 173,
+      "cutoff_range": "150 - 173"
+    },
+    {
+      "id": 230,
+      "name": "Government Arts College, Coimbatore (BCA)",
+      "category": "Arts and Science",
+      "cutoff_min": 173,
+      "cutoff_max": 195,
+      "cutoff_range": "173 - 195"
+    },
+    {
+      "id": 231,
+      "name": "Government Arts College, Salem (BCA)",
+      "category": "Arts and Science",
+      "cutoff_min": 170,
+      "cutoff_max": 192,
+      "cutoff_range": "170 - 192"
+    },
+    {
+      "id": 232,
+      "name": "Presidency College, Chennai (BCA)",
+      "category": "Arts and Science",
+      "cutoff_min": 172,
+      "cutoff_max": 194,
+      "cutoff_range": "172 - 194"
+    },
+    {
+      "id": 233,
+      "name": "Bishop Heber College, Trichy",
+      "category": "Arts and Science",
+      "cutoff_min": 158,
+      "cutoff_max": 179,
+      "cutoff_range": "158 - 179"
+    },
+    {
+      "id": 234,
+      "name": "VHNSN College, Virudhunagar",
+      "category": "Arts and Science",
+      "cutoff_min": 153,
+      "cutoff_max": 175,
+      "cutoff_range": "153 - 175"
+    },
+    {
+      "id": 235,
+      "name": "National College, Trichy",
+      "category": "Arts and Science",
+      "cutoff_min": 150,
+      "cutoff_max": 172,
+      "cutoff_range": "150 - 172"
+    },
+    {
+      "id": 236,
+      "name": "Government Polytechnic College, Palayamkottai",
+      "category": "Polytechnic",
+      "cutoff_min": 395,
+      "cutoff_max": 475,
+      "cutoff_range": "395 - 475"
+    },
+    {
+      "id": 237,
+      "name": "Government Polytechnic College, Cuddalore",
+      "category": "Polytechnic",
+      "cutoff_min": 390,
+      "cutoff_max": 472,
+      "cutoff_range": "390 - 472"
     }
   ]
 }
