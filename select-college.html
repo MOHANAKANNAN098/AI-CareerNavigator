@@ -3,460 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select College - Tamil Nadu Admission</title>
+    <title>Choose College - College Admission System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./theme.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-            animation: slideDown 0.6s ease-out;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .search-section {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 40px;
-            animation: slideUp 0.6s ease-out;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.05em;
-        }
-
-        .form-group select,
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .input-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .cutoff-info {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .cutoff-info.show {
-            display: block;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .results-section {
-            display: none;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .results-section.show {
-            display: block;
-        }
-
-        .results-header {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .results-header h2 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .results-info {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #666;
-        }
-
-        .info-item strong {
-            color: #333;
-        }
-
-        .colleges-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .college-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            animation: slideUp 0.6s ease-out;
-        }
-
-        .college-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .college-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-        }
-
-        .college-name {
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .college-city {
-            font-size: 0.9em;
-            opacity: 0.9;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .college-body {
-            padding: 20px;
-        }
-
-        .college-info {
-            margin-bottom: 15px;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: #667eea;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
-            color: #333;
-            font-size: 1em;
-        }
-
-        .tier-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .tier-top {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .tier-high {
-            background: #d1ecf1;
-            color: #0c5460;
-        }
-
-        .tier-good {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .tier-medium {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .specialization {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .spec-tag {
-            background: #f0f0f0;
-            color: #333;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-        }
-
-        .placement-rate {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .college-footer {
-            display: flex;
-            gap: 10px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .btn-small {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-details {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-details:hover {
-            background: #764ba2;
-        }
-
-        .btn-website {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-website:hover {
-            background: #e0e0e0;
-        }
-
-        .no-results {
-            background: white;
-            border-radius: 15px;
-            padding: 60px 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .no-results i {
-            font-size: 4em;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
-        .no-results h3 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .no-results p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .filter-section {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-
-        .filter-section.show {
-            display: block;
-        }
-
-        .filter-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .filter-group select {
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 0.95em;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: white;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .input-wrapper {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .colleges-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .results-info {
-                flex-direction: column;
-            }
         }
 
         .back-btn {
@@ -467,11 +19,652 @@
             text-decoration: none;
             margin-bottom: 20px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all var(--transition-normal);
+            animation: slideLeft 0.5s ease-out;
         }
 
         .back-btn:hover {
             gap: 12px;
+            transform: translateX(-5px);
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .group-selector {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 40px;
+            animation: slideUp 0.7s ease-out;
+        }
+
+        .group-selector h2 {
+            color: var(--text-dark);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8em;
+        }
+
+        .group-selector h2 i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .group-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .group-card {
+            padding: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-align: center;
+            background: var(--bg-white);
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .group-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .group-card.selected {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-xl);
+            animation: pulse 0.5s ease-out;
+        }
+
+        .group-icon {
+            font-size: 3em;
+            margin-bottom: 12px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .group-card.selected .group-icon {
+            animation: none;
+        }
+
+        .group-name {
+            font-weight: 700;
+            font-size: 1.15em;
+            margin-bottom: 8px;
+        }
+
+        .group-desc {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-bottom: 12px;
+        }
+
+        .group-cutoff-info {
+            background: var(--bg-light);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .group-card.selected .group-cutoff-info {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            animation: slideLeft 0.7s ease-out;
+        }
+
+        .search-box {
+            margin-bottom: 24px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all var(--transition-normal);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .filter-section {
+            margin-bottom: 28px;
+        }
+
+        .filter-section h3 {
+            color: var(--primary);
+            font-size: 1.1em;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-item input[type="radio"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .filter-item label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95em;
+            color: var(--text-dark);
+        }
+
+        .cutoff-input-group {
+            margin-bottom: 24px;
+        }
+
+        .cutoff-input-group label {
+            display: block;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .cutoff-input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .cutoff-input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .cutoff-display {
+            background: var(--bg-light);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .group-info-box {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 0.9em;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .group-info-box strong {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .btn-reset {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-light);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-dark);
+            transition: all var(--transition-normal);
+            margin-top: 12px;
+        }
+
+        .btn-reset:hover {
+            background: var(--border-color);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            animation: slideRight 0.7s ease-out;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .toolbar-left {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .sort-select {
+            padding: 10px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            background: var(--bg-white);
+            font-weight: 600;
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .results-info {
+            color: var(--text-light);
+            font-weight: 700;
+            font-size: 0.95em;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+        }
+
+        .view-btn {
+            padding: 10px 14px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-white);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .view-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .view-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .colleges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .colleges-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .college-card {
+            background: var(--bg-light);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .college-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .college-card:hover::before {
+            left: 100%;
+        }
+
+        .college-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+        }
+
+        .college-card.selected {
+            background: rgba(102, 126, 234, 0.05);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .college-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .college-name {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--text-dark);
+            flex: 1;
+        }
+
+        .college-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .college-category {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .college-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .college-cutoff {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .eligibility-badge {
+            display: inline-block;
+            background: var(--accent-success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        .eligibility-badge.not-eligible {
+            background: var(--accent-danger);
+        }
+
+        .college-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn-small {
+            flex: 1;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 700;
+            transition: all var(--transition-normal);
+        }
+
+        .btn-details {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-details:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-compare {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-compare:hover {
+            background: var(--border-color);
+            border-color: var(--primary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .no-results i {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .comparison-panel {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            margin-top: 40px;
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .comparison-panel.show {
+            display: block;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .comparison-header h2 {
+            color: var(--text-dark);
+            font-size: 1.6em;
+            margin: 0;
+        }
+
+        .btn-close-comparison {
+            background: var(--bg-light);
+            border: 2px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all var(--transition-normal);
+        }
+
+        .btn-close-comparison:hover {
+            background: var(--border-color);
+            border-color: var(--primary);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--bg-light);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 10px 14px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-white);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all var(--transition-normal);
+            color: var(--text-dark);
+        }
+
+        .pagination button.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination button:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .colleges-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .toolbar-left {
+                flex-direction: column;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+
+            .group-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -482,94 +675,98 @@
         </a>
 
         <div class="header">
-            <h1><i class="fas fa-graduation-cap"></i> Select Your College</h1>
-            <p>Find the perfect college based on your TNEA cutoff score</p>
+            <h1><i class="fas fa-graduation-cap"></i> Choose Your College</h1>
+            <p>Find colleges based on your group and cutoff score</p>
         </div>
 
-        <div class="search-section">
-            <form id="searchForm">
-                <div class="form-group">
-                    <label for="degree">
-                        <i class="fas fa-book"></i> Select Your Degree
+        <!-- Group Selection -->
+        <div class="group-selector">
+            <h2><i class="fas fa-layer-group"></i> Select Your Group</h2>
+            <div class="group-grid" id="groupGrid"></div>
+            <div id="groupInfo" style="display: none;">
+                <div class="group-info-box" id="groupInfoContent"></div>
+            </div>
+        </div>
+
+        <div class="main-layout">
+            <!-- Sidebar Filters -->
+            <div class="sidebar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search colleges...">
+                </div>
+
+                <div class="cutoff-input-group">
+                    <label for="userCutoff">
+                        <i class="fas fa-bullseye"></i> Your Cutoff Score
                     </label>
-                    <select id="degree" required>
-                        <option value="">-- Choose a Degree --</option>
-                    </select>
+                    <input type="number" id="userCutoff" placeholder="Enter your cutoff" min="0" max="200" step="0.5" onchange="applyFilters()">
+                    <div class="cutoff-display">Score: <span id="userCutoffValue">--</span></div>
                 </div>
 
-                <div class="input-wrapper">
-                    <div class="form-group">
-                        <label for="cutoff">
-                            <i class="fas fa-chart-line"></i> Enter Your Cutoff Score
-                        </label>
-                        <input type="number" id="cutoff" min="0" max="200" placeholder="0-200" required>
-                        <div class="cutoff-info" id="cutoffInfo"></div>
-                    </div>
+                <div class="filter-section">
+                    <h3><i class="fas fa-filter"></i> Category</h3>
+                    <div class="filter-group" id="categoryFilter"></div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="collegeType">
-                            <i class="fas fa-filter"></i> Filter by Type (Optional)
-                        </label>
-                        <select id="collegeType">
-                            <option value="">All Types</option>
-                            <option value="Government">Government</option>
-                            <option value="Private">Private</option>
+                <div class="filter-section">
+                    <h3><i class="fas fa-sliders-h"></i> Filter by Range</h3>
+                    <input type="range" id="cutoffRange" min="0" max="200" value="200" onchange="applyFilters()">
+                    <div class="range-value">Max: <span id="cutoffValue">200</span></div>
+                </div>
+
+                <button class="btn-reset" onclick="resetFilters()">
+                    <i class="fas fa-redo"></i> Reset Filters
+                </button>
+            </div>
+
+            <!-- Main Content -->
+            <div class="content">
+                <div class="toolbar">
+                    <div class="toolbar-left">
+                        <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+                            <option value="name-asc">Sort by Name (A-Z)</option>
+                            <option value="name-desc">Sort by Name (Z-A)</option>
+                            <option value="cutoff-asc">Sort by Cutoff (Low to High)</option>
+                            <option value="cutoff-desc">Sort by Cutoff (High to Low)</option>
                         </select>
+                        <span class="results-info">
+                            <span id="resultCount">0</span> colleges found
+                        </span>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="setView('grid')">
+                            <i class="fas fa-th"></i> Grid
+                        </button>
+                        <button class="view-btn" onclick="setView('list')">
+                            <i class="fas fa-list"></i> List
+                        </button>
                     </div>
                 </div>
 
-                <div class="button-group">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-search"></i> Search Colleges
-                    </button>
-                    <button type="reset" class="btn btn-secondary">
-                        <i class="fas fa-redo"></i> Clear
-                    </button>
+                <div id="collegesContainer" class="colleges-grid"></div>
+
+                <div class="pagination" id="pagination"></div>
+
+                <div id="noResults" class="no-results" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No colleges found</h3>
+                    <p>Try adjusting your filters or select a group</p>
                 </div>
-            </form>
+            </div>
         </div>
 
-        <div class="results-section" id="resultsSection">
-            <div class="results-header">
-                <h2><i class="fas fa-list"></i> Matching Colleges</h2>
-                <div class="results-info">
-                    <div class="info-item">
-                        <strong>Degree:</strong> <span id="selectedDegree"></span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Your Cutoff:</strong> <span id="selectedCutoff"></span>
-                    </div>
-                    <div class="info-item">
-                        <strong>Colleges Found:</strong> <span id="collegeCount">0</span>
-                    </div>
-                </div>
+        <!-- Comparison Panel -->
+        <div class="comparison-panel" id="comparisonPanel">
+            <div class="comparison-header">
+                <h2><i class="fas fa-balance-scale"></i> Compare Colleges</h2>
+                <button class="btn-close-comparison" onclick="closeComparison()">
+                    <i class="fas fa-times"></i> Close
+                </button>
             </div>
-
-            <div class="filter-section" id="filterSection">
-                <div class="filter-group">
-                    <select id="tierFilter" onchange="applyFilters()">
-                        <option value="">All Tiers</option>
-                        <option value="Top">Top Tier</option>
-                        <option value="High">High Tier</option>
-                        <option value="Good">Good Tier</option>
-                        <option value="Medium">Medium Tier</option>
-                    </select>
-                    <select id="cityFilter" onchange="applyFilters()">
-                        <option value="">All Cities</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="colleges-grid" id="collegesGrid"></div>
-
-            <div class="no-results" id="noResults" style="display: none;">
-                <i class="fas fa-search"></i>
-                <h3>No Colleges Found</h3>
-                <p>Try adjusting your cutoff score or filters</p>
-            </div>
+            <div id="comparisonContent"></div>
         </div>
     </div>
 
-    <script src="./js/college-selector.js"></script>
+    <script src="./js/choose-college.js"></script>
 </body>
 </html>
