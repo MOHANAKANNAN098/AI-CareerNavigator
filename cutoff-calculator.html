@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TN Cutoff Calculator - College Admission</title>
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SamLak Eniya">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         /* --- PROFESSIONAL DARK THEME --- */
         :root {
-            --bg: #0a0f2c;
-            --surface: #101736;
-            --surface2: #192142;
-            --glass-border: rgba(59, 130, 246, 0.2);
-            --blue: #3b82f6;
-            --cyan: #22d3ee;
-            --green: #10b981;
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --surface2: #f1f5f9;
+            --glass-border: rgba(0, 230, 118, 0.3);
+            --blue: #00c853;
+            --cyan: #69f0ae;
+            --green: #00e676;
             --red: #ef4444;
             --yellow: #f59e0b;
-            --purple: #a855f7;
-            --text: #e5e7eb;
-            --text-secondary: #9ca3af;
-            --muted: #6b7280;
-            --glow: 0 0 20px rgba(59, 130, 246, 0.3);
+            --purple: #10b981;
+            --text: #0f172a;
+            --text-secondary: #475569;
+            --muted: #64748b;
+            --glow: 0 0 20px rgba(0, 230, 118, 0.3);
             --radius: 14px;
             --radius-sm: 8px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -39,13 +47,13 @@
         }
         body::before {
             content: ''; position: fixed; inset: 0;
-            background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(0, 230, 118, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 230, 118, 0.1) 1px, transparent 1px);
             background-size: 50px 50px; pointer-events: none; z-index: -2; opacity: 0.5;
         }
         body::after {
             content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%);
             width: 800px; height: 600px;
-            background: radial-gradient(ellipse, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            background: radial-gradient(ellipse, rgba(0, 230, 118, 0.15) 0%, transparent 70%);
             pointer-events: none; z-index: -1;
         }
 
@@ -75,7 +83,7 @@
         }
         .card {
             background: var(--surface); backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border); border-radius: var(--radius);
+            border: 1px solid rgba(0, 230, 118, 0.2); border-radius: var(--radius);
             padding: 30px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             animation: slideUp 0.5s ease-out;
         }
@@ -92,18 +100,18 @@
         }
         .form-group select, .form-group input {
             width: 100%; padding: 12px;
-            background: rgba(13, 19, 36, 0.8); border: 1px solid var(--glass-border);
+            background: #ffffff; border: 1px solid var(--glass-border);
             color: var(--text); border-radius: var(--radius-sm);
             font-size: 1em; transition: var(--transition); font-family: inherit;
         }
         .form-group select:focus, .form-group input:focus {
             outline: none; border-color: var(--blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-            background: rgba(13, 19, 36, 1);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.2);
+            background: #ffffff;
         }
 
         .formula-box {
-            background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border);
+            background: rgba(0, 230, 118, 0.05); border: 1px solid var(--glass-border);
             color: var(--text-secondary); padding: 15px; border-radius: var(--radius-sm);
             margin-bottom: 20px; font-size: 0.9em; line-height: 1.6;
         }
@@ -111,7 +119,7 @@
             display: block; margin-bottom: 8px; font-size: 1em; color: var(--cyan);
         }
         .formula-box code {
-            background: rgba(0,0,0,0.3); padding: 6px 10px;
+            background: rgba(0, 230, 118, 0.1); padding: 6px 10px;
             border-radius: 5px; display: block; margin-top: 8px;
             font-family: 'Orbitron', monospace; color: var(--text);
         }
@@ -125,7 +133,7 @@
             transition: var(--transition); text-transform: uppercase; letter-spacing: 0.5px;
         }
         .btn-primary {
-            background: var(--blue); color: #fff; box-shadow: var(--glow);
+            background: linear-gradient(135deg, var(--blue), var(--cyan)); color: #0f172a; box-shadow: var(--glow);
         }
         .btn-primary:hover {
             background: #2563eb; transform: translateY(-2px);
@@ -156,7 +164,7 @@
             font-size: 1.1em; color: var(--text-secondary); margin-bottom: 10px;
         }
         .formula-used {
-            background: rgba(0,0,0,0.2); padding: 15px; border-radius: var(--radius-sm);
+            background: rgba(0, 230, 118, 0.05); padding: 15px; border-radius: var(--radius-sm);
             margin-top: 15px; font-size: 0.9em; color: var(--text-secondary);
             border-left: 3px solid var(--cyan);
         }
@@ -195,9 +203,9 @@
             border-bottom: 1px solid var(--glass-border);
         }
         .cutoff-table th {
-            background: rgba(0,0,0,0.2); font-weight: 600; color: var(--text-secondary);
+            background: rgba(0, 230, 118, 0.1); font-weight: 600; color: var(--text-secondary);
         }
-        .cutoff-table tr:hover { background: rgba(255,255,255,0.03); }
+        .cutoff-table tr:hover { background: rgba(0, 230, 118, 0.05); }
 
         .eligibility-message {
             padding: 20px; border-radius: var(--radius-sm); margin-top: 20px;

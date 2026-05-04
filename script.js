@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const user = JSON.parse(localStorage.getItem("currentUser") || "null");
   if (!user) return;
 
-  const initials = (user.name || user.username || "U")[0].toUpperCase();
+  const initials = user.name ? user.name.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2) : "U";
   const avatarHTML = user.image
     ? `<img src="${user.image}" alt="avatar" class="pd-avatar-img">`
     : `<div class="pd-avatar-initials">${initials}</div>`;

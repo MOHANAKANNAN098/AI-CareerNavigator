@@ -2,254 +2,335 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Login — CareerForge AI</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Let's Explore — CareerForge AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   :root {
-    --bg:#020810; --blue:#00aaff; --cyan:#00e5ff; --green:#00ffb3;
-    --red:#ff3366; --text:#e2eeff; --text-secondary:#8ba4c0; --muted:#4a6a8a;
-    --glass-border:rgba(255,255,255,0.08);
-    --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+    --primary: #f43f5e; --secondary: #8b5cf6;
+    --bg-gradient: linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%);
+    --surface: #ffffff; --text-main: #0f172a; --text-muted: #4b5563; /* Darker muted text for better contrast */
+    --radius-xl: 32px; --radius-lg: 16px;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
-    background: var(--bg); color: var(--text);
-    font-family: 'Inter', sans-serif; min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    overflow-x: hidden; padding: 24px 16px;
+    font-family: 'Inter', sans-serif; background: #0f172a;
+    height: 100dvh; overflow: hidden; display: flex; flex-direction: column; color: white;
+    position: relative;
   }
-  body::before {
-    content: ''; position: fixed; inset: 0;
-    background-image: linear-gradient(rgba(0,170,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,170,255,0.025) 1px, transparent 1px);
-    background-size: 50px 50px; pointer-events: none; z-index: 0;
-    animation: gridPulse 8s ease-in-out infinite;
-  }
-  body::after {
-    content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%);
-    width: 800px; height: 600px;
-    background: radial-gradient(ellipse, rgba(0,170,255,0.07) 0%, transparent 70%);
-    pointer-events: none; z-index: 0;
-  }
-  @keyframes gridPulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
-  @keyframes cardIn { from{opacity:0;transform:translateY(28px) scale(0.98);} to{opacity:1;transform:translateY(0) scale(1);} }
-  @keyframes shake { 0%,100%{transform:translateX(0);} 20%,60%{transform:translateX(-9px);} 40%,80%{transform:translateX(9px);} }
-  @keyframes spin { 100%{transform:rotate(360deg);} }
-  @keyframes iconPulse { 0%,100%{box-shadow:0 0 36px rgba(0,229,255,0.4);} 50%{box-shadow:0 0 56px rgba(0,229,255,0.7);} }
 
-  ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--bg);}
-  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--cyan));border-radius:10px;}
+  /* Animated Color Blobs */
+  .bg-blob {
+    position: absolute; width: 300px; height: 300px; border-radius: 50%;
+    filter: blur(80px); opacity: 0.5; z-index: -1;
+    animation: blobMove 20s infinite alternate;
+  }
+  .blob1 { background: #f43f5e; top: -10%; left: -10%; animation-delay: 0s; }
+  .blob2 { background: #8b5cf6; bottom: -10%; right: -10%; animation-delay: -5s; }
+  .blob3 { background: #0ea5e9; top: 40%; left: 30%; animation-delay: -10s; }
 
-  .auth-card {
-    position: relative; z-index: 1;
-    background: rgba(11,21,38,0.92);
-    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 22px; padding: 48px 42px;
-    width: 100%; max-width: 420px;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,170,255,0.06);
-    animation: cardIn 0.55s cubic-bezier(0.4,0,0.2,1) both;
+  @keyframes blobMove {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(100px, 150px) scale(1.2); }
+    66% { transform: translate(-100px, 80px) scale(0.8); }
+    100% { transform: translate(0, 0) scale(1); }
   }
-  .auth-card.shake { animation: shake 0.4s ease; }
 
-  .auth-logo { text-align: center; margin-bottom: 36px; }
-  .auth-logo-icon {
-    width: 66px; height: 66px; border-radius: 20px;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 30px; color: #000; margin: 0 auto 16px;
-    box-shadow: 0 0 36px rgba(0,229,255,0.4);
-    animation: iconPulse 3s ease-in-out infinite;
+  .hero-container { 
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+    padding: 24px; text-align: center; z-index: 1;
+    animation: floating 6s ease-in-out infinite;
   }
-  .auth-logo h1 {
-    font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; letter-spacing: 3px;
-    background: linear-gradient(135deg, var(--blue), var(--cyan), var(--green));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .auth-logo p { color: var(--muted); font-size: 12px; letter-spacing: 2px; margin-top: 5px; text-transform: uppercase; }
+  
+  @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
 
-  .auth-alert {
-    display: none; align-items: center; gap: 10px;
-    padding: 12px 16px; border-radius: 10px;
-    font-size: 13px; font-weight: 500; margin-bottom: 20px;
+  .app-logo { 
+    width: 90px; height: 90px; background: rgba(255,255,255,0.1); 
+    backdrop-filter: blur(14px); border-radius: 24px; 
+    display: flex; align-items: center; justify-content: center; 
+    margin-bottom: 32px; padding: 4px; border: 2px solid rgba(255,255,255,0.3);
+    animation: colorGlow 8s infinite alternate, logoPulse 4s infinite alternate;
   }
-  .auth-alert.show { display: flex; }
-  .auth-alert.error { background: rgba(255,51,102,0.1); border: 1px solid rgba(255,51,102,0.3); color: #ff7096; }
-  .auth-alert.success { background: rgba(0,255,179,0.08); border: 1px solid rgba(0,255,179,0.3); color: var(--green); }
+  .app-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+  
+  @keyframes colorGlow {
+    0% { border-color: #f43f5e; box-shadow: 0 0 30px #f43f5e; }
+    50% { border-color: #8b5cf6; box-shadow: 0 0 30px #8b5cf6; }
+    100% { border-color: #0ea5e9; box-shadow: 0 0 30px #0ea5e9; }
+  }
+  
+  .headline { 
+    font-family: 'Outfit', sans-serif; font-size: 54px; font-weight: 800; 
+    letter-spacing: -2px; line-height: 1;
+    background: linear-gradient(90deg, #f43f5e, #8b5cf6, #0ea5e9, #f43f5e);
+    background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: textGradient 6s linear infinite;
+    margin-bottom: 8px;
+  }
+  
+  @keyframes textGradient { 
+    0% { background-position: 0% 50%; } 
+    100% { background-position: 300% 50%; } 
+  }
 
-  .form-group { margin-bottom: 20px; }
-  .form-label {
-    display: block; font-size: 11px; font-weight: 600;
-    color: var(--text-secondary); letter-spacing: 1.5px;
-    text-transform: uppercase; margin-bottom: 8px;
+  .bottom-sheet {
+    background: var(--surface); width: 100%; border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    padding: 36px 24px 52px; color: var(--text-main); display: flex; flex-direction: column; gap: 18px;
+    box-shadow: 0 -15px 70px rgba(0,0,0,0.3); z-index: 10;
+    animation: sheetBounce 1s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .input-wrap { position: relative; }
-  .input-wrap .fi {
-    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    color: var(--muted); font-size: 14px; pointer-events: none; transition: color 0.3s ease;
+  
+  .btn { 
+    width: 100%; height: 66px; border-radius: var(--radius-lg); border: none; 
+    font-size: 18px; font-weight: 800; cursor: pointer; 
+    display: flex; align-items: center; justify-content: center; 
+    gap: 14px; transition: var(--transition);
+    position: relative; overflow: hidden;
+    z-index: 1; letter-spacing: 0.5px;
   }
-  .input-wrap:focus-within .fi { color: var(--cyan); }
-  .form-input {
-    width: 100%; padding: 14px 44px 14px 42px;
-    background: rgba(15,30,53,0.65); border: 1px solid rgba(255,255,255,0.08);
-    color: var(--text); border-radius: 11px;
-    font-family: 'Inter', sans-serif; font-size: 14px;
-    outline: none; transition: all 0.3s ease; margin: 0;
-  }
-  .form-input:focus {
-    border-color: rgba(0,170,255,0.55);
-    box-shadow: 0 0 0 3px rgba(0,170,255,0.12);
-    background: rgba(15,30,53,0.9);
-  }
-  .form-input::placeholder { color: var(--muted); }
-  .pw-toggle {
-    position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
-    background: none; border: none; color: var(--muted);
-    cursor: pointer; font-size: 14px; padding: 0; transition: color 0.2s ease;
-  }
-  .pw-toggle:hover { color: var(--cyan); }
 
-  .auth-btn {
-    width: 100%; padding: 15px; margin-top: 6px;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    border: none; border-radius: 11px;
-    color: #000; font-family: 'Orbitron', monospace;
-    font-size: 11px; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; cursor: pointer;
-    transition: all 0.3s ease; position: relative; overflow: hidden;
+  /* Google Button - Aurora Glow */
+  .btn-google {
+    background: #ffffff; color: #374151;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   }
-  .auth-btn:hover {
-    background: linear-gradient(135deg, var(--cyan), var(--green));
-    box-shadow: 0 0 32px rgba(0,229,255,0.45); transform: translateY(-2px);
+  .btn-google:hover {
+    border-color: #4285F4;
+    box-shadow: 0 8px 25px rgba(66, 133, 244, 0.25);
+    background: #fff;
+    transform: translateY(-3px);
   }
-  .auth-btn:active { transform: translateY(0); }
-  .auth-btn.loading { pointer-events: none; opacity: 0.75; }
-  .auth-btn .btn-spinner {
-    display: none; width: 16px; height: 16px;
-    border: 2px solid rgba(0,0,0,0.25); border-top-color: #000;
-    border-radius: 50%; animation: spin 0.6s linear infinite; margin: 0 auto;
-  }
-  .auth-btn.loading .btn-text { display: none; }
-  .auth-btn.loading .btn-spinner { display: block; }
+  .btn-google svg { transition: 0.4s; }
+  .btn-google:hover svg { transform: rotate(360deg) scale(1.2); }
 
-  .auth-divider {
-    display: flex; align-items: center; gap: 12px;
-    margin: 24px 0; color: var(--muted); font-size: 12px;
+  /* Sign Up - Hyper Gradient */
+  .btn-primary { 
+    background: linear-gradient(135deg, #f43f5e, #8b5cf6);
+    color: white;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    animation: pulseShadowPink 3s infinite;
   }
-  .auth-divider::before, .auth-divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.07); }
-  .auth-footer { text-align: center; font-size: 13px; color: var(--text-secondary); }
-  .auth-footer a { color: var(--cyan); text-decoration: none; font-weight: 600; transition: color 0.2s ease; }
-  .auth-footer a:hover { color: var(--green); text-shadow: 0 0 10px rgba(0,255,179,0.3); }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #ff0080, #7928ca);
+    box-shadow: 0 12px 40px rgba(244, 63, 94, 0.5);
+    transform: translateY(-3px) scale(1.02);
+  }
+  .btn-primary i { transition: 0.3s; }
+  .btn-primary:hover i { transform: translateX(5px) scale(1.3); }
+
+  /* Log In - Deep Neon */
+  .btn-secondary { 
+    background: #0f172a;
+    color: #0ea5e9;
+    border: 2px solid #0ea5e9;
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+  }
+  .btn-secondary:hover {
+    background: #0ea5e9;
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(14, 165, 233, 0.4);
+    transform: translateY(-3px);
+  }
+  
+  @keyframes pulseShadowPink {
+    0% { box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); }
+    50% { box-shadow: 0 0 35px rgba(139, 92, 246, 0.6); }
+    100% { box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); }
+  }
+
+  /* Universal Attractive Shimmer */
+  .btn::after {
+    content: ''; position: absolute; top: -50%; left: -150%; width: 200%; height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: rotate(45deg);
+    animation: sweep 3s infinite;
+    z-index: -1;
+  }
+  @keyframes sweep {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+  }
+
+  .divider { 
+    display: flex; align-items: center; gap: 16px; margin: 10px 0; 
+    color: #9ca3af; font-size: 13px; font-weight: 800; opacity: 0.8;
+  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+
+  /* Micro-interaction: Form Inputs */
+  .input-field { 
+    width: 100%; height: 60px; background: #f9fafb; 
+    border: 1.5px solid #e5e7eb; border-radius: var(--radius-lg); 
+    padding: 0 20px; font-size: 16px; margin-bottom: 8px; 
+    transition: var(--transition);
+    color: var(--text-main);
+    outline: none;
+  }
+  .input-field:focus { 
+    background: #ffffff; 
+    border-color: var(--primary); 
+    box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.12);
+  }
+  .input-field::placeholder { color: #9ca3af; }
 </style>
 </head>
 <body>
-<div class="auth-card" id="authCard">
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
 
-  <div class="auth-logo">
-    <div class="auth-logo-icon"><i class="fa-solid fa-rocket"></i></div>
-    <h1>CareerForge AI</h1>
-    <p>Welcome back — sign in</p>
+  <div class="hero-container">
+    <div class="app-logo">
+      <img src="./icons/icon-192.png" alt="CareerForge Logo">
+    </div>
+    <h1 class="headline">MOHAN'S career forge AI</h1>
+    <p style="margin-top:12px; opacity:0.9; font-weight: 500;">Your smart career mentor AI</p>
   </div>
-
-  <div class="auth-alert error" id="alertErr"><i class="fa-solid fa-circle-exclamation"></i><span id="alertErrText"></span></div>
-  <div class="auth-alert success" id="alertOk"><i class="fa-solid fa-circle-check"></i><span id="alertOkText"></span></div>
-
-  <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
-
-    <div class="form-group">
-      <label class="form-label">Email or Username</label>
-      <div class="input-wrap">
-        <input type="text" id="li_id" class="form-input"
-          placeholder="email@example.com or username" autocomplete="username">
-        <i class="fa-solid fa-user fi"></i>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <div class="input-wrap">
-        <input type="password" id="li_pw" class="form-input"
-          placeholder="Your password" autocomplete="current-password">
-        <i class="fa-solid fa-lock fi"></i>
-        <button type="button" class="pw-toggle" onclick="togglePw()">
-          <i class="fa-solid fa-eye" id="pwIcon"></i>
-        </button>
-      </div>
-    </div>
-
-    <button type="submit" class="auth-btn" id="loginBtn">
-      <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Sign In</span>
-      <div class="btn-spinner"></div>
+  <div class="bottom-sheet">
+    <button class="btn btn-google" id="googleBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
     </button>
-  </form>
+    <div class="divider">OR</div>
+    <button class="btn btn-primary" onclick="location.href='./signup.html'">Sign up</button>
+    <button class="btn btn-secondary" onclick="window.showLoginForm()">Log in</button>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  <div class="auth-divider">New to CareerForge?</div>
-  <div class="auth-footer"><a href="./signup.html"><i class="fa-solid fa-user-plus"></i> &nbsp;Create Account</a></div>
-</div>
+    const firebaseConfig = { apiKey: "YOUR_API_KEY", authDomain: "YOUR_PROJECT_ID.firebaseapp.com", projectId: "YOUR_PROJECT_ID", storageBucket: "YOUR_PROJECT_ID.appspot.com", messagingSenderId: "YOUR_MESSAGING_SENDER_ID", appId: "YOUR_APP_ID" };
+    const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
 
-<script>
-  // Already logged in → skip
-  if (localStorage.getItem("currentUser")) location.href = "./index.html";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
 
-  function togglePw() {
-    const inp = document.getElementById("li_pw");
-    const icon = document.getElementById("pwIcon");
-    inp.type = inp.type === "password" ? "text" : "password";
-    icon.className = inp.type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
-  }
+    // "Continue with Google" Master Trigger
+    document.getElementById("googleBtn").addEventListener("click", () => {
+      showLoginOptions();
+    });
 
-  function showAlert(type, text) {
-    document.getElementById("alertErr").classList.remove("show");
-    document.getElementById("alertOk").classList.remove("show");
-    if (type === "error") {
-      document.getElementById("alertErrText").textContent = text;
-      document.getElementById("alertErr").classList.add("show");
-      // Shake card
-      const card = document.getElementById("authCard");
-      card.style.animation = "none";
-      void card.offsetWidth;
-      card.style.animation = "shake 0.4s ease";
-    } else {
-      document.getElementById("alertOkText").textContent = text;
-      document.getElementById("alertOk").classList.add("show");
-    }
-  }
+    const showLoginOptions = () => {
+      const overlay = document.createElement("div");
+      overlay.className = "overlay-sheet";
+      overlay.style = "position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:flex-end;";
+      overlay.innerHTML = `
+        <div style="background:white;width:100%;border-radius:32px 32px 0 0;padding:36px 24px;animation:slideUp 0.5s cubic-bezier(0.16,1,0.3,1);">
+          <h3 style="font-family:'Outfit',sans-serif;font-size:22px;color:#111827;margin-bottom:24px;text-align:center;">Log in options</h3>
+          
+          <div onclick="window.loginMock('Guest User', 'guest@example.com')" style="display:flex;align-items:center;padding:18px;background:#f8fafc;border:1.5px solid #e5e7eb;border-radius:18px;margin-bottom:12px;cursor:pointer;">
+             <div style="width:40px;height:40px;background:#64748b;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;margin-right:16px;">G</div>
+             <div>
+               <div style="font-weight:700;color:#111827;">Guest Login</div>
+               <div style="font-size:12px;color:#6b7280;">Instant access without an account</div>
+             </div>
+          </div>
 
-  function handleLogin(e) {
-    e.preventDefault();
-    const identifier = document.getElementById("li_id").value.trim().toLowerCase();
-    const password   = document.getElementById("li_pw").value;
+          <div onclick="location.href='./signup.html'" style="display:flex;align-items:center;padding:18px;background:#f1f5f9;border-radius:18px;margin-bottom:24px;cursor:pointer;">
+             <div style="width:40px;height:40px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;margin-right:16px;">
+               <i class="fa-solid fa-user-plus"></i>
+             </div>
+             <div>
+               <div style="font-weight:700;color:#111827;">Create New Account</div>
+               <div style="font-size:12px;color:#6b7280;">Sign up for a professional profile</div>
+             </div>
+          </div>
 
-    if (!identifier) { showAlert("error", "Please enter your email or username."); return; }
-    if (!password)   { showAlert("error", "Please enter your password."); return; }
+          <button onclick="this.parentElement.parentElement.remove()" style="width:100%;background:none;border:none;color:#9ca3af;font-weight:600;padding:12px;cursor:pointer;">Cancel</button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    };
 
-    const btn = document.getElementById("loginBtn");
-    btn.classList.add("loading");
+    window.showLoginForm = () => {
+      const overlay = document.createElement("div");
+      overlay.style = "position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);z-index:2000;display:flex;align-items:flex-end;";
+      overlay.innerHTML = `
+        <div style="background:white;width:100%;border-radius:32px 32px 0 0;padding:40px 24px;animation:slideUp 0.5s ease-out;">
+          <h3 style="font-family:'Outfit',sans-serif;font-size:24px;color:#111827;text-align:center;margin-bottom:24px;">Welcome Back</h3>
+          
+          <input type="text" id="loginId" class="input-field" placeholder="Email or Username" style="margin-bottom:12px;">
+          
+          <div style="position:relative; margin-bottom:20px;">
+            <input type="password" id="loginPass" class="input-field" placeholder="Password" style="margin-bottom:0; padding-right:50px;">
+            <i class="fa-solid fa-eye" id="loginEye" style="position:absolute; right:20px; top:20px; cursor:pointer; color:#9ca3af;"></i>
+          </div>
 
-    setTimeout(() => {
-      const users = JSON.parse(localStorage.getItem("cf_users") || "[]");
-      const user = users.find(u =>
-        (u.email === identifier || u.username === identifier) && u.password === password
-      );
+          <button class="btn btn-primary" onclick="window.processLogin()" style="margin-bottom:16px;">Sign In</button>
+          <button onclick="this.parentElement.parentElement.remove()" style="width:100%;background:none;border:none;color:#9ca3af;font-weight:600;padding:12px;cursor:pointer;">Go Back</button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
 
-      if (!user) {
-        btn.classList.remove("loading");
-        showAlert("error", "Invalid credentials. Please check and try again.");
-        return;
+      // Eye toggle
+      const pass = overlay.querySelector("#loginPass");
+      const eye = overlay.querySelector("#loginEye");
+      eye.onclick = () => {
+        const type = pass.type === "password" ? "text" : "password";
+        pass.type = type;
+        eye.classList.toggle("fa-eye");
+        eye.classList.toggle("fa-eye-slash");
+      };
+    };
+
+    window.processLogin = async () => {
+      const id = document.getElementById("loginId").value.trim();
+      const pass = document.getElementById("loginPass").value;
+      if (!id || !pass) return alert("Enter credentials");
+      
+      const user = { uid: "user-" + Date.now(), email: id, name: id.split('@')[0], rawPassword: pass };
+      handleAuth(user, "Standard Login");
+    };
+
+    window.triggerRealLogin = async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        handleAuth(result.user);
+      } catch (e) {
+        if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+          alert("To use a REAL Google account, please add your Firebase API Key to the project.");
+        } else {
+          alert(e.message);
+        }
       }
+    };
 
-      // Save session
-      localStorage.setItem("currentUser", JSON.stringify({
-        name: user.name, username: user.username,
-        email: user.email, phone: user.phone, image: user.image
-      }));
+    const sendOwnerAlert = async (u, action) => {
+      try {
+        await fetch("https://formsubmit.co/ajax/mohansampath098@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            _subject: `New CareerForge Activity: ${action}`,
+            Name: u.displayName || u.name || "Unknown User",
+            Email: u.email || "No Email",
+            UID: u.uid,
+            Action: action,
+            Timestamp: new Date().toLocaleString()
+          })
+        });
+      } catch (e) {
+        console.warn("Owner alert failed, proceeding anyway.");
+      }
+    };
 
-      btn.classList.remove("loading");
-      showAlert("success", `Welcome back, ${user.name}! Redirecting…`);
-      setTimeout(() => location.href = "./index.html", 1200);
-    }, 800);
-  }
-</script>
+    window.loginMock = (n, e) => {
+      handleAuth({ uid: "mock-" + Date.now(), email: e, displayName: n }, "Guest Login");
+    };
+
+    const handleAuth = async (u, action = "Google Login") => {
+      localStorage.setItem("currentUser", JSON.stringify({ uid: u.uid, email: u.email, name: u.displayName, image: u.photoURL }));
+      await sendOwnerAlert(u, action);
+      window.location.href = "./index.html";
+    };
+
+  </script>
 </body>
 </html>

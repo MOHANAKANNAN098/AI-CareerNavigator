@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f172a">
+<title>Offline - SamLak Eniya</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.offline-container {
+  text-align: center;
+  max-width: 500px;
+}
+.offline-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+h1 {
+  font-size: 32px;
+  margin-bottom: 15px;
+  color: #00c853;
+}
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #475569;
+  margin-bottom: 30px;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #00c853;
+  color: #0f172a;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: #00e676;
+}
+</style>
+</head>
+<body>
+<div class="offline-container">
+  <div class="offline-icon">📡</div>
+  <h1>You're Offline</h1>
+  <p>It looks like you've lost your internet connection. Some features may not be available until you're back online.</p>
+  <a href="/" class="btn">Try Again</a>
+</div>
+</body>
+</html>

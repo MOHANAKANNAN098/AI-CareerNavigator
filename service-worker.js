@@ -1,65 +1,74 @@
-const CACHE_NAME = 'careerforge-v1';
-// Add all important files to be cached
-const urlsToCache = [
+const CACHE_NAME = 'careerforge-v3';
+const OFFLINE_URL = './offline.html';
+
+const PRECACHE_URLS = [
   './',
   './index.html',
+  './offline.html',
   './style.css',
   './app.js',
   './script.js',
+  './mobile.css',
+  './mobile-ui.js',
   './manifest.json',
   './m1.jpeg',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './styles/mobile.css',
-  './scripts/mobile-ui.js',
   './choose-college.html',
   './cutoff-calculator.html',
-  './data/database-sample.json',
-  './collages.json',
-  './startupIdeas.json'
+  './startupIdeas.json',
+  './collages.json'
 ];
 
-// Install event: open cache and add assets
+// Install: cache all core assets
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        // Use addAll for atomic operation
-        return cache.addAll(urlsToCache).catch(error => {
-          console.error('Failed to cache one or more resources:', error);
-        });
-      })
+    caches.open(CACHE_NAME).then(cache =>
+      cache.addAll(PRECACHE_URLS).catch(() => {})
+    )
   );
+  self.skipWaiting();
 });
 
-// Fetch event: serve from cache if available, otherwise fetch from network
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        // Not in cache - fetch from network
-        return fetch(event.request);
-      })
-  );
-});
-
-// Activate event: clean up old caches
+// Activate: remove old caches immediately
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
+
+// Fetch: stale-while-revalidate — serve cache instantly, update in background
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+
+  // Skip cross-origin requests (CDNs, Google Fonts, etc.)
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(
+    caches.open(CACHE_NAME).then(async cache => {
+      const cached = await cache.match(event.request);
+
+      const networkFetch = fetch(event.request)
+        .then(response => {
+          if (response && response.status === 200) {
+            cache.put(event.request, response.clone());
           }
+          return response;
         })
-      );
+        .catch(() => {
+          // Offline fallback only for page navigations
+          if (event.request.mode === 'navigate') {
+            return cache.match(OFFLINE_URL);
+          }
+        });
+
+      // Return cached version immediately; network updates it in background
+      return cached || networkFetch;
     })
   );
 });

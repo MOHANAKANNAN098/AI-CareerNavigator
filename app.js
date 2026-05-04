@@ -1,25 +1,36 @@
-// PWA Service Worker Registration
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(registration => {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+const sendOwnerAlert = async (u, action) => {
+  try {
+    await fetch("https://formsubmit.co/ajax/mohansampath098@gmail.com", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        _subject: `CareerForge Dashboard Access: ${action}`,
+        Name: u.name || u.displayName || "Unknown User",
+        Email: u.email || "No Email",
+        UID: u.uid || "N/A",
+        Action: action,
+        Timestamp: new Date().toLocaleString()
       })
-      .catch(err => {
-        console.log('ServiceWorker registration failed: ', err);
-      });
-  });
-}
+    });
+  } catch (e) { console.warn("Alert failed"); }
+};
+
+// Check for first load/re-entry directly into dashboard
+(function() {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (user && !sessionStorage.getItem("notifiedOwner")) {
+    sendOwnerAlert(user, "Returning to Dashboard");
+    sessionStorage.setItem("notifiedOwner", "true");
+  }
+})();
 
 function showSection(id){
   const isMobile = window.innerWidth <= 768;
 
   // Determine the actual section to show based on device and input id
   let targetId = id;
-  if (isMobile) {
-    if (id === 'home') targetId = 'roadmap'; // On mobile, 'home' is an alias for 'roadmap'
-  } else {
-    if (id === 'home' || id === 'features') targetId = 'roadmap'; // On desktop, 'home' and 'features' are aliases for 'roadmap'
+  if (id === 'home' || id === 'features') {
+    targetId = 'home';
   }
 
   // Hide all main sections
@@ -62,6 +73,9 @@ function showSection(id){
   if(id==="degree-finder") initDegreeFinder();
   if(id==="college-finder") initCollegeFinder();
   if(id==="higher-studies") initHigherStudies();
+
+  // Scroll to the top of the page when navigating to a new section
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Wrapper to load the original roadmap section content into home
@@ -2875,6 +2889,120 @@ function updateAnalyticsDashboard() {
   renderActivityLog(analytics.activityLog);
 }
 
+// ==========================================
+// PWA & APP-LIKE FEATURES
+// ==========================================
+
+// 1. PWA Install Prompt
+let deferredPrompt;
+const installButton = document.getElementById('btn-install-pwa');
+const isIos = () => /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+function showInstallPrompt() {
+    if (installButton) {
+        installButton.style.display = 'inline-flex';
+        installButton.addEventListener('click', handleInstallClick);
+    }
+}
+
+async function handleInstallClick() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+        installButton.style.display = 'none';
+    } else if (isIos()) {
+        alert("To install: tap the Share button, then 'Add to Home Screen'.");
+    }
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallPrompt();
+});
+
+window.addEventListener('appinstalled', () => {
+    if (installButton) installButton.style.display = 'none';
+    deferredPrompt = null;
+    trackActivity('App Installed', 'PWA installed on device');
+});
+
+// Show install button for iOS if not in standalone mode
+if (isIos() && !window.navigator.standalone) {
+    showInstallPrompt();
+}
+
+// 2. Touch Swipe Gestures for Navigation
+let touchstartX = 0;
+let touchstartY = 0;
+let touchendX = 0;
+let touchendY = 0;
+const gestureZone = document.querySelector('main');
+
+if (gestureZone) {
+    gestureZone.addEventListener('touchstart', e => {
+      touchstartX = e.changedTouches[0].screenX;
+      touchstartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    gestureZone.addEventListener('touchend', e => {
+      touchendX = e.changedTouches[0].screenX;
+      touchendY = e.changedTouches[0].screenY;
+      handleSwipeGesture();
+    }, { passive: true });
+}
+
+function handleSwipeGesture() {
+    const deltaX = touchendX - touchstartX;
+    const deltaY = touchendY - touchstartY;
+    const swipeThreshold = 75; // Min pixels for a swipe
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+        const navButtons = Array.from(document.querySelectorAll('nav > button:not([style*="display: none"])'));
+        const internalNavButtons = navButtons.filter(btn => btn.onclick && btn.onclick.toString().includes('showSection'));
+        
+        const currentActiveBtn = internalNavButtons.find(btn => btn.classList.contains('active'));
+        if (!currentActiveBtn) return;
+
+        const currentIndex = internalNavButtons.indexOf(currentActiveBtn);
+        if (currentIndex === -1) return;
+
+        let nextIndex;
+        if (deltaX < 0) { // Swiped left
+            nextIndex = (currentIndex + 1) % internalNavButtons.length;
+        } else { // Swiped right
+            nextIndex = (currentIndex - 1 + internalNavButtons.length) % internalNavButtons.length;
+        }
+        
+        internalNavButtons[nextIndex].click();
+    }
+}
+
+// 3. Push Notification Support
+function requestNotificationPermission() {
+  if (!('Notification' in window)) return;
+  
+  Notification.requestPermission().then(permission => {
+    if (permission === 'granted') {
+      trackActivity('Notifications Enabled', 'User granted permission');
+      new Notification('Welcome to CareerForge AI! 🚀', {
+        body: 'You can now receive updates and career tips.',
+        icon: './icons/icon-192.png',
+        vibrate: [200, 100, 200]
+      });
+    }
+  });
+}
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (Notification.permission === 'default') {
+            requestNotificationPermission();
+        }
+    }, 8000); // Ask after 8 seconds
+});
 function extractIncome(incomeStr) {
   const match = incomeStr.match(/₹([0-9.]+)/);
   return match ? parseFloat(match[1]) : 0;
